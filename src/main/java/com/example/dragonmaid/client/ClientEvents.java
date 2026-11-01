@@ -72,6 +72,7 @@ public final class ClientEvents {
             minecraft.execute(ClientEvents::clearWorldState);
         } else {
             ClientTailSweepAnimations.clear();
+            IafProxy.clearReferencedMob();
             ClientRegistration.clearWorldState();
             ServiceDragonArmorTextures.clearCache();
         }
@@ -92,16 +93,29 @@ public final class ClientEvents {
 
     private static DragonBaseEntity referencedClientDragon(DragonScreen screen) {
         ClientLevel clientlevel = Minecraft.getInstance().level;
-        if (clientlevel != null && IafProxy.getReferencedMob() instanceof DragonBaseEntity entitydragonbase) {
-            if (clientlevel.getEntity(entitydragonbase.getId()) instanceof DragonBaseEntity entitydragonbase1
-                && entitydragonbase1.getUUID().equals(entitydragonbase.getUUID())) {
-                return entitydragonbase1;
-            }
-
-            return null;
-        } else {
+        if (clientlevel == null) {
             return null;
         }
+
+        // 1.21 IAF CE: the opened menu owns the dragon reference (1.20's IAF.PROXY field is gone).
+        DragonBaseEntity menuDragon = screen.getMenu() instanceof DragonMenu menu
+            ? IafProxy.getMenuDragon(menu)
+            : null;
+        if (menuDragon == null && IafProxy.getReferencedMob() instanceof DragonBaseEntity fallback) {
+            menuDragon = fallback;
+        }
+        if (menuDragon == null) {
+            return null;
+        }
+
+        DragonBaseEntity resolved = menuDragon;
+        if (clientlevel.getEntity(menuDragon.getId()) instanceof DragonBaseEntity live
+            && live.getUUID().equals(menuDragon.getUUID())) {
+            resolved = live;
+        }
+
+        IafProxy.setReferencedMob(resolved);
+        return resolved;
     }
 
     @SubscribeEvent
