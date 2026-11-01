@@ -1,0 +1,27 @@
+{
+  "name": "尖端放电装置",
+  "icon": "dragonmaid:lightning_discharge_device",
+  "category": "dragonmaid:accessories",
+  "sortnum": 6,
+  "advancement": "dragonmaid:book/lightning_discharge_device",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "电火花",
+      "item": "dragonmaid:lightning_discharge_device",
+      "link_recipe": false,
+      "text": "铜尖与锁链汇起细碎的电光。这件电龙饰品能增强人形战斗吐息的直接伤害。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "装置的合成",
+      "recipe": "dragonmaid:lightning_discharge_device",
+      "text": "在工作台正中放铜块，左右各放一枚铜锭；铜块上方放锁链，下方放避雷针，四角留空。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "佩戴方式",
+      "text": "只有电龙适合佩戴这件装置。下次出发前，把它放进伙伴的饰品栏。"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "Battle at Your Side",
+  "icon": "minecraft:iron_sword",
+  "category": "dragonmaid:behavior",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Breath, Claws, and Tail",
+      "text": "A human-form dragon still hunts with breath and claws. Its tail sweep strikes harder, reaches farther, and pushes foes away.$(br2)As it grows stronger, fight alongside it to learn its rhythm."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_07_combat.png",
+      "text": "Side by side, whatever comes."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Choosing a Target",
+      "text": "While wandering or guarding, your companion watches for enemies that hurt you and helps with your attacks.$(br2)If danger is already close, it protects itself first. Deal with the nearest threat before considering other targets."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Fighting Wild Dragons",
+      "text": "When a wild dragon appears, your tamed companion in either form actively watches for nearby threats and takes less damage from wild-dragon breath and melee attacks.$(br2)Human-form breath reaches farther; while guarding, it still keeps your distance in mind."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Protecting Your Home",
+      "text": "A human-form companion can fight near your home: its body, breath, and elemental charges do not break blocks, and it recognizes allies and innocent bystanders.$(br2)Before returning to dragon form, leave enough open space for its large body and original breath."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Fire and Ice Breath",
+      "text": "Fire and ice dragons prepare, release a fan of breath, then need a short recovery. They can prepare while moving, but must see an enemy before firing.$(br2)If the target takes cover, find a clearer position."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Lightning Breath",
+      "text": "Lightning breath extends along the dragon's line of sight and needs a clear view. Its reserve slowly refills after breathing stops; if exhausted, it needs time to recover.$(br2)Changing targets does not empty the remaining reserve."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Positioning in Combat",
+      "text": "While guarding, your companion seeks a suitable fighting position near you. Walls and corners may block its view; move into the open so it can see approaching enemies.$(br2)Pay attention to its preparation and recovery to fight well together."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Roars and Projectiles",
+      "text": "At stage four, a human-form companion can roar to encourage allies and frighten enemies ahead.$(br2)At stage five it can also launch elemental charges that strike nearby enemies. Give it room to act."
+    }
+  ]
+}

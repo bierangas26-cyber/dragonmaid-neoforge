@@ -1,0 +1,27 @@
+{
+  "name": "Icy Drink",
+  "icon": "dragonmaid:icy_drink",
+  "category": "dragonmaid:accessories",
+  "sortnum": 8,
+  "advancement": "dragonmaid:book/icy_drink",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Snow in a Cup",
+      "item": "dragonmaid:icy_drink",
+      "link_recipe": false,
+      "text": "For ice dragons: improves direct human-form combat breath damage. Blue ice and snow keep it cold."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Drink",
+      "recipe": "dragonmaid:icy_drink",
+      "text": "Place one powder snow bucket, blue ice, and dragon ice spike in the same crafting-table column, in any vertical order."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "An Ice Dragon Accessory",
+      "text": "Only an ice dragon can wear this drink as an accessory. Even in warm lands, a little frost remains on the rim."
+    }
+  ]
+}

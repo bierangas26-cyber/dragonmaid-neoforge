@@ -1,0 +1,27 @@
+{
+  "name": "Heart Emblem",
+  "icon": "dragonmaid:dragon_heart_emblem_necklace",
+  "category": "dragonmaid:accessories",
+  "sortnum": 4,
+  "advancement": "dragonmaid:book/dragon_heart_emblem_necklace",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Armor and Healing",
+      "item": "dragonmaid:dragon_heart_emblem_necklace",
+      "link_recipe": false,
+      "text": "Combining armor and healing, this necklace keeps both effects in one accessory slot."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Necklace",
+      "recipe": "dragonmaid:dragon_heart_emblem_necklace",
+      "text": "Combine a Warding Emblem and Natural Dragon Heart Necklace anywhere in the grid."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Growth and Recovery",
+      "text": "The armor bonus grows with the dragon's stage. It restores health in either form, more slowly while severely injured."
+    }
+  ]
+}

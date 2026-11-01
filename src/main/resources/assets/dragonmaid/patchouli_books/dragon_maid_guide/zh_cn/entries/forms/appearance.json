@@ -1,0 +1,39 @@
+{
+  "name": "鳞甲与新装",
+  "icon": "minecraft:iron_chestplate",
+  "category": "dragonmaid:forms",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "龙种与生长阶段",
+      "text": "火龙、冰龙和电龙无论雌雄，都有对应三、四、五阶的人形，原本的配色也会留下。$(br2)成长阶段改变时，模样也会随之变化。体型与知识各自增长，长大并不等于学会变形。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_04_growth.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "为成长留出空间",
+      "text": "龙会长大，即使收起翅膀也一样。建造住处时，别忘了给门框和屋顶留出空间。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "铠甲与旗帜",
+      "text": "“龙的装备”里可以更换铠甲与饰品。白银和铜甲各有样式，尾甲会随尾巴摆动；也可以试试$(l:dragonmaid:forms/service_armor)女仆龙铠$(/l)。$(br2)放上旗帜后，龙会背着旗上的底色与图案。变换形态时，穿戴仍会保留。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "女仆龙铠",
+      "item": "dragonmaid:service_dragon_armor_body",
+      "link_recipe": false,
+      "text": "女仆龙铠的防护与白银龙铠相同。用皮革马铠按常规龙铠图样制作四件，放进对应装备槽。$(br2)获得皮革马铠或任一成品后，可以翻开$(l:dragonmaid:forms/service_armor)制作图样$(/l)。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "日常动作与重伤状态",
+      "text": "不同龙种与性别的人形伙伴，坐下、起身、入睡和醒来时各有姿态；游泳时尾巴也会摆动。$(br2)倒下后的微弱呼吸说明它仍活着。重伤要恢复到满血，伙伴才会坐起等待指令。"
+    }
+  ]
+}

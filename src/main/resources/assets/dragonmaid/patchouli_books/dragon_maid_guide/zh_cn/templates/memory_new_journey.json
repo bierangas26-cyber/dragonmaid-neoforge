@@ -1,0 +1,35 @@
+{
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "x": 58,
+      "y": 0
+    },
+    {
+      "type": "patchouli:separator",
+      "x": 0,
+      "y": 12
+    },
+    {
+      "type": "patchouli:image",
+      "image": "dragonmaid:textures/gui/book/memories/new_journey.png",
+      "x": 26,
+      "y": 24,
+      "width": 32,
+      "height": 32,
+      "texture_width": 32,
+      "texture_height": 32,
+      "scale": 2
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 8,
+      "y": 100,
+      "max_width": 100,
+      "color": "5A4A3A",
+      "line_height": 9
+    }
+  ]
+}

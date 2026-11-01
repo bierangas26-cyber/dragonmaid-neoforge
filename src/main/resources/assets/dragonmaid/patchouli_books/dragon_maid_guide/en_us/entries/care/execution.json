@@ -1,0 +1,25 @@
+{
+  "name": "The Final Choice",
+  "icon": "dragonmaid:kaishaku_blade",
+  "category": "dragonmaid:care",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Before You Decide",
+      "text": "Severe injuries can heal with meat or ordinary dragon meal: $(l:dragonmaid:care/injury)Keep caring$(/l). Mercy killing causes permanent death.$(br2)Only the owner may use the blade on their severely injured dragon at zero health. Check its name; Cancel or Esc is safe."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Blade",
+      "recipe": "dragonmaid:kaishaku_blade",
+      "text": "Place a scale lower left and bone one slot diagonally above right. The pair may be moved anywhere. The blade cannot heal."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Permanent Death",
+      "text": "After confirmation, the dragon dies permanently and can be harvested. Blood and scales cannot be harvested while it is severely injured.$(br2)Mercy killing cannot be undone or used to restore health."
+    }
+  ],
+  "advancement": "dragonmaid:book/kaishaku_blade"
+}

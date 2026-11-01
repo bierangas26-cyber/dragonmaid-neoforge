@@ -1,0 +1,15 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "#image",
+      "x": 4,
+      "y": 29,
+      "width": 512,
+      "height": 512,
+      "texture_width": 512,
+      "texture_height": 512,
+      "scale": 0.2109375
+    }
+  ]
+}

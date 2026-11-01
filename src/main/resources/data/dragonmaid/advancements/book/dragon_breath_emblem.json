@@ -1,0 +1,49 @@
+{
+  "criteria": {
+    "has_name_tag": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:name_tag"
+            ]
+          }
+        ]
+      }
+    },
+    "has_dragon_breath": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dragon_breath"
+            ]
+          }
+        ]
+      }
+    },
+    "has_dragon_blood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:fire_dragon_blood",
+              "iceandfire:ice_dragon_blood",
+              "iceandfire:lightning_dragon_blood"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_name_tag",
+      "has_dragon_breath",
+      "has_dragon_blood"
+    ]
+  ]
+}

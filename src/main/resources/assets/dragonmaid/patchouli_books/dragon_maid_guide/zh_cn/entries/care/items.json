@@ -1,0 +1,25 @@
+{
+  "name": "号角与归途",
+  "icon": "iceandfire:dragon_horn",
+  "category": "dragonmaid:care",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "旅途中的号角",
+      "text": "手持龙吟号角，右键自己的龙，可以把它收进号角；对地面使用装着龙的号角，就能放出伙伴。$(br2)形态、穿戴和知识都会保留。想查看状态时，先收起号角，再双手留空、Shift右键。",
+      "item": "iceandfire:dragon_horn",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "title": "转移重伤的龙",
+      "text": "重伤的伙伴不能收入号角，但仍可用对应属性的召唤宝石绑定和召唤。$(br2)为它找到安全的落脚地，喂食并等待它恢复满血，再重新下达指令。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "旧存档中的遗骸",
+      "text": "旧旅途中已经死亡的龙仍是原来的遗骸，不能用新加入的照料方法唤醒。$(br2)如果伙伴正在重伤，请看$(l:dragonmaid:care/injury)重伤与石化$(/l)；重伤与彻底死亡的区别见$(l:dragonmaid:care/execution)介错之前$(/l)。"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_star": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:nether_star"
+            ]
+          }
+        ]
+      }
+    },
+    "has_bone_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragon_bone_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:trinity_dragon_gem"
+            ]
+          }
+        ]
+      }
+    },
+    "has_forge_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "dragonmaid:dragonforge_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:dragon_recall_altar"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_star",
+      "has_bone_block",
+      "has_gem",
+      "has_forge_brick",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:dragon_recall_altar"
+    ]
+  }
+}

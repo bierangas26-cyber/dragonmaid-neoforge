@@ -1,0 +1,60 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_powder_snow_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:powder_snow_bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_blue_ice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blue_ice"
+            ]
+          }
+        ]
+      }
+    },
+    "has_dragon_ice_spikes": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragon_ice_spikes"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:icy_drink"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_powder_snow_bucket",
+      "has_blue_ice",
+      "has_dragon_ice_spikes",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:icy_drink"
+    ]
+  }
+}

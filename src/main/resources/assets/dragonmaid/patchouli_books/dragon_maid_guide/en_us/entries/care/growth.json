@@ -1,0 +1,25 @@
+{
+  "name": "Raising a Dragon",
+  "icon": "iceandfire:dragon_meal",
+  "category": "dragonmaid:care",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Feeding Your Dragon",
+      "text": "Both forms share health, hunger, and age. Bring food for the journey. Growth pauses while injured; $(l:dragonmaid:care/injury)healing comes first$(/l).",
+      "item": "iceandfire:dragon_meal",
+      "link_recipe": false
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_08_feeding.png",
+      "text": "A bite to eat, then on we go."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Shedding Scales",
+      "text": "After 125 days, a tamed dragon sheds scales of its own color as it grows, naturally or from dragon meal, in either form.$(br2)Keep the scales you find for crafting later."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# build output
+build/
+.gradle/
+run/
+logs/
+crash-reports/
+*.log
+
+# dependency jars (not redistributed; see libs/README.md)
+libs/*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# local evidence dumps
+*.bak
+excluded.txt.bak-*

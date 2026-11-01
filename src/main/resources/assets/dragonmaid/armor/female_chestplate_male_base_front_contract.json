@@ -1,0 +1,14 @@
+{
+  "note": "Independent male-base-v3 ART CANDIDATE for review. Not user-accepted or integrated in main project.",
+  "schema": "dragonmaid.chestplate.male-base-front.v1",
+  "render_mode": "additive_front",
+  "torso_source": "existing_male_body",
+  "retain_existing_body": true,
+  "body_inventory_slot": 3,
+  "shoulder_inventory_slot": 2,
+  "no_shoulders": true,
+  "geometry": "dragonmaid:geo/female_chestplate_male_base_front.geo.json",
+  "uv_profiles": "dragonmaid:armor/female_chestplate_male_base_front_uv.json",
+  "geometry_sha256": "055dfdda450b251e6c869c06e9a4b959093b18e6693eab1b24dcb2de9ed0aeae",
+  "uv_sha256": "7c89147c23a18f2646d2285f8cbc25a7688aea451b900b84a2ddf2d578b268b3"
+}

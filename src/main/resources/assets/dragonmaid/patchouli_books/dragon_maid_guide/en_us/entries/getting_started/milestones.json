@@ -1,0 +1,48 @@
+{
+  "name": "Deeds to Remember",
+  "icon": "minecraft:experience_bottle",
+  "category": "dragonmaid:getting_started",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "dragonmaid:memory_new_journey",
+      "title": "A New Journey",
+      "text": "Pack the book. There is time to discover the road together."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Receiving the Guide",
+      "text": "When you first enter a world, you receive this guide and the New Journey advancement. Travelers returning to an older world receive them too.$(br2)The guide is not given again on respawn, but you can craft a replacement."
+    },
+    {
+      "type": "dragonmaid:memory_closer_companion",
+      "title": "A Closer Companion!",
+      "text": "A different shape. The same eyes you know."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The First Transformation",
+      "text": "Name your companion, wait until it reaches stage three, and help it accumulate 300 knowledge. The first time your own dragon takes human form, you earn A Closer Companion!$(br2)Find an open place and take a look at its new form."
+    },
+    {
+      "type": "dragonmaid:memory_maid_for_hunting",
+      "title": "Maid for Hunting",
+      "text": "The first hunt together deserves a page of its own."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The First Hunt",
+      "text": "When your companion first defeats a monster in human form, you earn Maid for Hunting while online. A claw, breath, or elemental charge can all mark the occasion.$(br2)Even a chance encounter on the road deserves a place in the book."
+    },
+    {
+      "type": "dragonmaid:memory_trinity_of_dragons",
+      "title": "A Trinity of Dragons",
+      "text": "Frost, fire and thunder, each with a familiar face walking beside you."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Viewing Advancements",
+      "text": "Open the game's Advancements screen to revisit these moments. Their keepsake pictures are here in the book too."
+    }
+  ]
+}

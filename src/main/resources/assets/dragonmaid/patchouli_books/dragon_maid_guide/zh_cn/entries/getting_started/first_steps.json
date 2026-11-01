@@ -1,0 +1,28 @@
+{
+  "name": "与龙结伴",
+  "icon": "dragonmaid:dragon_maid_guide",
+  "category": "dragonmaid:getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "与龙结伴",
+      "text": "驯服的龙会跟随主人走过山野，也能记住一起学来的知识。等它有了名字、长到足够大，还可以收起翅膀，换一副模样与你同行。$(br2)这本手册记下了照顾火龙、冰龙和电龙的办法。遇到拿不准的事，不妨翻来看看。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_01_departure.png",
+      "text": "出发前，再留张合影。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "开始学习与化形",
+      "text": "先用命名牌给龙起个名字。等它长到三阶，知识累计达到300点，就能尝试化作人形。$(br2)靠近自己的龙，双手留空，按住$(bold)Shift右键$()打开面板。在“知识等级”中放入学习材料，陪它慢慢积累。$(br2)化形之后，还可以$(l:dragonmaid:learning/books)继续学习、准备进阶$(/l)，解锁更多饰品栏。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "需要时查阅",
+      "text": "出发前，先看看$(l:dragonmaid:behavior/commands)同行须知$(/l)；想换一种模样赶路，可以翻到$(l:dragonmaid:forms/transformation)化作人形$(/l)。$(br2)如果伙伴倒下，请先读$(l:dragonmaid:care/injury)重伤与石化$(/l)：重伤仍有救治的机会。"
+    }
+  ]
+}

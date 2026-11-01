@@ -1,0 +1,59 @@
+{
+  "schema": "dragonmaid.service-armor.v1",
+  "binding": "existing_bone_final_space",
+  "tail_mode": "existing_dynamic_overlay",
+  "human": {
+    "female": {
+      "model": "dragonmaid:geo/service_female_armor.geo.json",
+      "texture": "dragonmaid:textures/armor/service/service_female_armor_128.png"
+    },
+    "male": {
+      "model": "dragonmaid:geo/service_male_armor.geo.json",
+      "texture": "dragonmaid:textures/armor/service/service_male_armor_128.png"
+    }
+  },
+  "slots": {
+    "1": [
+      "Head"
+    ],
+    "2": [
+      "Right Arm",
+      "Left Arm",
+      "arm_lower_right",
+      "arm_lower_left",
+      "hand_right",
+      "hand_left"
+    ],
+    "3": [
+      "Body"
+    ],
+    "4": [
+      "Right Leg",
+      "Left Leg",
+      "leg_lower_right",
+      "leg_lower_left",
+      "foot_right",
+      "foot_left"
+    ]
+  },
+  "dragon": {
+    "fire": {
+      "head": "dragonmaid:textures/armor/service/fire/service_fire_head_512.png",
+      "neck": "dragonmaid:textures/armor/service/fire/service_fire_neck_512.png",
+      "body": "dragonmaid:textures/armor/service/fire/service_fire_body_512.png",
+      "tail": "dragonmaid:textures/armor/service/fire/service_fire_tail_512.png"
+    },
+    "ice": {
+      "head": "dragonmaid:textures/armor/service/ice/service_ice_head_512.png",
+      "neck": "dragonmaid:textures/armor/service/ice/service_ice_neck_512.png",
+      "body": "dragonmaid:textures/armor/service/ice/service_ice_body_512.png",
+      "tail": "dragonmaid:textures/armor/service/ice/service_ice_tail_512.png"
+    },
+    "lightning": {
+      "head": "dragonmaid:textures/armor/service/lightning/service_lightning_head_512.png",
+      "neck": "dragonmaid:textures/armor/service/lightning/service_lightning_neck_512.png",
+      "body": "dragonmaid:textures/armor/service/lightning/service_lightning_body_512.png",
+      "tail": "dragonmaid:textures/armor/service/lightning/service_lightning_tail_512.png"
+    }
+  }
+}

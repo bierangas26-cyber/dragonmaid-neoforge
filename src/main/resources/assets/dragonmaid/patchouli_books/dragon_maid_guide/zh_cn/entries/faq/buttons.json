@@ -1,0 +1,23 @@
+{
+  "name": "旅途中的疑问",
+  "icon": "minecraft:paper",
+  "category": "dragonmaid:faq",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "切换面板",
+      "text": "伙伴面板有“详细信息”“龙的装备”和“$(l:dragonmaid:learning/books)知识等级$(/l)”三个页签；当前页签会暗下来，点击其他页签即可切换。$(br2)饰品栏随知识一级、二级、三级依次解锁，进阶方法见知识等级。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "无法化形时",
+      "text": "检查龙是否已经命名、长到三阶，并累计获得300点知识经验。准备好后，让龙落地、结束骑乘，再到开阔处使用变形按钮。$(br2)学习时，将普通书、冰火手稿或经验之瓶放入“知识等级”面板。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "查找相关说明",
+      "text": "伙伴重伤、恢复后仍坐着，或被困在石像中，可以查阅$(l:dragonmaid:care/injury)重伤与石化$(/l)；$(l:dragonmaid:care/injury#petrification)解石药剂的用法$(/l)也在那一章。炉边停工，看看$(l:dragonmaid:care/forge)龙息与炉火$(/l)。$(br2)水中同行可读$(l:dragonmaid:forms/water)涉水与潜游$(/l)。空双手Shift右键打开面板，普通右键切换人形伙伴的行为。"
+    }
+  ]
+}

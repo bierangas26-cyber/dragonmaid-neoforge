@@ -1,0 +1,79 @@
+{
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "x": 58,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 7,
+      "y": 14,
+      "u": 0,
+      "v": 0,
+      "width": 100,
+      "height": 62,
+      "texture_width": 128,
+      "texture_height": 256
+    },
+    {
+      "type": "patchouli:item",
+      "x": 31,
+      "y": 19,
+      "item": "minecraft:name_tag",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:item",
+      "x": 31,
+      "y": 38,
+      "item": "minecraft:dragon_breath",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:item",
+      "x": 12,
+      "y": 38,
+      "item": "iceandfire:fire_dragon_blood",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:item",
+      "x": 50,
+      "y": 38,
+      "item": "iceandfire:ice_dragon_blood",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:item",
+      "x": 31,
+      "y": 57,
+      "item": "iceandfire:lightning_dragon_blood",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:item",
+      "x": 88,
+      "y": 38,
+      "item": "dragonmaid:dragon_breath_emblem",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:item",
+      "x": 88,
+      "y": 57,
+      "item": "minecraft:crafting_table",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "x": 0,
+      "y": 82,
+      "text": "#text",
+      "max_width": 116,
+      "line_height": 9
+    }
+  ]
+}

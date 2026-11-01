@@ -1,0 +1,60 @@
+{
+  "name": "龙的学识",
+  "icon": "minecraft:book",
+  "category": "dragonmaid:learning",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "使用学习材料",
+      "text": "龙熟悉山谷与天空，也能从书页中认识更多事物。打开“知识等级”，放入普通书、冰火手稿或经验之瓶，再点击“学习”。$(br2)手稿提供的知识比普通书多，经验之瓶又比手稿稍多。",
+      "item": "minecraft:book",
+      "link_recipe": false
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_02_reading.png",
+      "text": "这一页，慢慢读。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升至知识一级",
+      "text": "知识从$(bold)零级$()开始；累计达到300点知识经验后，自动升到$(bold)一级$()，不需要附魔书。$(br2)再为龙命名，等它长到三阶，就能尝试$(l:dragonmaid:forms/transformation)第一次变形$(/l)。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升至知识二级",
+      "text": "累计达到$(bold)1000点知识$()，放入$(bold)一本非诅咒附魔书$()并点击“进阶”，就能升到$(bold)知识二级$()，解锁第二个饰品栏。$(br2)进阶消耗书，但不会扣除知识。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "附魔书学习",
+      "text": "知识一级后，可以把非诅咒附魔书放进学习槽；二级后，也能读带诅咒的书。书中的附魔越丰富、等级越高，带来的知识通常越多。$(br2)学习与进阶使用不同的书槽。超过下一次进阶所需的知识也会留下来。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "开关木门",
+      "text": "知识达到二级后，人形伙伴会打开路上的木门，经过后再关上。如果一扇门不够宽，空间又足够，她也会试着打开两扇。$(br2)记得给门框和屋顶留出空间；过不去时，她会尝试绕路。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升至知识三级",
+      "text": "知识二级后，继续积累到2500点。将$(bold)两本非诅咒附魔书和一本诅咒附魔书$()分别放入三个书槽。$(br2)进阶到$(bold)知识三级$()，第三个饰品栏随之解锁；知识仍会保留。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "选择进阶书",
+      "text": "非诅咒附魔书必须有附魔且不含诅咒；带诅咒的书放入诅咒书槽，即使还有其他附魔也可以。普通书不能替代。$(br2)可识别的有效附魔不限种类或等级，两本相同的书也可以。多重附魔仍算一本，书上的效果不会施加给龙。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "进阶顺序与等级上限",
+      "text": "先达到1000点进阶二级，再继续积累至2500点进阶三级。每次只能升一级，即使知识足够，也要依次准备两次进阶的书。$(br2)三级是目前开放的上限。新增的栏位可以用来$(l:dragonmaid:accessories/companions)调整饰品搭配$(/l)。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "知识等级与生长阶段",
+      "text": "成长与知识是两回事：升至知识二、三级，不必等龙长到四、五阶。$(l:dragonmaid:forms/transformation)第一次变形$(/l)仍需要名字、生长三阶和知识一级（累计300点）。$(br2)龙的额外行囊等功能尚未开放。"
+    }
+  ]
+}

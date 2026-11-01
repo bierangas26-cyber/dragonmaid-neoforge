@@ -1,0 +1,26 @@
+{
+  "parent": "iceandfire:item/dragon_horn",
+  "textures": {
+    "layer0": "dragonmaid:item/reinforced_dragon_horn"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "iceorfire": 0.25
+      },
+      "model": "dragonmaid:item/reinforced_dragon_horn_fire"
+    },
+    {
+      "predicate": {
+        "iceorfire": 0.5
+      },
+      "model": "dragonmaid:item/reinforced_dragon_horn_ice"
+    },
+    {
+      "predicate": {
+        "iceorfire": 0.75
+      },
+      "model": "dragonmaid:item/reinforced_dragon_horn_lightning"
+    }
+  ]
+}

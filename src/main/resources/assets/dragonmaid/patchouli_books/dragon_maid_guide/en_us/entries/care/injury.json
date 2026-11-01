@@ -1,0 +1,62 @@
+{
+  "name": "Wounds and Stone",
+  "icon": "minecraft:golden_apple",
+  "category": "dragonmaid:care",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "A Faint Breath",
+      "text": "A dragon's body is unlike a human's. When gravely hurt, it can slow its breathing and conserve energy through a long recovery.$(br2)As long as it has the will to live, it will not easily give up. Perhaps it is waiting for you to take it home."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_09_injury.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Feeding and Recovery",
+      "text": "Offer suitable meat or ordinary dragon meal to help it heal. Even at zero health, fire, ice, and lightning dragons in either form can still be saved.$(br2)Growth pauses during recovery. Food and time slowly restore health; keep the surroundings safe so it can rest."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Meal and Horn Limits",
+      "text": "Ordinary dragon meal heals rather than grows an injured dragon; sickly meal is refused.$(br2)Horns cannot store injured dragons. Use a matching crystal: $(l:dragonmaid:care/items)Horns and Crystals$(/l).",
+      "item": "iceandfire:dragon_meal",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Protecting the Injured",
+      "text": "Clear nearby threats first. With empty hands, Shift-right-click to inspect your companion's health and condition. Enemies can take away newly restored health, so protect it from attacks.$(br2)Until fully healed, it remains severely injured. Keep feeding it and give it time."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Commands After Recovery",
+      "text": "At full health, your companion sits up and waits for you to decide what comes next.$(br2)In human form, right-click with empty hands; in dragon form, use a dragon staff.$(br2)Recovery does not require $(l:dragonmaid:care/execution)mercy killing$(/l), an irreversible farewell."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Reversing Petrification",
+      "anchor": "petrification",
+      "text": "Use a Petrification Remedy on an intact owned dragon statue, or an untamed, ownerless human-form dragon statue. Either form can return.",
+      "item": "dragonmaid:petrification_remedy",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "title": "What Recovery Preserves",
+      "text": "After the stone shell falls away, owner, growth, knowledge, equipment, accessories, and inventory are retained.$(br2)The remedy does not heal existing injuries. If the dragon was severely injured, keep caring for it. The remedy is consumed only on success."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Making Room",
+      "text": "Clear a landing space before using the remedy; dragon form needs more room.$(br2)An owned dragon's statue cannot be broken with a pickaxe or carried away. Clear the area and use the remedy there."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Remedy and Old Statues",
+      "text": "Brew a mundane potion with a Gorgon's head to obtain a Petrification Remedy. See $(l:dragonmaid:care/petrification_remedy)the remedy page$(/l) for the method.$(br2)Apply it directly to a statue; it cannot be drunk or thrown. Old statues made before this recovery method was added cannot currently be restored."
+    }
+  ]
+}

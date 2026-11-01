@@ -1,0 +1,25 @@
+{
+  "name": "Horns and Crystals",
+  "icon": "iceandfire:dragon_horn",
+  "category": "dragonmaid:care",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "A Horn for the Road",
+      "text": "Right-click your dragon with a Dragon Horn to store it; use the filled horn on the ground to release it. Form, equipment, and knowledge stay.",
+      "item": "iceandfire:dragon_horn",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Moving an Injured Dragon",
+      "text": "A severely injured companion cannot enter a horn, but a matching summoning crystal can still bind and summon it.$(br2)Find a safe place, feed it, and wait until it is fully healed before giving a new command."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Old Dragon Remains",
+      "text": "The remains of dragons that died on an older journey are still remains; the new care methods cannot wake them.$(br2)If your companion is severely injured, read $(l:dragonmaid:care/injury)Wounds and Stone$(/l). For the difference between injury and death, see $(l:dragonmaid:care/execution)The Final Choice$(/l)."
+    }
+  ]
+}

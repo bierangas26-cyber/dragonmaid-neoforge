@@ -1,0 +1,22 @@
+{
+  "name": "At the Dragonforge",
+  "icon": "minecraft:furnace",
+  "category": "dragonmaid:care",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Breath for the Forge",
+      "text": "Tamed human dragons at stage three or higher can power a matching forge. Build it, add materials, and bring the dragon to its input.$(br2)Wander, sit, or follow nearby. Keep its mouth close to the input with a clear view; use the matching element."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_10_forge.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "When Work Stops",
+      "text": "Danger, sleep, or injury pauses work. If it remains seated, check the ingredients, output, and distance to the input.$(br2)A newly recovered companion waits for your next command."
+    }
+  ]
+}

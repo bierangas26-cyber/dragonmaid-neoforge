@@ -1,0 +1,65 @@
+{
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "x": 58,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:brewing_stand",
+      "link_recipe": false,
+      "x": 50,
+      "y": 17
+    },
+    {
+      "type": "patchouli:item",
+      "item": {
+        "item": "minecraft:potion",
+        "nbt": {
+          "Potion": "minecraft:mundane"
+        }
+      },
+      "link_recipe": false,
+      "x": 6,
+      "y": 46
+    },
+    {
+      "type": "patchouli:text",
+      "text": "+",
+      "x": 28,
+      "y": 50,
+      "max_width": 10
+    },
+    {
+      "type": "patchouli:item",
+      "item": "iceandfire:gorgon_head",
+      "link_recipe": false,
+      "x": 44,
+      "y": 46
+    },
+    {
+      "type": "patchouli:text",
+      "text": "→",
+      "x": 68,
+      "y": 50,
+      "max_width": 16
+    },
+    {
+      "type": "patchouli:item",
+      "item": "dragonmaid:petrification_remedy",
+      "link_recipe": false,
+      "x": 90,
+      "y": 46
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 0,
+      "y": 76,
+      "max_width": 116,
+      "line_height": 9
+    }
+  ]
+}

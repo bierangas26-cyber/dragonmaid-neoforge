@@ -1,0 +1,48 @@
+{
+  "name": "Choosing Your Charms",
+  "icon": "dragonmaid:guardian_tag",
+  "category": "dragonmaid:accessories",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "The Dragon Panel",
+      "text": "With empty hands, Shift-right-click your dragon to check its condition. Armor and accessories are under Dragon Equipment; open Knowledge Level to help it learn."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Accessory Slots",
+      "text": "Dragon Equipment has three accessory slots. Knowledge levels one, two, and three unlock them from top to bottom.$(br2)Before the first slot opens, turn to $(l:dragonmaid:learning/books)Lessons and Lore$(/l)."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_11_companions.png",
+      "text": "Our road together."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Keeping Equipment",
+      "text": "Accessories stay with a dragon through transformation, rest, and time in a horn. To begin, try a $(l:dragonmaid:accessories/guardian_tag)Guardian Tag$(/l).$(br2)Dragons currently have no extra storage, so carry supplies in your own inventory."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Armor and Healing",
+      "text": "A $(l:dragonmaid:accessories/warding_emblem)Warding Emblem$(/l) grants armor; a $(l:dragonmaid:accessories/natural_dragon_heart_necklace)Natural Dragon Heart Necklace$(/l) helps restore health. The $(l:dragonmaid:accessories/dragon_heart_emblem_necklace)Dragon Heart Emblem Necklace$(/l) combines both effects.$(br2)Obtaining any ingredient unlocks the matching accessory page."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Breath Enhancement",
+      "text": "The $(l:dragonmaid:accessories/dragon_breath_emblem)Dragon Breath Emblem$(/l) improves human-form combat breath. Fire and ice dragons have shorter pauses between bursts; lightning dragons can breathe for longer."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Type-Specific Gear",
+      "text": "Prepare a $(l:dragonmaid:accessories/lightning_discharge_device)Lightning Discharge Device$(/l) for a lightning dragon, a $(l:dragonmaid:accessories/steaming_drink)Steaming Drink$(/l) for a fire dragon, or an $(l:dragonmaid:accessories/icy_drink)Icy Drink$(/l) for an ice dragon.$(br2)Each fits only its matching type and strengthens the direct damage of human-form combat breath."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Combining Effects",
+      "text": "The $(l:dragonmaid:accessories/ultimate_dragon_breath_device)Ultimate Dragon Breath Device$(/l) combines four breath accessories in one slot and fits all three dragon types.$(br2)Armor bonuses can stack; accessories with other identical benefits cannot be worn together."
+    }
+  ]
+}

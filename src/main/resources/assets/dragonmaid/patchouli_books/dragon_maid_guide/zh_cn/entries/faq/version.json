@@ -1,0 +1,23 @@
+{
+  "name": "旅人后记",
+  "icon": "minecraft:map",
+  "category": "dragonmaid:faq",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "已开放的内容",
+      "text": "书中记下了读书、变形、同行、战斗、喂养和炉边工作的办法。火龙、冰龙和电龙的雌雄三至五阶，都有对应的人形。$(br2)第一次入世、化形与人形狩猎，会留在$(l:dragonmaid:getting_started/milestones)你们的纪念页$(/l)。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "尚未完成的内容",
+      "text": "知识二、三级已经开放，每次进阶都会解锁一个饰品栏，条件见$(l:dragonmaid:learning/books)龙的学识$(/l)。$(br2)更高知识等级、额外行囊、武器、骑乘与新的相处本领，尚待以后开放。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "手册插图",
+      "text": "旅途中的风景和同行的时刻，已经留在这本书里。往后还有更多故事，等你们一起写下。"
+    }
+  ]
+}

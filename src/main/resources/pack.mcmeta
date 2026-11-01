@@ -1,0 +1,12 @@
+{
+  "pack": {
+    "description": {
+      "text": "dragonmaid resources"
+    },
+    "pack_format": 34,
+    "supported_formats": {
+      "min_inclusive": 15,
+      "max_inclusive": 48
+    }
+  }
+}

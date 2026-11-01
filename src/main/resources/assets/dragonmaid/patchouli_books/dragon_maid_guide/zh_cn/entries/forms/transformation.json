@@ -1,0 +1,32 @@
+{
+  "name": "化作人形",
+  "icon": "minecraft:name_tag",
+  "category": "dragonmaid:forms",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "化形条件与操作",
+      "text": "龙在两种形态之间变换，并不是换了另一位伙伴。先为它命名，等它长到三阶、知识累计达到300点升至一级，就可以尝试化形。$(br2)让它落地并结束骑乘，双手留空、Shift右键打开“详细信息”，点击页边的“化作人形”。知识和装备页也有变形按钮。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_03_transformation.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "同一位伙伴",
+      "text": "火星、雪花或电光散去后，站在面前的仍是原来的龙。名字、年龄、知识和穿戴都会留下，它也会继续成长。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "恢复龙形",
+      "text": "想恢复龙形，先找一片开阔地。人形能经过的门，不一定容得下张开的翅膀。$(br2)如果无法变形，检查周围是否太窄、龙是否仍在骑乘，再腾出空间重试。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "重伤时无法化形",
+      "text": "重伤时可以查看生命与装备，但不能学习或变形。换一种模样也不能让它起身；先陪它把生命养满。$(br2)康复后，它会坐着等待新指令。更多照料方法见$(l:dragonmaid:care/injury)重伤与石化$(/l)。"
+    }
+  ]
+}

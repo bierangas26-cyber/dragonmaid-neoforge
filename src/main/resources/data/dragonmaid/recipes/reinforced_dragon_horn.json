@@ -1,0 +1,27 @@
+{
+  "type": "dragonmaid:reinforced_dragon_horn",
+  "category": "misc",
+  "pattern": [
+    "EGE",
+    "GHG",
+    "SGS"
+  ],
+  "key": {
+    "H": {
+      "item": "iceandfire:dragon_horn"
+    },
+    "S": {
+      "tag": "iceandfire:scales/dragon"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "dragonmaid:reinforced_dragon_horn",
+    "count": 1
+  }
+}

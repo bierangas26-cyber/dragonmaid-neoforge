@@ -1,0 +1,27 @@
+{
+  "name": "守护铭牌",
+  "icon": "dragonmaid:guardian_tag",
+  "category": "dragonmaid:accessories",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "防止主人误伤",
+      "item": "dragonmaid:guardian_tag",
+      "link_recipe": false,
+      "text": "并肩迎敌时，剑锋和箭矢难免失手。守护铭牌能让龙免受自己主人造成的伤害。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "与你的联系",
+      "text": "铭牌认得的是龙当前的主人，不论龙形还是人形都能生效。其他攻击者和环境造成的伤害仍要小心。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "铭牌的合成",
+      "recipe": "dragonmaid:guardian_tag",
+      "text": "在工作台任意一列，从上到下放入龙骨、命名牌和任意龙鳞。"
+    }
+  ],
+  "advancement": "dragonmaid:book/guardian_tag"
+}

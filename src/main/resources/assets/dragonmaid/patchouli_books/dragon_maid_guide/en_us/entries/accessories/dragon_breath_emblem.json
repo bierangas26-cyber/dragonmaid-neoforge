@@ -1,0 +1,26 @@
+{
+  "name": "Breath Emblem",
+  "icon": "dragonmaid:dragon_breath_emblem",
+  "category": "dragonmaid:accessories",
+  "sortnum": 5,
+  "advancement": "dragonmaid:book/dragon_breath_emblem",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Blood of Three Dragons",
+      "item": "dragonmaid:dragon_breath_emblem",
+      "link_recipe": false,
+      "text": "Three dragon bloods lend this emblem power to improve human-form combat breath."
+    },
+    {
+      "type": "dragonmaid:dragon_breath_emblem_recipe",
+      "title": "Crafting the Emblem",
+      "text": "Place a name tag at the top center and dragon's breath in the center. Put fire, ice, and lightning dragon blood on the left, right, and bottom; their positions are interchangeable."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Effects by Dragon Type",
+      "text": "Fire and ice dragons prepare the next burst sooner, while lightning dragons can breathe longer.$(br2)The same emblem helps each type in a different way."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "A Keeper's Handbook",
+  "icon": "dragonmaid:dragon_maid_guide",
+  "category": "dragonmaid:getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Opening the Guide",
+      "text": "On your first visit, receive this guide and New Journey. If inventory is full, look nearby. Right-click the air to read it. It is not reissued on respawn or rejoining.",
+      "item": "dragonmaid:dragon_maid_guide",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "dragonmaid:dragon_maid_guide",
+      "text": "Combine a book and an Ice and Fire manuscript in any arrangement."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "What to Bring",
+      "text": "Bring a name tag, books, and your companion's favorite food. Books, manuscripts, and bottles o' enchanting are for learning; dragon meal is food.$(br2)Use bone, a name tag, and scales to craft a Guardian Tag. Equip it under $(l:dragonmaid:accessories/companions)Dragon Equipment$(/l)."
+    }
+  ],
+  "advancement": "dragonmaid:book/dragon_maid_guide"
+}

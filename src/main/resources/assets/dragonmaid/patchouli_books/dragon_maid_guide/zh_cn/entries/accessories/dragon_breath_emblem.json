@@ -1,0 +1,26 @@
+{
+  "name": "龙息强化纹章",
+  "icon": "dragonmaid:dragon_breath_emblem",
+  "category": "dragonmaid:accessories",
+  "sortnum": 5,
+  "advancement": "dragonmaid:book/dragon_breath_emblem",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "三色龙血",
+      "item": "dragonmaid:dragon_breath_emblem",
+      "link_recipe": false,
+      "text": "火龙、冰龙和电龙的吐息各有不同。这枚纹章借三种龙血调和它们的力量，改善人形战斗时的吐息。"
+    },
+    {
+      "type": "dragonmaid:dragon_breath_emblem_recipe",
+      "title": "纹章的合成",
+      "text": "顶部中央放命名牌，正中放末影龙息。左、右、下方各放一瓶火龙血、冰龙血和电龙血，三瓶的位置可以互换。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "吐息恢复与持续时间",
+      "text": "火龙与冰龙能更快准备下一轮吐息；电龙的吐息则能持续更久。$(br2)同一枚纹章，对三种龙各有不同的帮助。"
+    }
+  ]
+}

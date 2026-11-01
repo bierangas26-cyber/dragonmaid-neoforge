@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dragonmaid:warding_emblem"
+    },
+    {
+      "item": "dragonmaid:natural_dragon_heart_necklace"
+    }
+  ],
+  "result": {
+    "item": "dragonmaid:dragon_heart_emblem_necklace",
+    "count": 1
+  }
+}

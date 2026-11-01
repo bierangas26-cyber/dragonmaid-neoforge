@@ -1,0 +1,25 @@
+{
+  "name": "介错之前",
+  "icon": "dragonmaid:kaishaku_blade",
+  "category": "dragonmaid:care",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "介错前请先确认",
+      "text": "重伤可以治好：喂适合的肉类或普通龙食，就能帮助伙伴恢复。介错会让它永久死亡，目前无法复活。想救它，请先看$(l:dragonmaid:care/injury)照料那一章$(/l)。$(br2)只有主人能介错，且伙伴必须重伤、生命为零。主手持介错刀右键，核对弹窗中的名字；取消或按Esc不会伤害它。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "介错刀的合成",
+      "recipe": "dragonmaid:kaishaku_blade",
+      "text": "任意龙鳞放在左下，龙骨放在相邻的右上一格；整组可以移动，背包和工作台都能合成。$(br2)介错刀不能帮助伙伴康复。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "永久死亡与采集",
+      "text": "确认后，伙伴会彻底死亡、停止呼吸，才可按原版方式采集。重伤时不能采血或采鳞。$(br2)介错无法撤销，也不能用于让龙起身、重置状态或恢复生命。"
+    }
+  ],
+  "advancement": "dragonmaid:book/kaishaku_blade"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "热腾腾的饮品",
+  "icon": "dragonmaid:steaming_drink",
+  "category": "dragonmaid:accessories",
+  "sortnum": 7,
+  "advancement": "dragonmaid:book/steaming_drink",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "杯中的熔岩",
+      "item": "dragonmaid:steaming_drink",
+      "link_recipe": false,
+      "text": "杯中透着熔岩的亮光，烈焰棒带来熟悉的热度。将它放进火龙的饰品栏，可增强人形战斗吐息的直接伤害。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "饮品的合成",
+      "recipe": "dragonmaid:steaming_drink",
+      "text": "将岩浆桶、岩浆膏和烈焰棒各一个放进工作台同一竖列，上下顺序任意。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "佩戴方式",
+      "text": "这杯饮品是只有火龙能装备的饰品。路途再远，它也不会冷下来。"
+    }
+  ]
+}

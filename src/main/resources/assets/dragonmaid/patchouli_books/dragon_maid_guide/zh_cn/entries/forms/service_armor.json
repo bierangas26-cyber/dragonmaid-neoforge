@@ -1,0 +1,31 @@
+{
+  "name": "女仆龙铠",
+  "icon": "dragonmaid:service_dragon_armor_head",
+  "category": "dragonmaid:forms",
+  "sortnum": 5,
+  "advancement": "dragonmaid:book/service_dragon_armor",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "title": "头饰与肩臂的合成",
+      "recipe": "dragonmaid:service_dragon_armor_head",
+      "recipe2": "dragonmaid:service_dragon_armor_neck"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "头饰与肩臂",
+      "text": "头饰与肩臂，为旅途添上白银龙铠般的防护。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "衣甲与尾甲的合成",
+      "recipe": "dragonmaid:service_dragon_armor_body",
+      "recipe2": "dragonmaid:service_dragon_armor_tail"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "衣甲与裤鞋尾甲",
+      "text": "衣甲与裤鞋尾甲，放入各自对应的装备槽。"
+    }
+  ]
+}

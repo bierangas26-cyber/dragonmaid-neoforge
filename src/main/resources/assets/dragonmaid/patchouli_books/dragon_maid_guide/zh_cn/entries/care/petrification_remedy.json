@@ -1,0 +1,26 @@
+{
+  "name": "解石药剂",
+  "icon": "dragonmaid:petrification_remedy",
+  "category": "dragonmaid:care",
+  "sortnum": 6,
+  "advancement": "dragonmaid:book/petrification_remedy",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "使用解石药剂",
+      "item": "dragonmaid:petrification_remedy",
+      "link_recipe": false,
+      "text": "美杜莎的目光留下石壳，也留下等待救治的机会。手持解石药剂，右键完整的龙石像，就能尝试唤醒它。$(br2)药剂可用于有主人的龙，也可用于未驯服、无主的人形龙；唤醒后会保留原来的主人和模样。"
+    },
+    {
+      "type": "dragonmaid:petrification_remedy_brewing",
+      "title": "药剂的酿造",
+      "text": "酿造台上方放美杜莎的头，瓶位放平凡药水，并备好烈焰粉。一颗头最多能酿三瓶。$(br2)不加火药，药剂直接用于石像，不能饮用或投掷。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "解除石化后",
+      "text": "名字、成长、知识、装备、饰品和行囊里的物品都会保留。药剂不会治愈原有伤势，仍需继续照料。$(br2)先留出落脚空间，成功唤醒才会消耗药剂。更多说明见$(l:dragonmaid:care/injury#petrification)解除石化$(/l)。"
+    }
+  ]
+}

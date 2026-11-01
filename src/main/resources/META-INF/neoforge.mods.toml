@@ -1,0 +1,50 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/dragon-maid"
+
+[[mods]]
+modId="dragonmaid"
+version="${version}"
+displayName="Dragon Maid"
+logoFile="dragonmaid.png"
+logoBlur=false
+authors="EvenFlowInShipGirl"
+description='''An Ice and Fire expansion mod focused on humanoid dragons.
+Private-use NeoForge 1.21.1 port. Original mod (c) EvenFlowInShipGirl, All Rights Reserved.
+Ported for local use only, not for redistribution.'''
+
+[[dependencies.dragonmaid]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.264,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.dragonmaid]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.dragonmaid]]
+    modId="iceandfire"
+    type="required"
+    versionRange="[2.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.dragonmaid]]
+    modId="geckolib"
+    type="required"
+    versionRange="[4.7.4,5)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.dragonmaid]]
+    modId="patchouli"
+    type="required"
+    versionRange="[1.21,)"
+    ordering="AFTER"
+    side="BOTH"

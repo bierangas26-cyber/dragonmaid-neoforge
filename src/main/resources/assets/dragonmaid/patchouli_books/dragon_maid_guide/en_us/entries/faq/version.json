@@ -1,0 +1,23 @@
+{
+  "name": "The Road Ahead",
+  "icon": "minecraft:map",
+  "category": "dragonmaid:faq",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Current Features",
+      "text": "Here are ways to learn, transform, travel, fight, feed, and work by the forge. All three dragon types and both sexes have human forms at stages three to five.$(br2)Read $(l:dragonmaid:getting_started/milestones)your keepsakes$(/l) for milestones."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Planned Features",
+      "text": "Knowledge levels two and three are available, each unlocking an accessory slot. Find the requirements in $(l:dragonmaid:learning/books)Lessons and Lore$(/l).$(br2)Higher knowledge levels, extra storage, weapons, riding, and new ways to spend time together await a future update."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Guide Illustrations",
+      "text": "Landscapes and moments from your travels have found a place in this book. More stories are waiting for you to write them together."
+    }
+  ]
+}

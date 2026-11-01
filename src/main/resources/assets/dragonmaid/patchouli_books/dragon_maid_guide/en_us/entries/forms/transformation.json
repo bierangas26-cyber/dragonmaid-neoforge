@@ -1,0 +1,32 @@
+{
+  "name": "Taking Human Form",
+  "icon": "minecraft:name_tag",
+  "category": "dragonmaid:forms",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Changing Form",
+      "text": "Name your dragon and reach stage three and 300 knowledge to change form. It remains your companion.$(br2)Land and end riding. With empty hands, Shift-right-click and choose Human Form; the equipment and knowledge pages also have this button."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_03_transformation.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Still Your Dragon",
+      "text": "When the sparks, snowflakes, or lightning fade, the dragon in front of you is still your companion. Its name, age, knowledge, and equipment remain, and it continues to grow."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Returning to Dragon Form",
+      "text": "Before returning to dragon form, find an open space. A doorway that fits a person may not fit open wings.$(br2)If transformation fails, make room and check that the dragon is not riding or being ridden."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Transformation and Injury",
+      "text": "A severely injured dragon cannot learn or transform. Check its health and equipment, then help it reach full health; it will sit and await a command. Read $(l:dragonmaid:care/injury)Wounds and Stone$(/l)."
+    }
+  ]
+}

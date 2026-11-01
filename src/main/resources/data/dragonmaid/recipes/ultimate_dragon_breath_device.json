@@ -1,0 +1,26 @@
+{
+  "type": "dragonmaid:ultimate_dragon_breath",
+  "category": "misc",
+  "pattern": [
+    " L ",
+    "FBI"
+  ],
+  "key": {
+    "B": {
+      "item": "dragonmaid:dragon_breath_emblem"
+    },
+    "L": {
+      "item": "dragonmaid:lightning_discharge_device"
+    },
+    "F": {
+      "item": "dragonmaid:steaming_drink"
+    },
+    "I": {
+      "item": "dragonmaid:icy_drink"
+    }
+  },
+  "result": {
+    "item": "dragonmaid:ultimate_dragon_breath_device",
+    "count": 1
+  }
+}

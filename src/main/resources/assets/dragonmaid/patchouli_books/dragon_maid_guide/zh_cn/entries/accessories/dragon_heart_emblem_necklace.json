@@ -1,0 +1,27 @@
+{
+  "name": "龙心纹章项链",
+  "icon": "dragonmaid:dragon_heart_emblem_necklace",
+  "category": "dragonmaid:accessories",
+  "sortnum": 4,
+  "advancement": "dragonmaid:book/dragon_heart_emblem_necklace",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "护甲与生命恢复",
+      "item": "dragonmaid:dragon_heart_emblem_necklace",
+      "link_recipe": false,
+      "text": "护佑纹章抵挡外伤，龙心项链帮助恢复。将它们合在一起，只占一个饰品栏，就能保留两种效果。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "项链的合成",
+      "recipe": "dragonmaid:dragon_heart_emblem_necklace",
+      "text": "将护佑纹章与自然龙心项链放入合成栏，位置随意。合成后的项链保留两者的护甲与恢复效果。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "成长与恢复效果",
+      "text": "龙的生长阶段越高，护甲加成越强。两种形态下都能恢复生命；重伤时，恢复会慢一些。"
+    }
+  ]
+}

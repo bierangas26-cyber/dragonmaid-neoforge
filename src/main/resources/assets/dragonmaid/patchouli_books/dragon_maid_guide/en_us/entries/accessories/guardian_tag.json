@@ -1,0 +1,27 @@
+{
+  "name": "Guardian Tag",
+  "icon": "dragonmaid:guardian_tag",
+  "category": "dragonmaid:accessories",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Safe from Your Attacks",
+      "item": "dragonmaid:guardian_tag",
+      "link_recipe": false,
+      "text": "A Guardian Tag protects your dragon from damage caused by you, its owner."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Known to Its Owner",
+      "text": "The tag recognizes the dragon's current owner and works in either form. Other attackers and environmental hazards can still hurt it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Tag",
+      "recipe": "dragonmaid:guardian_tag",
+      "text": "In any crafting-table column, place dragon bone, a name tag, and any dragon scale from top to bottom."
+    }
+  ],
+  "advancement": "dragonmaid:book/guardian_tag"
+}

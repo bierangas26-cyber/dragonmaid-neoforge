@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "iceandfire:dragonforge_fire_brick",
+    "iceandfire:dragonforge_ice_brick",
+    "iceandfire:dragonforge_lightning_brick"
+  ]
+}

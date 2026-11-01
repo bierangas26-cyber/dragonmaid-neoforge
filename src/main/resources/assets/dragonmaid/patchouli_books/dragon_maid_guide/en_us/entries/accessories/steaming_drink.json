@@ -1,0 +1,27 @@
+{
+  "name": "Steaming Drink",
+  "icon": "dragonmaid:steaming_drink",
+  "category": "dragonmaid:accessories",
+  "sortnum": 7,
+  "advancement": "dragonmaid:book/steaming_drink",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Lava in a Cup",
+      "item": "dragonmaid:steaming_drink",
+      "link_recipe": false,
+      "text": "For fire dragons: this warm drink boosts direct human-form combat breath damage."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Drink",
+      "recipe": "dragonmaid:steaming_drink",
+      "text": "Place one lava bucket, magma cream, and blaze rod in the same crafting-table column, in any vertical order."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Fire Dragon Accessory",
+      "text": "Only a fire dragon can wear this drink as an accessory. However long the road, it stays warm."
+    }
+  ]
+}

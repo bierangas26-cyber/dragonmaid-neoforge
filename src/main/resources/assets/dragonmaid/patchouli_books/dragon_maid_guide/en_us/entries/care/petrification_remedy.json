@@ -1,0 +1,26 @@
+{
+  "name": "Petrification Remedy",
+  "icon": "dragonmaid:petrification_remedy",
+  "category": "dragonmaid:care",
+  "sortnum": 6,
+  "advancement": "dragonmaid:book/petrification_remedy",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Using the Remedy",
+      "item": "dragonmaid:petrification_remedy",
+      "link_recipe": false,
+      "text": "Right-click an intact owned dragon statue with the remedy. Untamed, ownerless human-form dragon statues can also be restored."
+    },
+    {
+      "type": "dragonmaid:petrification_remedy_brewing",
+      "title": "Brewing the Remedy",
+      "text": "Brew mundane potions with a Gorgon's head and blaze powder. One head makes up to three. No gunpowder: apply to statues; do not drink or throw."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "After Restoration",
+      "text": "Name, growth, knowledge, equipment, accessories, and stored items remain. The remedy does not heal existing injuries, so continue caring for your companion.$(br2)Leave room for it to appear; the remedy is consumed only on success. Read $(l:dragonmaid:care/injury#petrification)Reversing Petrification$(/l) for details."
+    }
+  ]
+}

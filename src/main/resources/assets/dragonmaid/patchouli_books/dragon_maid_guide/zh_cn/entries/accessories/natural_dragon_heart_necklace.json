@@ -1,0 +1,27 @@
+{
+  "name": "自然龙心项链",
+  "icon": "dragonmaid:natural_dragon_heart_necklace",
+  "category": "dragonmaid:accessories",
+  "sortnum": 3,
+  "advancement": "dragonmaid:book/natural_dragon_heart_necklace",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "龙心的共鸣",
+      "item": "dragonmaid:natural_dragon_heart_necklace",
+      "link_recipe": false,
+      "text": "离体的龙心仍能回应佩戴者的脉动。借花与藤蔓引来的自然力量，它像另一颗心，与佩戴者共振，帮助龙缓慢恢复生命。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "项链的合成",
+      "recipe": "dragonmaid:natural_dragon_heart_necklace",
+      "text": "顶部中央放命名牌，中间一排用两朵孢子花夹住龙心，底部中央放龙血。龙心与龙血的种类可以不同。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "重伤时的恢复",
+      "text": "这颗心在龙形和人形下都能起作用。重伤时恢复较慢；完全康复后，龙会坐下等待新指令。$(br2)孢子花生长在繁茂洞穴中。"
+    }
+  ]
+}

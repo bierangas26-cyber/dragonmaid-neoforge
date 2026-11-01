@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " I ",
+    "INI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "N": {
+      "item": "minecraft:name_tag"
+    }
+  },
+  "result": {
+    "item": "dragonmaid:warding_emblem",
+    "count": 1
+  }
+}

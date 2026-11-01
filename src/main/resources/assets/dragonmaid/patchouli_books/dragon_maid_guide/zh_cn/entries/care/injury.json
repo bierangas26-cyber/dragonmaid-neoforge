@@ -1,0 +1,62 @@
+{
+  "name": "重伤与石化",
+  "icon": "minecraft:golden_apple",
+  "category": "dragonmaid:care",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "重伤后的呼吸",
+      "text": "龙的身体与人不同。伤重时，它能放缓呼吸与消耗，用微弱的气力撑过漫长的休养。$(br2)只要还有活下去的念头，它便不会轻易放弃。也许，它正等着你把它带回家。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_09_injury.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "喂食与恢复",
+      "text": "把它吃得下的肉类或普通龙食递到嘴边，就能帮助它恢复。哪怕生命已经见底，火龙、冰龙和电龙的两种形态都还有救。$(br2)养伤时成长会暂停。食物和时间会慢慢补回生命；先守住周围，让它安心歇息。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "重伤时的限制",
+      "text": "养伤时，普通龙食用来恢复生命，不会催它长大；疾病龙食不适合重伤的龙，它会拒绝。$(br2)重伤的龙不能收入号角。需要离开险地时，可以用对应属性的召唤宝石，见$(l:dragonmaid:care/items)号角与归途$(/l)。",
+      "item": "iceandfire:dragon_meal",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "title": "保护养伤中的龙",
+      "text": "先清理附近的危险。双手留空，Shift右键可以查看伙伴的生命和状态。刚恢复的生命仍会被敌人夺去，要保护它免受攻击。$(br2)满血以前，它仍处于重伤状态；继续喂食，陪它慢慢恢复。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "康复后重新下令",
+      "text": "生命完全恢复后，伙伴会重新坐起，等你决定接下来的行动。$(br2)人形时双手留空、普通右键；龙形时用龙杖下令。$(br2)康复不需要介错；那是$(l:dragonmaid:care/execution)不可挽回的告别$(/l)。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "解除石化",
+      "anchor": "petrification",
+      "text": "如果伙伴被美杜莎石化，可以尝试用解石药剂唤醒。$(br2)手持药剂右键完整的有主龙石像；未驯服、无主的人形龙石像也可以使用。龙形与人形都能恢复石化前的模样。",
+      "item": "dragonmaid:petrification_remedy",
+      "link_recipe": false
+    },
+    {
+      "type": "patchouli:text",
+      "title": "解石后保留的状态",
+      "text": "石壳散去后，主人、成长、知识、装备、饰品和行囊里的物品都会保留。$(br2)解石不能治愈原有伤势；如果伙伴原本重伤，还要继续照料。只有成功唤醒才会消耗药剂。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "为龙留出空地",
+      "text": "用药前先清出落脚的空地；恢复龙形需要更宽敞的地方。$(br2)有主龙的石像不能用镐子敲碎或搬走。就在石像周围清出空间，再使用药剂。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "药剂与旧石像",
+      "text": "用美杜莎的头酿造平凡药水，可以得到解石药剂。详细做法见$(l:dragonmaid:care/petrification_remedy)药剂这一页$(/l)。$(br2)药剂直接用于石像，不能饮用或投掷。解石方法加入前留下的旧石像暂时无法唤醒。"
+    }
+  ]
+}

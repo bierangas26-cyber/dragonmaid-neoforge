@@ -1,0 +1,48 @@
+{
+  "name": "同行纪事",
+  "icon": "minecraft:experience_bottle",
+  "category": "dragonmaid:getting_started",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "dragonmaid:memory_new_journey",
+      "title": "新的旅程",
+      "text": "先把书放进行囊。前面的路，慢慢走。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "领取手册",
+      "text": "第一次进入世界时，你会收到手册和“新的旅程”进度。更新前已经进入过世界的旅人，回来后也会收到。$(br2)重生时不会再发手册；丢失后可以重新合成。"
+    },
+    {
+      "type": "dragonmaid:memory_closer_companion",
+      "title": "更亲密的伙伴！",
+      "text": "它换了模样，你仍认得那双眼睛。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "首次化为人形",
+      "text": "给伙伴起好名字，等它长到三阶、知识累计达到300点。自己的龙第一次化作人形时，你会获得“更亲密的伙伴！”进度。$(br2)找一处开阔的地方，再看看它的新模样。"
+    },
+    {
+      "type": "dragonmaid:memory_maid_for_hunting",
+      "title": "为狩猎而生",
+      "text": "第一次并肩迎敌，也值得留下一页。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "首次人形狩猎",
+      "text": "自己的伙伴第一次以人形击杀怪物时，在线的你会获得“为狩猎而生”进度。爪击、龙息和元素球都可能留下这份纪念。$(br2)即使只是路上的一次遭遇，也值得记在书里。"
+    },
+    {
+      "type": "dragonmaid:memory_trinity_of_dragons",
+      "title": "三龙鼎立",
+      "text": "冰霜、火光与雷鸣，都有了可以并肩同行的身影。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "查看进度",
+      "text": "打开游戏的“进度”界面，就能回看这些时刻。书里也留着相应的纪念图。"
+    }
+  ]
+}

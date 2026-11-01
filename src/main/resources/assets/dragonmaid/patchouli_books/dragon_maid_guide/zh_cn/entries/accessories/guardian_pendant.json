@@ -1,0 +1,22 @@
+{
+  "name": "护佑吊坠",
+  "icon": "dragonmaid:guardian_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 10,
+  "advancement": "dragonmaid:book/guardian_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "护甲与误伤保护",
+      "item": "dragonmaid:guardian_pendant",
+      "link_recipe": false,
+      "text": "龙鳞能挡住许多攻击，却不容易分清混战中挥来的剑。这枚吊坠兼有护甲与防止主人误伤的效果。$(br2)两种形态均生效；护甲可与其他饰品叠加，相同的免误伤效果不能重复佩戴。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "吊坠的合成",
+      "recipe": "dragonmaid:guardian_pendant",
+      "text": "将$(l:dragonmaid:accessories/warding_emblem)护佑纹章$(/l)与$(l:dragonmaid:accessories/guardian_tag)守护铭牌$(/l)放入合成栏，位置随意。"
+    }
+  ]
+}

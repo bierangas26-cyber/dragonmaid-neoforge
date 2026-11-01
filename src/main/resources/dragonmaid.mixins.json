@@ -1,0 +1,49 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.example.dragonmaid.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "DragonChargeMixin",
+    "DragonDetailsMenuMixin",
+    "DragonForgeAccessor",
+    "DragonForgeBreathMixin",
+    "DragonForgeInputAccessor",
+    "DragonForgeInputMixin",
+    "DragonHornMixin",
+    "DragonInjuryMixin",
+    "DragonLogicMixin",
+    "DragonMenuAccessor",
+    "DragonMixin",
+    "DragonPartInjuryMixin",
+    "DragonRecallMixin",
+    "DragonVariantMixin",
+    "GorgonHeadPetrificationMixin",
+    "GorgonPetrificationMixin",
+    "HumanoidIdleLookBodyMixin",
+    "IceDragonWaterMixin",
+    "LivingDragonArmorMixin",
+    "RecallEntityManagerAccessor",
+    "RecallEntityMixin",
+    "RecallEntityStorageAccessor",
+    "RecallServerLevelAccessor",
+    "RecallTameMixin",
+    "StoneStatueItemMixin"
+  ],
+  "client": [
+    "client.DragonDetailsScreenMixin",
+    "client.HumanoidStatueMixin",
+    "client.JadeDragonArmorMixin",
+    "client.LightningMouthMixin",
+    "client.PatchouliBookTitleMixin",
+    "client.PatchouliEntryTitleMixin",
+    "client.RendererAccessor",
+    "client.ServiceDragonArmorMixin",
+    "client.StatueCompositeRenderTypeAccessor",
+    "client.StatueCompositeStateAccessor",
+    "client.StatueTextureStateInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

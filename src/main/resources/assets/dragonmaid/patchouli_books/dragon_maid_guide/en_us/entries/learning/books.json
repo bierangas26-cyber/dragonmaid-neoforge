@@ -1,0 +1,60 @@
+{
+  "name": "Lessons and Lore",
+  "icon": "minecraft:book",
+  "category": "dragonmaid:learning",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Learning Materials",
+      "text": "Under Knowledge Level, add a book, manuscript, or bottle o' enchanting and select Learn. Manuscripts teach more than books; bottles teach a little more than manuscripts.",
+      "item": "minecraft:book",
+      "link_recipe": false
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_02_reading.png",
+      "text": "A page to share."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Knowledge Level One",
+      "text": "Knowledge begins at level zero. At 300 accumulated knowledge XP, it automatically reaches $(bold)level one$(); no enchanted book is needed.$(br2)Give the dragon a name and wait for growth stage three, and it can attempt its $(l:dragonmaid:forms/transformation)first transformation$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Knowledge Level Two",
+      "text": "At 1,000 accumulated knowledge, add a non-cursed enchanted book and select Advance. $(bold)Knowledge level two$() unlocks the second accessory slot.$(br2)Advancing consumes the book, but does not spend knowledge."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Enchanted Book Learning",
+      "text": "At knowledge level one, non-cursed enchanted books can be placed in the learning slot. At level two, cursed books can be read too. More enchantments and higher levels usually bring more knowledge.$(br2)Learning and advancement use separate slots. Knowledge beyond the next goal is kept."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Using Wooden Doors",
+      "text": "At knowledge level two, a human-form companion can open and close wooden doors. If one leaf is too narrow and there is room, it can open both.$(br2)Leave room for its height and width; if it cannot fit, it will try another route."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Knowledge Level Three",
+      "text": "After level two, keep learning until 2,500 knowledge. Place two non-cursed enchanted books and one cursed enchanted book in their separate slots.$(br2)Advancing to level three unlocks the third accessory slot; knowledge is retained."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Books for Advancement",
+      "text": "Non-cursed books need enchantments and no curse. Cursed books go in the cursed slot; normal books do not count.$(br2)Any valid enchantment or level works; books can be identical. Each book counts once, even with several enchantments. Effects do not transfer."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Progression and Limits",
+      "text": "Reach 1,000 knowledge for level two, then 2,500 for level three. You can advance only one level at a time, so prepare the books for each step in order.$(br2)Level three is the current limit. The new slots let you adjust your $(l:dragonmaid:accessories/companions)accessory combination$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Knowledge and Growth",
+      "text": "Growth and knowledge are separate. Levels two and three do not require growth stages four or five. The $(l:dragonmaid:forms/transformation)first transformation$(/l) still needs a name, stage three, and knowledge level one (300 total XP).$(br2)Extra dragon storage and other future features are not available yet."
+    }
+  ]
+}

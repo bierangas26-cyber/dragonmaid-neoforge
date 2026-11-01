@@ -1,0 +1,31 @@
+{
+  "name": "Maid Dragon Armor",
+  "icon": "dragonmaid:service_dragon_armor_head",
+  "category": "dragonmaid:forms",
+  "sortnum": 5,
+  "advancement": "dragonmaid:book/service_dragon_armor",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "title": "Headpiece and Shoulders",
+      "recipe": "dragonmaid:service_dragon_armor_head",
+      "recipe2": "dragonmaid:service_dragon_armor_neck"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Headpiece and Shoulders",
+      "text": "The headpiece and shoulder armor offer protection like silver dragon armor for the road."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Outfit and Tail Armor",
+      "recipe": "dragonmaid:service_dragon_armor_body",
+      "recipe2": "dragonmaid:service_dragon_armor_tail"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Outfit and Tail Armor",
+      "text": "Put the dress and the leg-and-tail armor into their matching equipment slots."
+    }
+  ]
+}

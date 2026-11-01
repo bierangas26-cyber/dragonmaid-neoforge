@@ -1,0 +1,37 @@
+{
+  "name": "Recall Altar",
+  "icon": "dragonmaid:dragon_recall_altar",
+  "category": "dragonmaid:care",
+  "sortnum": 7,
+  "advancement": "dragonmaid:book/dragon_recall_altar",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Using the Altar",
+      "item": "dragonmaid:dragon_recall_altar",
+      "link_recipe": false,
+      "text": "Mountains may separate you, but a recall altar can guide your companion home.$(br2)Place it and right-click. Choose a dragon, check the cost, then confirm. Leave clear ground nearby for its arrival."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Altar",
+      "recipe": "dragonmaid:dragon_recall_altar",
+      "text": "Use any mix of fire, ice and lightning dragonforge bricks. The altar works as soon as it is placed."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The Dragon Roster",
+      "text": "The roster remembers your dragons once encountered: healthy, severely injured or petrified, in either form. They keep their names, growth, knowledge and belongings.$(br2)Permanently executed dragons no longer appear."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Recovering Your Dragon",
+      "text": "A recorded companion can return even if its horn is lost. Old horns and statues cannot release the same dragon again.$(br2)Carry an older horn briefly to register the companion inside."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Arrival and Costs",
+      "text": "Homecoming preserves injury or petrification. Feed meat to the injured, or use a $(l:care/petrification_remedy)Petrification Remedy$(/l) on stone. Hunger returns to 50.$(br2)Nearby recalls are free. Longer or cross-dimension trips cost your experience; check the quote first."
+    }
+  ]
+}

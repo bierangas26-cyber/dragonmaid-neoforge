@@ -1,0 +1,27 @@
+{
+  "name": "究极龙息强化装置",
+  "icon": "dragonmaid:ultimate_dragon_breath_device",
+  "category": "dragonmaid:accessories",
+  "sortnum": 9,
+  "advancement": "dragonmaid:book/ultimate_dragon_breath_device",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "综合吐息强化",
+      "item": "dragonmaid:ultimate_dragon_breath_device",
+      "link_recipe": false,
+      "text": "四件饰品汇成一枚装置。火龙、冰龙的人形战斗吐息更强，间隔更短；电龙的吐息更强，也更持久。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "装置的合成",
+      "recipe": "dragonmaid:ultimate_dragon_breath_device",
+      "text": "顶部中央放尖端放电装置。第二行从左到右依次放热腾腾的饮品、龙息强化纹章、冰凉凉的饮品；其余格子留空。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "适用龙种",
+      "text": "火龙、冰龙和电龙都能佩戴，只占一个饰品栏。出发前，记得给它留出位置。"
+    }
+  ]
+}

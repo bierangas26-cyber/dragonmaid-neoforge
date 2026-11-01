@@ -1,0 +1,27 @@
+{
+  "name": "Dragon Heart Necklace",
+  "icon": "dragonmaid:natural_dragon_heart_necklace",
+  "category": "dragonmaid:accessories",
+  "sortnum": 3,
+  "advancement": "dragonmaid:book/natural_dragon_heart_necklace",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "A Second Heart",
+      "item": "dragonmaid:natural_dragon_heart_necklace",
+      "link_recipe": false,
+      "text": "A dragon heart resonates like a second heart, drawing on nature's power to restore health slowly."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Necklace",
+      "recipe": "dragonmaid:natural_dragon_heart_necklace",
+      "text": "Name tag above, heart between two spore blossoms, dragon blood below. Heart and blood types may differ."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Healing Severe Injuries",
+      "text": "The heart works in either form. Recovery is slower during severe injury; once fully healed, the dragon sits and awaits a command.$(br2)Spore blossoms grow in lush caves."
+    }
+  ]
+}

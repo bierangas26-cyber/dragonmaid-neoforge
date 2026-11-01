@@ -1,0 +1,27 @@
+{
+  "name": "Ultimate Breath Device",
+  "icon": "dragonmaid:ultimate_dragon_breath_device",
+  "category": "dragonmaid:accessories",
+  "sortnum": 9,
+  "advancement": "dragonmaid:book/ultimate_dragon_breath_device",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Combined Breath Effects",
+      "item": "dragonmaid:ultimate_dragon_breath_device",
+      "link_recipe": false,
+      "text": "Four accessories become one. Fire and ice breath is stronger and quicker; lightning breath is stronger and lasts longer."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Device",
+      "recipe": "dragonmaid:ultimate_dragon_breath_device",
+      "text": "Top: Lightning Discharge Device. Middle, left to right: Steaming Drink, Dragon Breath Emblem, Icy Drink."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Compatible Dragon Types",
+      "text": "Fire, ice, and lightning dragons can all wear it, using one accessory slot. Make room for it before setting out."
+    }
+  ]
+}

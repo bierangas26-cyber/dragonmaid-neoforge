@@ -1,0 +1,22 @@
+{
+  "name": "Warding Pendant",
+  "icon": "dragonmaid:guardian_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 10,
+  "advancement": "dragonmaid:book/guardian_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Armor and Protection",
+      "item": "dragonmaid:guardian_pendant",
+      "link_recipe": false,
+      "text": "Armor and protection from its owner's attacks, in either form. Armor stacks; owner-damage protection does not."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Pendant",
+      "recipe": "dragonmaid:guardian_pendant",
+      "text": "Place a $(l:dragonmaid:accessories/warding_emblem)Warding Emblem$(/l) and a $(l:dragonmaid:accessories/guardian_tag)Guardian Tag$(/l) anywhere in the crafting grid."
+    }
+  ]
+}

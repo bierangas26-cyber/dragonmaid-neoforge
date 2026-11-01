@@ -1,0 +1,39 @@
+{
+  "name": "Shape and Attire",
+  "icon": "minecraft:iron_chestplate",
+  "category": "dragonmaid:forms",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Forms and Growth",
+      "text": "Fire, ice, and lightning dragons of both sexes have human forms at stages three to five, retaining their colors.$(br2)Their form changes with growth. Size and knowledge grow separately; growing alone cannot teach transformation."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_04_growth.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Building for a Dragon",
+      "text": "A dragon grows even after folding its wings. Leave enough room for doorways and ceilings when building its home."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Armor and Banners",
+      "text": "Change armor and accessories in Dragon Equipment. Silver, copper, and $(l:dragonmaid:forms/service_armor)Maid Dragon Armor$(/l) have their own looks; tail armor moves with the tail.$(br2)A banner retains its colors and pattern, and equipment stays through transformation."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Maid Dragon Armor",
+      "item": "dragonmaid:service_dragon_armor_body",
+      "link_recipe": false,
+      "text": "Maid dragon armor protects like silver armor. Craft four pieces from leather horse armor in the usual patterns. See the $(l:dragonmaid:forms/service_armor)patterns$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Poses and Injury",
+      "text": "Different types and sexes have their own human sitting, standing, sleeping, and waking poses; tails move while swimming.$(br2)Faint breathing means an injured dragon is alive. At full health it sits and waits for a command."
+    }
+  ]
+}

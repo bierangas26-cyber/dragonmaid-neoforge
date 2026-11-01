@@ -1,0 +1,27 @@
+{
+  "name": "Discharge Device",
+  "icon": "dragonmaid:lightning_discharge_device",
+  "category": "dragonmaid:accessories",
+  "sortnum": 6,
+  "advancement": "dragonmaid:book/lightning_discharge_device",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "A Copper Spark",
+      "item": "dragonmaid:lightning_discharge_device",
+      "link_recipe": false,
+      "text": "For lightning dragons: boosts direct human-form combat breath damage with gathered sparks."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Device",
+      "recipe": "dragonmaid:lightning_discharge_device",
+      "text": "Place the copper block in the center, with a copper ingot on either side. Put the chain above it and the lightning rod below; leave the corners empty."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Lightning Accessory",
+      "text": "Only a lightning dragon can wear this device. Place it in your companion's accessory slot before setting out."
+    }
+  ]
+}

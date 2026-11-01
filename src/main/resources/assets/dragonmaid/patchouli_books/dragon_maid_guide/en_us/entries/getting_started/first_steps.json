@@ -1,0 +1,28 @@
+{
+  "name": "A Dragon at Your Side",
+  "icon": "dragonmaid:dragon_maid_guide",
+  "category": "dragonmaid:getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Meet Your Companion",
+      "text": "A tamed dragon can travel with you and learn from books. Once named and grown, it can fold its wings and join you in another form.$(br2)These pages help you care for fire, ice, and lightning companions."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_01_departure.png",
+      "text": "Before we go."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Preparing to Transform",
+      "text": "Name your dragon, reach stage three and 300 knowledge, then try human form.$(br2)Stand close, empty both hands, Shift-right-click, and add materials under Knowledge Level. Keep $(l:dragonmaid:learning/books)reading and advancing$(/l) to unlock more accessory slots."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Finding the Right Chapter",
+      "text": "Before setting out, read $(l:dragonmaid:behavior/commands)The Keeper's Commands$(/l). To travel in another shape, turn to $(l:dragonmaid:forms/transformation)Taking Human Form$(/l).$(br2)If your companion falls, read $(l:dragonmaid:care/injury)Wounds and Stone$(/l): a severe injury can still heal."
+    }
+  ]
+}

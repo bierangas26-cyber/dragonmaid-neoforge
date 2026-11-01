@@ -1,0 +1,6 @@
+{
+  "parent": "iceandfire:item/dragon_horn_ice",
+  "textures": {
+    "layer0": "dragonmaid:item/reinforced_dragon_horn_ice"
+  }
+}

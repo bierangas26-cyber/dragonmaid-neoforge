@@ -1,0 +1,27 @@
+{
+  "name": "龙魂号角",
+  "icon": "dragonmaid:reinforced_dragon_horn",
+  "category": "dragonmaid:care",
+  "sortnum": 5,
+  "advancement": "dragonmaid:book/reinforced_dragon_horn",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "号角的掉落保护",
+      "item": "dragonmaid:reinforced_dragon_horn",
+      "link_recipe": false,
+      "text": "长途跋涉时，号角也可能落进火里或掉出悬崖。用龙鳞、金锭和末影之眼升级龙吟号角，就能制成更牢靠的龙魂号角。$(br2)掉落的龙魂号角不怕火焰、岩浆、爆炸和仙人掌，也不会随时间自然消失。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "升级龙吟号角",
+      "recipe": "dragonmaid:reinforced_dragon_horn",
+      "text": "号角放中央，金锭放在四边，末影之眼放上方两角，龙鳞放下方两角；两片龙鳞可以混色。$(br2)空号角和装着龙的号角都能升级，名字、成长、知识与穿戴都会保留。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "找回掉落的号角",
+      "text": "号角落进岩浆会浮起，坠入虚空则会回升，停在世界底部附近。$(br2)取回后对地面使用，即可放出其中的龙。重伤的伙伴仍不能收入号角，需要留在外面接受照料。"
+    }
+  ]
+}

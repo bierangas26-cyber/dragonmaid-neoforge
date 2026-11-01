@@ -1,0 +1,48 @@
+{
+  "name": "随行的饰品",
+  "icon": "dragonmaid:guardian_tag",
+  "category": "dragonmaid:accessories",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "查看装备",
+      "text": "双手空着，潜行右键龙，就能查看它的状态。铠甲与饰品收在“龙的装备”里；想让它学习，可以打开“知识等级”。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "解锁饰品栏",
+      "text": "龙的装备中留有三格饰品位。知识达到一级、二级、三级时，栏位由上而下依次解锁。$(br2)还没解开第一格，就先翻开$(l:dragonmaid:learning/books)龙的学识$(/l)。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_11_companions.png",
+      "text": "戴好铭牌，一起走吧。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "随身装备与储物",
+      "text": "饰品戴在龙身上，换形、休息或进入号角时都会留下。第一次准备装备，可以从$(l:dragonmaid:accessories/guardian_tag)守护铭牌$(/l)开始。$(br2)目前龙没有额外储物空间，旅途上的补给还得放在你的背包里。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "防护与恢复",
+      "text": "$(l:dragonmaid:accessories/warding_emblem)护佑纹章$(/l)增加护甲；$(l:dragonmaid:accessories/natural_dragon_heart_necklace)自然龙心项链$(/l)帮助恢复生命。$(l:dragonmaid:accessories/dragon_heart_emblem_necklace)龙心纹章项链$(/l)兼有两者的效果。$(br2)获得任一配方材料，就能解锁相应的饰品页。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "强化吐息",
+      "text": "$(l:dragonmaid:accessories/dragon_breath_emblem)龙息强化纹章$(/l)能改善人形战斗吐息。火龙和冰龙的两次吐息间隔更短，电龙的吐息则更持久。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "龙种专属饰品",
+      "text": "为电龙准备$(l:dragonmaid:accessories/lightning_discharge_device)尖端放电装置$(/l)，为火龙准备$(l:dragonmaid:accessories/steaming_drink)热腾腾的饮品$(/l)，为冰龙准备$(l:dragonmaid:accessories/icy_drink)冰凉凉的饮品$(/l)。$(br2)它们只能给对应龙种使用，增强人形战斗吐息的直接伤害。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "组合饰品与叠加规则",
+      "text": "$(l:dragonmaid:accessories/ultimate_dragon_breath_device)究极龙息强化装置$(/l)将四件吐息饰品的效果汇入一格，三种龙都能佩戴。$(br2)护甲加成可以叠加；其他相同增益的饰品不能同时佩戴。"
+    }
+  ]
+}

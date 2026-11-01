@@ -1,0 +1,37 @@
+{
+  "name": "龙召回台",
+  "icon": "dragonmaid:dragon_recall_altar",
+  "category": "dragonmaid:care",
+  "sortnum": 7,
+  "advancement": "dragonmaid:book/dragon_recall_altar",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "使用召回台",
+      "item": "dragonmaid:dragon_recall_altar",
+      "link_recipe": false,
+      "text": "有时隔着山海，有时连随身的号角也遗落了。留下一座召回台，便给伙伴留了一条回家的路。$(br2)放下后右键打开名册，选中自己的龙，查看费用，再确认召回。台旁记得留出落脚的空地。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "召回台的合成",
+      "recipe": "dragonmaid:dragon_recall_altar",
+      "text": "底层铺三块龙息炉砖，中层以龙骨块夹住三龙宝石，顶部中央放下界之星。火、冰、雷炉砖可以混用。$(br2)召回台放下即可使用。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "龙的名册",
+      "text": "名册记着已经遇见的、属于你的龙。健康的伙伴、重伤后仍在坚持的伙伴，以及凝在石中的伙伴，都能被呼唤回来；龙形和人形皆可。$(br2)它们带着原来的姓名、成长、知识和随身装备归来。已被介错、彻底离去的龙不会再出现在名册里。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "找回号角中的龙",
+      "text": "只要名册已经留下记录，装着伙伴的号角遗失了，也能从这里接它回来。$(br2)一次归来，只会有一位伙伴。旧号角或旧石像若再次找到，便不能再放出同一条龙。旧号角随身携带片刻，名册也会补记其中的伙伴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "召回费用与后续照料",
+      "text": "归来不会抹去伤势，也不会解除石化。为重伤的伙伴准备肉食；石中的伙伴仍要借助$(l:care/petrification_remedy)解石药剂$(/l)。召回后饥饿度回到50。$(br2)近处的呼唤不收费用，远行与跨维度则需要经验点。名册会在确认前给出报价；这是玩家的经验，不是龙的知识。"
+    }
+  ]
+}

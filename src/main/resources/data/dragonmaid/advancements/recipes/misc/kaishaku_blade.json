@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dragonbone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["iceandfire:dragonbone"] }] }
+    },
+    "has_dragon_scales": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "tag": "iceandfire:scales/dragon" }] }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": { "recipe": "dragonmaid:kaishaku_blade" }
+    }
+  },
+  "requirements": [["has_dragonbone", "has_dragon_scales", "has_the_recipe"]],
+  "rewards": { "recipes": ["dragonmaid:kaishaku_blade"] }
+}

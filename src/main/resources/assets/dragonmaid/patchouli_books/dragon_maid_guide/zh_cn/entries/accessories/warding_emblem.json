@@ -1,0 +1,27 @@
+{
+  "name": "护佑纹章",
+  "icon": "dragonmaid:warding_emblem",
+  "category": "dragonmaid:accessories",
+  "sortnum": 2,
+  "advancement": "dragonmaid:book/warding_emblem",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "铁铸的纹章",
+      "item": "dragonmaid:warding_emblem",
+      "link_recipe": false,
+      "text": "为龙佩戴护佑纹章，可以增加护甲；随着龙迈入新的生长阶段，护甲加成也会增强。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "纹章的合成",
+      "recipe": "dragonmaid:warding_emblem",
+      "text": "在工作台中央放命名牌，上、下、左、右各放一个铁块，四角留空。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "两种形态均可使用",
+      "text": "纹章在龙形与人形下都能生效。若担心混战时误伤伙伴，还可以看看$(l:dragonmaid:accessories/guardian_tag)守护铭牌$(/l)。"
+    }
+  ]
+}

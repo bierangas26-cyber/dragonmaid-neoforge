@@ -1,0 +1,23 @@
+{
+  "name": "涉水与潜游",
+  "icon": "minecraft:water_bucket",
+  "category": "dragonmaid:forms",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "水中呼吸",
+      "text": "冰龙在水中和在岸上一样能够呼吸。人形时，它会潜水游荡，也会在守护时跟着你游向水底。$(br2)火龙和电龙需要浮出水面换气。带它们过河时，记得留一条上浮的路。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_05_underwater.png",
+      "text": "河底也有同行的光。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "潜水与跟随",
+      "text": "游荡或守护时，冰龙会自己沿着水路行动；守护时，它也会跟随水中的主人，不必另下潜水命令。$(br2)浮在水面时，它会安静地待着；潜下去后，手臂和尾巴都能帮它游动。"
+    }
+  ]
+}

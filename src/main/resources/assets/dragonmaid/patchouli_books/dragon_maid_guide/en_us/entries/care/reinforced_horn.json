@@ -1,0 +1,27 @@
+{
+  "name": "Dragon Soul Horn",
+  "icon": "dragonmaid:reinforced_dragon_horn",
+  "category": "dragonmaid:care",
+  "sortnum": 5,
+  "advancement": "dragonmaid:book/reinforced_dragon_horn",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Horn Protection",
+      "item": "dragonmaid:reinforced_dragon_horn",
+      "link_recipe": false,
+      "text": "A Dragon Soul Horn resists fire, lava, explosions, cacti, and natural despawning. Upgrade a Dragon Horn to make one."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Upgrading a Horn",
+      "recipe": "dragonmaid:reinforced_dragon_horn",
+      "text": "Horn center; gold on four sides; Eyes of Ender above, scales below, in the corners. Scales may differ; filled horns retain their dragon's data."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Recovering a Dropped Horn",
+      "text": "A horn dropped in lava floats; one falling into the void rises back and waits near the world's bottom.$(br2)Retrieve it and use it on the ground to release the dragon. A severely injured companion still cannot enter the horn and needs care outside it."
+    }
+  ]
+}

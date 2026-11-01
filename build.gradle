@@ -1,0 +1,169 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+version = project.mod_version
+group = 'com.example.dragonmaid'
+
+base {
+    archivesName = 'dragonmaid-neoforge-1.21.1'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+neoForge {
+    version = project.neoforge_version
+
+    runs {
+        server {
+            server()
+            gameDirectory = file('run/server')
+            programArguments.addAll '--nogui'
+            jvmArguments.addAll '-Xms1G', '-Xmx2G', '-Dfile.encoding=UTF-8'
+        }
+    }
+
+    mods {
+        dragonmaid {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    // External mod APIs compiled against (runtime provided by the live-server mods folder)
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+    options.compilerArgs << '-Xmaxerrs' << '5000'
+}
+
+
+tasks.named('jar', Jar) {
+    manifest {
+        attributes([
+            'Implementation-Title'  : 'dragonmaid',
+            'Implementation-Version': project.version,
+            'MixinConfigs'          : 'dragonmaid.mixins.json'
+        ])
+    }
+}
+
+tasks.register('jarInfo') {
+    dependsOn tasks.named('jar')
+    doLast {
+        def f = tasks.named('jar').get().archiveFile.get().asFile
+        println "[dragonmaid] jar = ${f}  size = ${f.length()}"
+    }
+}
+
+// ---------------------------------------------------------------------------
+// P0: 1.21 data-pack folder aliases.
+// 1.20.1 used plural data/<ns>/advancements|recipes|loot_tables|tags/items|...
+// 1.21 renamed those folders to singular.  The original files stay byte for
+// byte; we additionally emit byte-identical copies under the 1.21 names so the
+// mod data actually loads on 1.21.1.
+// ---------------------------------------------------------------------------
+def DATA_DIR_RENAMES = ['advancements':'advancement', 'recipes':'recipe', 'loot_tables':'loot_table',
+                        'predicates':'predicate', 'item_modifiers':'item_modifier', 'functions':'function',
+                        'structures':'structure']
+def TAG_DIR_RENAMES = ['blocks':'block', 'items':'item', 'entity_types':'entity_type', 'fluids':'fluid',
+                       'game_events':'game_event', 'functions':'function']
+
+tasks.named('processResources', ProcessResources) {
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand 'version': project.version
+    }
+    doLast {
+        def dataRoot = new File(destinationDir, 'data')
+        if (!dataRoot.exists()) {
+            return
+        }
+        int copied = 0
+        dataRoot.eachDir { nsDir ->
+            DATA_DIR_RENAMES.each { oldName, newName ->
+                def src = new File(nsDir, oldName)
+                def dst = new File(nsDir, newName)
+                if (src.isDirectory()) {
+                    project.copy { from src; into dst }
+                    copied += src.listFiles().size()
+                }
+            }
+            def tagsRoot = new File(nsDir, 'tags')
+            if (tagsRoot.isDirectory()) {
+                TAG_DIR_RENAMES.each { oldName, newName ->
+                    def src = new File(tagsRoot, oldName)
+                    def dst = new File(tagsRoot, newName)
+                    if (src.isDirectory()) {
+                        project.copy { from src; into dst }
+                        copied += src.listFiles().size()
+                    }
+                }
+            }
+        }
+        // 1.21.1 serialises ItemStacks with "id" instead of 1.20.1 "item" inside result/icon objects.
+        // Only the generated 1.21 alias copies are rewritten; the original 1.20.1 files stay byte identical.
+        int rewritten = 0
+        dataRoot.eachDir { nsDir ->
+            ['recipe', 'advancement'].each { dirName ->
+                def dir = new File(nsDir, dirName)
+                if (!dir.isDirectory()) {
+                    return
+                }
+                dir.eachFileRecurse { f ->
+                    if (f.isFile() && f.name.endsWith('.json')) {
+                        def text = f.getText('UTF-8')
+                        def newText = text.replaceAll(/(?s)("result"\s*:\s*\{\s*)"item"/, '$1"id"')
+                                          .replaceAll(/(?s)("icon"\s*:\s*\{\s*)"item"/, '$1"id"')
+                        if (newText != text) {
+                            f.setText(newText, 'UTF-8')
+                            rewritten++
+                        }
+                    }
+                }
+            }
+        }
+        println "[dragonmaid] rewrote " + rewritten + " 1.21 alias json files (item->id)"
+        println "[dragonmaid] emitted " + copied + " 1.21 data-pack alias entries"
+    }
+}
+
+// Exclusions are maintained in excluded.txt so the build owner can progressively
+// re-enable ported sources without editing this file.
+sourceSets {
+    main {
+        java {
+            def exclFile = file('excluded.txt')
+            if (exclFile.exists()) {
+                exclFile.readLines().each { line ->
+                    def name = line.trim()
+                    if (name) {
+                        exclude name
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.register('buildInfo') {
+    dependsOn tasks.named('jar')
+    doLast {
+        def f = tasks.named('jar').get().archiveFile.get().asFile
+        println "[dragonmaid] jar = " + f + "  size = " + f.length()
+        def exclFile = file('excluded.txt')
+        def count = exclFile.exists() ? exclFile.readLines().count { it.trim() } : 0
+        println "[dragonmaid] excluded sources = " + count
+    }
+}

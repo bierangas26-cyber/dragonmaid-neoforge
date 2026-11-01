@@ -1,0 +1,399 @@
+{
+  "schema": "dragonmaid.chestplate.uv-profiles.v1",
+  "revision": "male-base-v3",
+  "cube_order": [
+    "lower_breast",
+    "breast_front",
+    "upper_breast"
+  ],
+  "profiles": {
+    "minecraft_64x32": {
+      "texture_width": 64,
+      "texture_height": 32,
+      "cube_faces": {
+        "lower_breast": {
+          "north": {
+            "uv": [
+              21.12,
+              23.9557064
+            ],
+            "uv_size": [
+              5.76,
+              2.8525016
+            ]
+          },
+          "south": {
+            "uv": [
+              21.12,
+              23.9557064
+            ],
+            "uv_size": [
+              5.76,
+              2.8525016
+            ]
+          },
+          "east": {
+            "uv": [
+              16.125,
+              23.9557064
+            ],
+            "uv_size": [
+              3.75,
+              2.8525016
+            ]
+          },
+          "west": {
+            "uv": [
+              16.125,
+              23.9557064
+            ],
+            "uv_size": [
+              3.75,
+              2.8525016
+            ]
+          },
+          "up": {
+            "uv": [
+              20.875,
+              23.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          },
+          "down": {
+            "uv": [
+              20.875,
+              23.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          }
+        },
+        "breast_front": {
+          "north": {
+            "uv": [
+              21.1304348,
+              23.36527
+            ],
+            "uv_size": [
+              5.7391304,
+              0.6470606
+            ]
+          },
+          "south": {
+            "uv": [
+              21.1304348,
+              23.36527
+            ],
+            "uv_size": [
+              5.7391304,
+              0.6470606
+            ]
+          },
+          "east": {
+            "uv": [
+              16.125,
+              23.36527
+            ],
+            "uv_size": [
+              3.75,
+              0.6470606
+            ]
+          },
+          "west": {
+            "uv": [
+              16.125,
+              23.36527
+            ],
+            "uv_size": [
+              3.75,
+              0.6470606
+            ]
+          },
+          "up": {
+            "uv": [
+              20.875,
+              23.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          },
+          "down": {
+            "uv": [
+              20.875,
+              23.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          }
+        },
+        "upper_breast": {
+          "north": {
+            "uv": [
+              21.1252174,
+              23.125
+            ],
+            "uv_size": [
+              5.7495652,
+              0.2905821
+            ]
+          },
+          "south": {
+            "uv": [
+              21.1252174,
+              23.125
+            ],
+            "uv_size": [
+              5.7495652,
+              0.2905821
+            ]
+          },
+          "east": {
+            "uv": [
+              16.125,
+              23.125
+            ],
+            "uv_size": [
+              3.75,
+              0.2905821
+            ]
+          },
+          "west": {
+            "uv": [
+              16.125,
+              23.125
+            ],
+            "uv_size": [
+              3.75,
+              0.2905821
+            ]
+          },
+          "up": {
+            "uv": [
+              20.875,
+              23.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          },
+          "down": {
+            "uv": [
+              20.875,
+              23.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          }
+        }
+      },
+      "base_geometry_profile": "vanilla_box",
+      "mapping": "Original captured Body front UV interpolation; independent original .6 / .45 base extents. Front extension upper V clamped to opaque V=23.125 for Minecraft, V=22.125 for IAF; original neck cutout remains on base. Pixel coordinates, normalize by actual 64x32 or 64x64. Unchanged base rendered separately."
+    },
+    "iaf_metal_64x64": {
+      "texture_width": 64,
+      "texture_height": 64,
+      "cube_faces": {
+        "lower_breast": {
+          "north": {
+            "uv": [
+              21.0229213,
+              23.9081647
+            ],
+            "uv_size": [
+              5.9541573,
+              2.9188389
+            ]
+          },
+          "south": {
+            "uv": [
+              21.0229213,
+              23.9081647
+            ],
+            "uv_size": [
+              5.9541573,
+              2.9188389
+            ]
+          },
+          "east": {
+            "uv": [
+              16.125,
+              23.9081647
+            ],
+            "uv_size": [
+              3.75,
+              2.9188389
+            ]
+          },
+          "west": {
+            "uv": [
+              16.125,
+              23.9081647
+            ],
+            "uv_size": [
+              3.75,
+              2.9188389
+            ]
+          },
+          "up": {
+            "uv": [
+              20.875,
+              22.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          },
+          "down": {
+            "uv": [
+              20.875,
+              22.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          }
+        },
+        "breast_front": {
+          "north": {
+            "uv": [
+              21.0337079,
+              23.3039972
+            ],
+            "uv_size": [
+              5.9325843,
+              0.6621086
+            ]
+          },
+          "south": {
+            "uv": [
+              21.0337079,
+              23.3039972
+            ],
+            "uv_size": [
+              5.9325843,
+              0.6621086
+            ]
+          },
+          "east": {
+            "uv": [
+              16.125,
+              23.3039972
+            ],
+            "uv_size": [
+              3.75,
+              0.6621086
+            ]
+          },
+          "west": {
+            "uv": [
+              16.125,
+              23.3039972
+            ],
+            "uv_size": [
+              3.75,
+              0.6621086
+            ]
+          },
+          "up": {
+            "uv": [
+              20.875,
+              22.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          },
+          "down": {
+            "uv": [
+              20.875,
+              22.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          }
+        },
+        "upper_breast": {
+          "north": {
+            "uv": [
+              21.0283146,
+              22.125
+            ],
+            "uv_size": [
+              5.9433708,
+              1.2304793
+            ]
+          },
+          "south": {
+            "uv": [
+              21.0283146,
+              22.125
+            ],
+            "uv_size": [
+              5.9433708,
+              1.2304793
+            ]
+          },
+          "east": {
+            "uv": [
+              16.125,
+              22.125
+            ],
+            "uv_size": [
+              3.75,
+              1.2304793
+            ]
+          },
+          "west": {
+            "uv": [
+              16.125,
+              22.125
+            ],
+            "uv_size": [
+              3.75,
+              1.2304793
+            ]
+          },
+          "up": {
+            "uv": [
+              20.875,
+              22.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          },
+          "down": {
+            "uv": [
+              20.875,
+              22.125
+            ],
+            "uv_size": [
+              6.25,
+              0.75
+            ]
+          }
+        }
+      },
+      "base_geometry_profile": "silver",
+      "mapping": "Original captured Body front UV interpolation; independent original .6 / .45 base extents. Front extension upper V clamped to opaque V=23.125 for Minecraft, V=22.125 for IAF; original neck cutout remains on base. Pixel coordinates, normalize by actual 64x32 or 64x64. Unchanged base rendered separately."
+    }
+  }
+}

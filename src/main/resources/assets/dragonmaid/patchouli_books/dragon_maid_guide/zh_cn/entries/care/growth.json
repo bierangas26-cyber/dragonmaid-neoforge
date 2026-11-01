@@ -1,0 +1,25 @@
+{
+  "name": "喂养与成长",
+  "icon": "iceandfire:dragon_meal",
+  "category": "dragonmaid:care",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "喂食与成长",
+      "text": "不管是龙形还是人形，伙伴的生命、饥饿和年龄都是同一份。带好它爱吃的食物，旅途中记得喂养。$(br2)重伤时，成长会暂时停下。先陪它$(l:dragonmaid:care/injury)把伤养好$(/l)，以后还有时间慢慢长大。",
+      "item": "iceandfire:dragon_meal",
+      "link_recipe": false
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_08_feeding.png",
+      "text": "先吃一口，再走下一程。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "自然落鳞",
+      "text": "家养龙长到125天后，无论自然成长还是吃龙食长大，都会落下与自己颜色相同的鳞片。龙形和人形都一样。$(br2)路上拾到的鳞，可以收好，留待制作物品时使用。"
+    }
+  ]
+}

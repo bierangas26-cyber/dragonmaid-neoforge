@@ -1,0 +1,22 @@
+{
+  "name": "龙息与炉火",
+  "icon": "minecraft:furnace",
+  "category": "dragonmaid:care",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "炉口的龙息",
+      "text": "龙息不只用来迎敌。长到三阶的家养人形龙，也能为对应属性的龙锻炉供能。先搭好炉子、放入材料，再带它来到输入口旁。$(br2)让它游荡、普通坐下，或在你附近跟随，嘴部靠近输入口，前方不要有遮挡。火龙、冰龙和电龙分别对应各自属性的炉子。"
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_10_forge.png"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "供能中断时",
+      "text": "遇到危险、困了或受伤时，伙伴会暂停供能。如果它一直坐着，也请检查材料、成品出口，以及它和炉口的距离。$(br2)刚康复的伙伴会等你重新下达指令。"
+    }
+  ]
+}

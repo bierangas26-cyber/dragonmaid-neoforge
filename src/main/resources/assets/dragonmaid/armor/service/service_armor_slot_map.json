@@ -1,0 +1,418 @@
+{
+  "schema": "dragonmaid.service-armor.slot-map.v1",
+  "event": "A-20261011-SERVICE-06",
+  "executor": "ART-TAIL-01/CONTRACT-REVIEW",
+  "texture_size": [
+    128,
+    128
+  ],
+  "slots": [
+    {
+      "inventory_slot": 1,
+      "iaf_dragon_slot": 0,
+      "bones": [
+        "Head"
+      ]
+    },
+    {
+      "inventory_slot": 2,
+      "iaf_dragon_slot": 1,
+      "bones": [
+        "Right Arm",
+        "Left Arm",
+        "arm_lower_right",
+        "arm_lower_left",
+        "hand_right",
+        "hand_left"
+      ]
+    },
+    {
+      "inventory_slot": 3,
+      "iaf_dragon_slot": 2,
+      "bones": [
+        "Body"
+      ]
+    },
+    {
+      "inventory_slot": 4,
+      "iaf_dragon_slot": 3,
+      "bones": [
+        "Right Leg",
+        "Left Leg",
+        "leg_lower_right",
+        "leg_lower_left",
+        "foot_right",
+        "foot_left"
+      ]
+    }
+  ],
+  "tail_armor": {
+    "inventory_slot": 4,
+    "mode": "existing_dynamic_overlay",
+    "bones": [
+      "tail_1",
+      "tail_2",
+      "tail_3",
+      "tail_4",
+      "tail_5",
+      "tail_6"
+    ],
+    "new_tail_geometry": false,
+    "note": "保留现有六段尾甲动态覆盖，本提取不生成替代尾甲。"
+  },
+  "models": [
+    {
+      "sex": "female",
+      "source": "女型SERVICE-07候选/审阅/女仆装-SERVICE07-完整审阅.bbmodel",
+      "source_sha256": "757aea92572f3184e982a924682db25fd9ade602d49d1b03f5409d1c21b09752",
+      "model": "service_female_armor.bbmodel",
+      "model_sha256": "e17c0d57b1c9a495a5b3770b2ddd3c8979a6ded88c949c908ed65ec6527b29ee",
+      "texture": "service_female_armor_128.png",
+      "texture_sha256": "795f74c70de31189fba5061ba5c1cbe05b30208829f2e87a6942422e2bdebca8",
+      "group_count": 53,
+      "element_count": 33,
+      "cube_slots": [
+        {
+          "uuid": "a23c8489-cb0a-2100-9e64-46017c6a6d4f",
+          "name": "service_f_bodice_closed",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "6196b960-9845-98fd-188a-c5ce4781910a",
+          "name": "service_f_front_lower",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "a8d4193f-c1d6-c62c-135a-16366da55ab0",
+          "name": "service_f_front_middle",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "226a0484-4f9c-7322-240e-7b31f46dd605",
+          "name": "service_f_front_upper",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "5700defa-2dbe-68c5-19d1-bab94c8001b7",
+          "name": "service_f_collar_right",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "bcc30a4e-7d1a-9f54-3d68-a696fe88d0f4",
+          "name": "service_f_collar_left",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "1701bab9-32cd-40f3-68ae-0629646dafa6",
+          "name": "service_f_brooch",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "a1d261a8-c36c-bfb3-9c8a-bf3029474bad",
+          "name": "service_f_ribbon_right",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "1731f8a3-9b25-9679-fe56-1ece6fc69844",
+          "name": "service_f_ribbon_left",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "4cebbaf4-5f31-6dfb-f5e4-3418ab4553ce",
+          "name": "service_f_headband",
+          "bone": "Head",
+          "inventory_slot": 1
+        },
+        {
+          "uuid": "fe844e55-d180-e89d-9910-9e7f52561923",
+          "name": "service_f_sleeve_core_right",
+          "bone": "Right Arm",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "4d04b209-0886-4c34-bc49-7a1bab07fcea",
+          "name": "service_f_cuff_right",
+          "bone": "arm_lower_right",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "2b7ad055-569a-b704-f644-3ad855acbd95",
+          "name": "service_f_stocking_calf_right",
+          "bone": "leg_lower_right",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "779e3fc2-aeea-6556-a9e0-d3ba7812942f",
+          "name": "service_f_shoe_right",
+          "bone": "foot_right",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "18aa37dd-ca9b-e9af-0755-1b8aabd50d68",
+          "name": "service_f_skirt_front_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "9096cc5c-fbca-f3e5-3b85-c57dc767ec11",
+          "name": "service_f_skirt_back_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "0f712a8d-5bc3-efb9-4c49-d89eb659c20d",
+          "name": "service_f_skirt_side_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "0599d0dd-590d-2272-0e86-feb8616df9f6",
+          "name": "service_f_apron_front_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "73c80f95-417c-7463-cdf8-a58b14a191c5",
+          "name": "service_f_belt_bow_right",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "d7f78b67-4963-e964-5247-fa10530d8432",
+          "name": "service_f_sleeve_core_left",
+          "bone": "Left Arm",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "5485de7c-0dca-8d84-9ba1-30920099805c",
+          "name": "service_f_cuff_left",
+          "bone": "arm_lower_left",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "52c75afa-01bf-987b-9f75-1d2a60d99ba4",
+          "name": "service_f_stocking_calf_left",
+          "bone": "leg_lower_left",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "10054d73-8bbb-f1eb-09d3-74134fb00f1c",
+          "name": "service_f_shoe_left",
+          "bone": "foot_left",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "78b8acd2-2663-f355-bf45-6828198f2e79",
+          "name": "service_f_skirt_front_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "00050bbf-2bad-1dd2-bd5b-78ac18cdc80c",
+          "name": "service_f_skirt_back_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "5e2c7874-adcb-fcfc-9fd7-a237bcaaf33f",
+          "name": "service_f_skirt_side_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "e8b6a05f-e9e3-ac31-7a79-60564112f262",
+          "name": "service_f_apron_front_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "3828a8b9-6748-4fed-5c42-e3ab994a9661",
+          "name": "service_f_belt_bow_left",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "978a0d2d-9045-4c00-788b-01db349b7646",
+          "name": "service_f_head_frill",
+          "bone": "Head",
+          "inventory_slot": 1
+        },
+        {
+          "uuid": "f02c9238-366d-f049-4319-2ce0fd85933d",
+          "name": "service_f_head_frill_right",
+          "bone": "Head",
+          "inventory_slot": 1
+        },
+        {
+          "uuid": "d02ab32d-67a6-ba08-61d8-cd04744a60ef",
+          "name": "service_f_head_frill_left",
+          "bone": "Head",
+          "inventory_slot": 1
+        },
+        {
+          "uuid": "49db5991-07da-dd56-3a9a-23b65ec7d464",
+          "name": "service_f_apron_frill_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "72c37d36-25e3-f95f-0cc5-f163151943bc",
+          "name": "service_f_apron_frill_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        }
+      ]
+    },
+    {
+      "sex": "male",
+      "source": "审阅/男仆装-火龙雄性三阶.bbmodel",
+      "source_sha256": "d7f6c1eb11c88cb54b26cf250be849e763d007cd6cd800111b6ce77986f882dd",
+      "model": "service_male_armor.bbmodel",
+      "model_sha256": "cfabe2bcd596240ddc8bca64329b57758d29cc0f5100109d961804828d130612",
+      "texture": "service_male_armor_128.png",
+      "texture_sha256": "a612cd850536e3b4b42a15c8644eafe3471ae375a20b87f6f50afa5da57c3308",
+      "group_count": 52,
+      "element_count": 20,
+      "cube_slots": [
+        {
+          "uuid": "6c00ab5c-41ae-738d-4615-519cd6ed6da1",
+          "name": "service_m_shirt_closed",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "4eb0c0d0-a609-90c4-db17-b9a89f123ba0",
+          "name": "service_m_collar_right",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "5f0bbba2-0d4e-1adb-3780-b42c4ea0a674",
+          "name": "service_m_collar_left",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "537c86fc-2d4d-cdaa-7d39-b0a2eaa4a641",
+          "name": "service_m_bow_right",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "55b95e6c-5e1e-3c46-e56f-21a37d437013",
+          "name": "service_m_bow_left",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "bedd30d7-7199-85d2-3e63-5bd0113ee3e3",
+          "name": "service_m_bow_knot",
+          "bone": "Body",
+          "inventory_slot": 3
+        },
+        {
+          "uuid": "24e52421-87d2-c9bc-8954-d4bc2093eab8",
+          "name": "service_m_cap_crown",
+          "bone": "Head",
+          "inventory_slot": 1
+        },
+        {
+          "uuid": "a8ade3e8-ed01-9114-2998-d5c162ff471e",
+          "name": "service_m_cap_band",
+          "bone": "Head",
+          "inventory_slot": 1
+        },
+        {
+          "uuid": "e6c5e1d7-0646-4720-e5e0-c9a0cc0c832e",
+          "name": "service_m_shirt_upper_right",
+          "bone": "Right Arm",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "9461be82-5368-a839-99cf-4d0ec230cfea",
+          "name": "service_m_cuff_right",
+          "bone": "Right Arm",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "76810782-f6fa-f3a1-59ab-9002ba33776f",
+          "name": "service_m_trouser_thigh_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "e711801d-cbf8-3352-14d9-092f057dfc1c",
+          "name": "service_m_trouser_calf_right",
+          "bone": "leg_lower_right",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "68656623-794e-e5f6-ae2f-7a45c04ad5d0",
+          "name": "service_m_dress_shoe_right",
+          "bone": "foot_right",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "c0f9239c-7a8c-fe3e-ace2-5862771c1e90",
+          "name": "service_m_split_coattail_right",
+          "bone": "Right Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "d67d7acc-c142-e98f-1fbe-a9f72fa4c328",
+          "name": "service_m_shirt_upper_left",
+          "bone": "Left Arm",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "1c74df18-f314-5656-4f6e-8b8398582e2d",
+          "name": "service_m_cuff_left",
+          "bone": "Left Arm",
+          "inventory_slot": 2
+        },
+        {
+          "uuid": "435d7eda-aadd-6de3-167b-c63e78a1c743",
+          "name": "service_m_trouser_thigh_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "bdeea87a-1def-5b18-7382-c48f8918b0de",
+          "name": "service_m_trouser_calf_left",
+          "bone": "leg_lower_left",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "eed290f5-e3e7-2372-ce45-7f34ee4aca21",
+          "name": "service_m_dress_shoe_left",
+          "bone": "foot_left",
+          "inventory_slot": 4
+        },
+        {
+          "uuid": "13f0f535-6aa5-ad35-a407-409e8405a075",
+          "name": "service_m_split_coattail_left",
+          "bone": "Left Leg",
+          "inventory_slot": 4
+        }
+      ]
+    }
+  ],
+  "status": {
+    "main_project_applied": false,
+    "game_verified": false
+  },
+  "female_release": {
+    "event": "A-20261022-SERVICE07-FEMALE",
+    "approval_event": "A-20261022-SERVICE07-ACCEPT",
+    "source_directory": "女型SERVICE-07候选"
+  }
+}

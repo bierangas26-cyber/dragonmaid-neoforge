@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "dragonmaid:item/natural_dragon_heart_necklace"
+  }
+}

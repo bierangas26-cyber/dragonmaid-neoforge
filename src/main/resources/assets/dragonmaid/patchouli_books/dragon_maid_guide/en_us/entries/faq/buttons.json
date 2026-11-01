@@ -1,0 +1,23 @@
+{
+  "name": "When Plans Go Awry",
+  "icon": "minecraft:paper",
+  "category": "dragonmaid:faq",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "The Dragon Panel",
+      "text": "Your companion's panel has Details, Dragon Equipment, and Knowledge Level tabs. The current tab is dimmed; select another to switch.$(br2)Accessory slots unlock at knowledge levels one, two, and three. Read $(l:dragonmaid:learning/books)Lessons and Lore$(/l) for advancement."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Unable to Transform",
+      "text": "Name the dragon, reach stage three and 300 knowledge, land, and end riding. Try the transformation button in an open space.$(br2)Study with books, manuscripts, or bottles o' enchanting."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Where to Find Help",
+      "text": "For injury or stone, read $(l:dragonmaid:care/injury)Wounds and Stone$(/l) and $(l:dragonmaid:care/injury#petrification)the remedy pages$(/l). Furnace trouble? See $(l:dragonmaid:care/forge)At the Dragonforge$(/l); swimming? See $(l:dragonmaid:forms/water)Beneath the Surface$(/l).$(br2)Empty hands: Shift-right-click for the panel; right-click to change behavior."
+    }
+  ]
+}

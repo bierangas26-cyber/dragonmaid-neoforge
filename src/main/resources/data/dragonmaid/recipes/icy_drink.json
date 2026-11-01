@@ -1,0 +1,24 @@
+{
+  "type": "dragonmaid:vertical_accessory",
+  "category": "misc",
+  "pattern": [
+    "A",
+    "B",
+    "C"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:powder_snow_bucket"
+    },
+    "B": {
+      "item": "minecraft:blue_ice"
+    },
+    "C": {
+      "item": "iceandfire:dragon_ice_spikes"
+    }
+  },
+  "result": {
+    "item": "dragonmaid:icy_drink",
+    "count": 1
+  }
+}

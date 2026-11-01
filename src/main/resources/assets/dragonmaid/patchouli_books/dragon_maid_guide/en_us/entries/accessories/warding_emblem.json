@@ -1,0 +1,27 @@
+{
+  "name": "Warding Emblem",
+  "icon": "dragonmaid:warding_emblem",
+  "category": "dragonmaid:accessories",
+  "sortnum": 2,
+  "advancement": "dragonmaid:book/warding_emblem",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Wrought in Iron",
+      "item": "dragonmaid:warding_emblem",
+      "link_recipe": false,
+      "text": "A Warding Emblem grants armor, and its protection strengthens as the dragon reaches new growth stages."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Emblem",
+      "recipe": "dragonmaid:warding_emblem",
+      "text": "A central name tag, surrounded above, below, left, and right by four iron blocks; leave corners empty."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Protection in Both Forms",
+      "text": "The emblem works in both forms. If you worry about accidentally hitting your companion in a fight, take a look at the $(l:dragonmaid:accessories/guardian_tag)Guardian Tag$(/l) too."
+    }
+  ]
+}

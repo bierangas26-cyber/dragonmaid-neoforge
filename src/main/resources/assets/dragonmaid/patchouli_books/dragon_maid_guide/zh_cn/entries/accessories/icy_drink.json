@@ -1,0 +1,27 @@
+{
+  "name": "冰凉凉的饮品",
+  "icon": "dragonmaid:icy_drink",
+  "category": "dragonmaid:accessories",
+  "sortnum": 8,
+  "advancement": "dragonmaid:book/icy_drink",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "杯里的细雪",
+      "item": "dragonmaid:icy_drink",
+      "link_recipe": false,
+      "text": "蓝冰与细雪封在杯中，龙霜刺斜倚杯沿。将它放进冰龙的饰品栏，可增强人形战斗吐息的直接伤害。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "饮品的合成",
+      "recipe": "dragonmaid:icy_drink",
+      "text": "将细雪桶、蓝冰和龙霜刺各一个放进工作台同一竖列，上下顺序任意。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "佩戴方式",
+      "text": "这杯饮品是只有冰龙能装备的饰品。即使身处暖地，杯沿也留着一层薄霜。"
+    }
+  ]
+}

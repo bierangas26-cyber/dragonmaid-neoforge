@@ -1,0 +1,48 @@
+{
+  "name": "The Keeper's Commands",
+  "icon": "minecraft:compass",
+  "category": "dragonmaid:behavior",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Wander, Rest, and Guard",
+      "text": "Empty hands, right-click a healthy human dragon:$(br2)Wander: roam and fight.$(br)Rest: defend self, owner, pets; then rest.$(br)Guard: follow and watch for enemies.$(br2)Mode shown on screen; no staff needed."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_06_campfire.png",
+      "text": "A pause by the fire."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Interaction Controls",
+      "text": "With both hands empty, Shift-right-click to open your companion's panel. A normal right-click cycles Wander, Rest, and Guard.$(br2)Hold the appropriate item to feed it or use a horn or staff. Dragon form retains the original staff and riding controls."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Following the Owner",
+      "text": "While guarding, your companion stays near you. Without enemies it follows you, and if left too far behind it finds safe ground near you to teleport to.$(br2)Look back while crossing forests or walls and leave it a clear path."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Setting a Home",
+      "text": "As owner, Shift-right-click your dragon with a dragon staff to set or clear home.$(br2)In Wander, it stays nearby and tries to return for sleep at its usual hour. Guard and Rest take priority; if blocked, it may rest where it is when conditions allow."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Sleep and Waking",
+      "text": "Fire and ice dragons usually sleep at night; lightning dragons often doze during the day. A guarding companion stays awake for you.$(br2)A named, tamed dragon at stage three with 300 knowledge can also wake when it or its owner in the same dimension is hurt."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "After Recovery",
+      "text": "If your companion sits after reaching full health, it is waiting for your next command.$(br2)In human form, right-click with empty hands; in dragon form, use a dragon staff. Set out together when ready."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Avoiding Hazards",
+      "text": "The three dragon types choose different paths. Fire dragons tolerate lava but avoid dragon ice spikes; ice dragons cross those spikes but avoid lava. Lightning dragons are wary of both.$(br2)Keep an eye on the ground when traveling through dangerous places."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Beneath the Surface",
+  "icon": "minecraft:water_bucket",
+  "category": "dragonmaid:forms",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Breathing Underwater",
+      "text": "Ice dragons can breathe underwater as easily as on land. In human form they explore underwater and, while guarding, follow their owner beneath the surface.$(br2)Fire and lightning dragons must surface to breathe. Leave them a way up when crossing water."
+    },
+    {
+      "type": "dragonmaid:illustration_scene",
+      "image": "dragonmaid:textures/gui/book/illustrations/scene_05_underwater.png",
+      "text": "Light follows us beneath the river."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Underwater Movement",
+      "text": "When wandering or guarding, an ice dragon finds its own way through water. It also follows an owner who dives while guarding, with no separate dive command.$(br2)At the surface it floats calmly; underwater, its arms and tail help it swim."
+    }
+  ]
+}

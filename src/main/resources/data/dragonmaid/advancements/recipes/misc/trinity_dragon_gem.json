@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dragon_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:summoning_crystal_fire",
+              "iceandfire:summoning_crystal_ice",
+              "iceandfire:summoning_crystal_lightning"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": { "recipe": "dragonmaid:trinity_dragon_gem" }
+    }
+  },
+  "requirements": [["has_dragon_gem", "has_the_recipe"]],
+  "rewards": { "recipes": ["dragonmaid:trinity_dragon_gem"] }
+}
