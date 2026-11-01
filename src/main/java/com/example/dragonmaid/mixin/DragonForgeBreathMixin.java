@@ -5,6 +5,7 @@ import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.item.block.entity.DragonForgeInputBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +21,9 @@ public abstract class DragonForgeBreathMixin {
             value = "INVOKE",
             target = "Lcom/iafenvoy/iceandfire/item/block/entity/DragonForgeInputBlockEntity;onHitWithFlame(Lnet/minecraft/world/entity/LivingEntity;)V"
             ))
-    private static void dragonmaid$youngForgeHit(DragonForgeInputBlockEntity input, Level level, boolean canBreakBlocks, DragonBaseEntity dragon, BlockPos pos) {
+    private static void dragonmaid$youngForgeHit(
+        DragonForgeInputBlockEntity input, LivingEntity attacker, Level level, DragonBaseEntity dragon, boolean canBreakBlocks, BlockPos pos
+    ) {
         ForgeCooperation.fuelNative(input, dragon);
     }
 
@@ -30,7 +33,14 @@ public abstract class DragonForgeBreathMixin {
             target = "Lcom/iafenvoy/iceandfire/item/block/entity/DragonForgeInputBlockEntity;onHitWithFlame(Lnet/minecraft/world/entity/LivingEntity;)V"
             ))
     private static void dragonmaid$adultForgeHit(
-        DragonForgeInputBlockEntity input, Level level, boolean canBreakBlocks, BlockPos center, float radiusSquared, DragonBaseEntity dragon, BlockPos pos
+        DragonForgeInputBlockEntity input,
+        LivingEntity attacker,
+        Level level,
+        DragonBaseEntity dragon,
+        boolean canBreakBlocks,
+        BlockPos center,
+        float radiusSquared,
+        BlockPos pos
     ) {
         ForgeCooperation.fuelNative(input, dragon);
     }
