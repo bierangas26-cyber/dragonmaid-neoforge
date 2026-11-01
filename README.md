@@ -9,7 +9,7 @@
 | 渠道 | 链接 | 状态 |
 |---|---|---|
 | GitHub Release | [v1.1.0-beta.2-neoforge.1](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.1.0-beta.2-neoforge.1) | ✅ 可用 |
-| CurseForge | [Dragon Maid Companion: NeoForge 1.21.1](https://www.curseforge.com/minecraft/mc-mods/dragon-maid-companion-neoforge-1-21-1) | ⏳ 审核中（新项目首次提交需人工审核） |
+| CurseForge | [Dragon Maid Companion: NeoForge 1.21.1](https://www.curseforge.com/minecraft/mc-mods/dragon-maid-companion-neoforge) | ⏳ 审核中（新项目首次提交需人工审核） |
 
 最终发布 jar：`dragonmaid-neoforge-1.21.1-1.1.0-beta.2.jar`
 size `6,813,542 B` / sha256 `3106289AE919B5A0C6341E13358E6C51771A0376812FDEFFA33C57BE312C6843`
