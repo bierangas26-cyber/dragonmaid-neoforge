@@ -4,6 +4,16 @@
 > **本仓库**：1.20.1 Forge → **Minecraft 1.21.1 / NeoForge 21.1.264** 的社区移植
 > **性质**：非官方、**非盈利**、仅供个人与免费整合包使用。
 
+## 下载
+
+| 渠道 | 链接 | 状态 |
+|---|---|---|
+| GitHub Release | [v1.1.0-beta.2-neoforge.1](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.1.0-beta.2-neoforge.1) | ✅ 可用 |
+| CurseForge | [Dragon Maid Companion: NeoForge 1.21.1](https://www.curseforge.com/minecraft/mc-mods/dragon-maid-companion-neoforge-1-21-1) | ⏳ 审核中（新项目首次提交需人工审核） |
+
+最终发布 jar：`dragonmaid-neoforge-1.21.1-1.1.0-beta.2.jar`
+size `6,813,542 B` / sha256 `3106289AE919B5A0C6341E13358E6C51771A0376812FDEFFA33C57BE312C6843`
+
 ## 授权说明
 
 本移植已获得原作者许可，并同意**公开发布**（含 CurseForge 等平台，免费分发）。原作者会在其原 mod 页面同步本社区移植的下载链接。使用本仓库即表示你同意：
