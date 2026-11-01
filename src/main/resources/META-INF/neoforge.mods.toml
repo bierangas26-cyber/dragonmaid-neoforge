@@ -48,3 +48,9 @@ Ported for local use only, not for redistribution.'''
     versionRange="[1.21,)"
     ordering="AFTER"
     side="BOTH"
+
+# Mixin configs must be declared here as well: the "MixinConfigs" jar-manifest attribute is only
+# read from an actual jar, so a development run (classpath directory) would otherwise start with
+# no dragonmaid mixins at all.
+[[mixins]]
+    config="dragonmaid.mixins.json"

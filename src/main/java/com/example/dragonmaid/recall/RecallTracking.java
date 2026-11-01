@@ -32,8 +32,6 @@ public final class RecallTracking {
     public static final String GENERATION = "DragonMaidRecallGeneration";
     public static final String TOKEN = "DragonMaidRecallToken";
     public static final String DRAGON = "DragonMaidRecallDragon";
-    private static final org.slf4j.Logger LOGGER = com.mojang.logging.LogUtils.getLogger();
-    private static final Map<UUID, Long> LOG_AT = new java.util.concurrent.ConcurrentHashMap<>();
     private static final Map<MinecraftServer, Map<UUID, DragonBaseEntity>> DIRTY = new WeakHashMap<>();
     private static final Map<MinecraftServer, Map<UUID, Entity>> JOIN_RECOVERY = new WeakHashMap<>();
 
@@ -51,12 +49,13 @@ public final class RecallTracking {
 
     public static void stamp(Entity entity, RecallLedger.Entry entry) {
         stampData(entity.getPersistentData(), entry);
+        }
     }
 
     public static void stamp(CompoundTag snapshot, RecallLedger.Entry entry) {
-        CompoundTag compoundtag = snapshot.getCompound("ForgeData");
+        CompoundTag compoundtag = snapshot.getCompound("NeoForgeData");
         stampData(compoundtag, entry);
-        snapshot.put("ForgeData", compoundtag);
+        snapshot.put("NeoForgeData", compoundtag);
     }
 
     private static void stampData(CompoundTag data, RecallLedger.Entry entry) {
@@ -65,12 +64,31 @@ public final class RecallTracking {
         data.putUUID("DragonMaidRecallDragon", entry.dragon());
     }
 
+    /** True when the entity carries a recall token at all (valid or stale). */
+    public static boolean hasToken(Entity entity) {
+        return entity.getPersistentData().hasUUID("DragonMaidRecallToken");
+    }
+
+    /**
+     * Heal a dragon that has no recall token yet (old save / summoned dragon / entry imported from
+     * the ledger). Never overwrites an existing token: mismatched tokens still fail verification.
+     */
+    public static boolean stampIfMissing(Entity entity, RecallLedger.Entry entry) {
+        if (hasToken(entity)) {
+            return matches(entity, entry);
+        }
+
+        stamp(entity, entry);
+        boolean ok = matches(entity, entry);
+        return ok;
+    }
+
     public static boolean matches(Entity entity, RecallLedger.Entry entry) {
         return matchesData(entity.getPersistentData(), entry);
     }
 
     public static boolean matches(CompoundTag snapshot, RecallLedger.Entry entry) {
-        return matchesData(snapshot.getCompound("ForgeData"), entry);
+        return matchesData(snapshot.getCompound("NeoForgeData"), entry);
     }
 
     private static boolean matchesData(CompoundTag data, RecallLedger.Entry entry) {
@@ -97,7 +115,6 @@ public final class RecallTracking {
     }
 
     public static void changed(DragonBaseEntity dragon) {
-        dragonmaid$logChanged(dragon);
         if (dragon.level() instanceof ServerLevel serverlevel && supported(dragon)) {
             DIRTY.computeIfAbsent(serverlevel.getServer(), ignored -> new HashMap<>()).put(dragon.getUUID(), dragon);
         }
@@ -162,8 +179,6 @@ public final class RecallTracking {
     @SubscribeEvent
     public static void section(EnteringSection event) {
         if (event.didChunkChange() && event.getEntity() instanceof DragonBaseEntity entitydragonbase) {
-            LOGGER.info("[recall-dbg] EnteringSection hit uuid={} pos={} dim={}",
-                entitydragonbase.getUUID(), entitydragonbase.blockPosition(), entitydragonbase.level().dimension().location());
             changed(entitydragonbase);
         }
     }
@@ -235,7 +250,6 @@ public final class RecallTracking {
 
             Map<UUID, DragonBaseEntity> map1 = DIRTY.remove(event.getServer());
             if (map1 != null) {
-                LOGGER.info("[recall-dbg] flush tick={} dirtySize={}", event.getServer().getTickCount(), map1.size());
                 for (DragonBaseEntity entitydragonbase : map1.values()) {
                     Level level1 = entitydragonbase.level();
                     if (level1 instanceof ServerLevel) {
@@ -323,20 +337,5 @@ public final class RecallTracking {
         }
 
         return false;
-    }
-
-    private static void dragonmaid$logChanged(DragonBaseEntity dragon) {
-        long now = System.currentTimeMillis();
-        Long last = LOG_AT.get(dragon.getUUID());
-        if (last != null && now - last < 1000L) {
-            return;
-        }
-
-        LOG_AT.put(dragon.getUUID(), now);
-        LOGGER.info("[recall-dbg] changed uuid={} pos={} dim={} inLevel={}",
-            dragon.getUUID(),
-            dragon.blockPosition(),
-            dragon.level().dimension().location(),
-            dragon.level() instanceof ServerLevel serverlevel && serverlevel.getEntity(dragon.getUUID()) == dragon);
     }
 }

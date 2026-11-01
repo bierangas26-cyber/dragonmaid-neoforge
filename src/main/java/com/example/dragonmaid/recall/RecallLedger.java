@@ -153,6 +153,15 @@ public final class RecallLedger extends SavedData {
                     return recallledger$entry1;
                 }
             } else {
+                if (recallledger$entry != null
+                    && recallledger$entry.state() == RecallLedger.State.WORLD
+                    && !this.pending.containsKey(recallledger$entry.dragon())
+                    && !RecallTracking.hasToken(dragon)) {
+                    // Entry exists but the entity never got stamped (old save / imported entry):
+                    // heal it once so recall verification can succeed again.
+                    RecallTracking.stampIfMissing(dragon, recallledger$entry);
+                }
+
                 return recallledger$entry;
             }
         } else {

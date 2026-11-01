@@ -1033,8 +1033,20 @@ public final class RecallService {
         } else {
             for (ServerLevel serverlevel : server.getAllLevels()) {
                 Entity entity = serverlevel.getEntity(uuid);
-                if (entity != null && !entity.isRemoved() && RecallTracking.matches(entity, entry)) {
-                    return entity;
+                if (entity != null && !entity.isRemoved()) {
+                    if (RecallTracking.matches(entity, entry)) {
+                        return entity;
+                    }
+
+                    // Old saves / RCON-summoned dragons may predate the recall token. Heal the token
+                    // (never overwrite an existing one) and accept the entity for this recall.
+                    if (entry.state() == RecallLedger.State.WORLD
+                        && entity instanceof com.iafenvoy.iceandfire.entity.DragonBaseEntity
+                        && !RecallTracking.hasToken(entity)) {
+                        if (RecallTracking.stampIfMissing(entity, entry)) {
+                            return entity;
+                        }
+                    }
                 }
             }
 

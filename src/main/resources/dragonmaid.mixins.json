@@ -25,7 +25,6 @@
     "LivingDragonArmorMixin",
     "RecallEntityManagerAccessor",
     "RecallEntityMixin",
-    "RecallEntityStorageAccessor",
     "RecallServerLevelAccessor",
     "RecallTameMixin",
     "StoneStatueItemMixin"
