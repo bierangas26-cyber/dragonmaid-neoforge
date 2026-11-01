@@ -20,6 +20,8 @@
 - **召回号角收据丢失**：`StackNbt.getTag()` 返回副本 → 改用 `getOrCreateTag()` 回写；并加与普通号角的互斥检查
 - **石化雕像数据**：旧 `IAFStoneStatueNBT` → IAF CE `STONE_STATUS` 组件
 - **附魔书知识升级无效**：1.21 用 `STORED_ENCHANTMENTS` 组件 → 已适配（之前所有附魔书判非法、0 经验）
+- **龙炉吐息 mixin 签名错误**：`DragonForgeBreathMixin` 的两个 `@Redirect` handler 参数顺序与 IAF CE 的 lambda 签名不符 → 首次加载 `IafDragonDestructionManager` 时 mixin apply **FATAL**；已按 javap 实证签名修正（龙区域吐息路径恢复，24 个 main mixin 全部加载成功）
+- **石化全流程验证**：蛇发女妖之头（gorgon head）→ 龙变石像 → 石化解药恢复（名字/血量/主人保留）；创造模式不消耗解药（设计如此）
 
 ### 召回系统全面修复（5 层，本轮重点）
 
