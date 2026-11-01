@@ -1,0 +1,24 @@
+{
+  "type": "dragonmaid:dragon_breath_emblem",
+  "category": "misc",
+  "pattern": [
+    " N ",
+    "BDB",
+    " B "
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:name_tag"
+    },
+    "D": {
+      "item": "minecraft:dragon_breath"
+    },
+    "B": {
+      "tag": "iceandfire:dragon_bloods"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:dragon_breath_emblem",
+    "count": 1
+  }
+}

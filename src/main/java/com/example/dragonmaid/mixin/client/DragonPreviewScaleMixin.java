@@ -39,7 +39,10 @@ public abstract class DragonPreviewScaleMixin extends AbstractContainerScreen<Dr
     private float dragonmaid$scaleHumanoidPreview(float scale) {
         DragonBaseEntity dragon = this.menu == null ? null : this.menu.getDragon();
         if (dragon != null && DragonForms.isHumanoid(dragon)) {
-            float factor = Mth.clamp(dragon.getBbHeight() / 1.9F, 1.0F, 12.0F);
+            // Measured on the live build: IAF's dragon-tuned preview scale renders the humanoid model at
+            // roughly 10x20 px. Humanoid models are ~7x shorter than the dragon models this scale targets,
+            // so multiply by 7 (height ratio keeps the per-species adaptivity).
+            float factor = Mth.clamp(dragon.getBbHeight() / 1.9F, 1.0F, 1.6F) * 7.0F;
             return scale * factor;
         }
         return scale;

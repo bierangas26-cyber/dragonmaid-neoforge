@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "has_warding_emblem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:warding_emblem"
+            ]
+          }
+        ]
+      }
+    },
+    "has_guardian_tag": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:guardian_tag"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_warding_emblem",
+      "has_guardian_tag"
+    ]
+  ]
+}

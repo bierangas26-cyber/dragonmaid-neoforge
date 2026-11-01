@@ -1,0 +1,62 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_name_tag": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:name_tag"
+            ]
+          }
+        ]
+      }
+    },
+    "has_dragon_breath": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dragon_breath"
+            ]
+          }
+        ]
+      }
+    },
+    "has_dragon_blood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:fire_dragon_blood",
+              "iceandfire:ice_dragon_blood",
+              "iceandfire:lightning_dragon_blood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:dragon_breath_emblem"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_name_tag",
+      "has_dragon_breath",
+      "has_dragon_blood",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:dragon_breath_emblem"
+    ]
+  }
+}

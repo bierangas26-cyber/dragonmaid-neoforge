@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dragonmaid:warding_emblem"
+    },
+    {
+      "item": "dragonmaid:guardian_tag"
+    }
+  ],
+  "result": {
+    "id": "dragonmaid:guardian_pendant",
+    "count": 1
+  }
+}

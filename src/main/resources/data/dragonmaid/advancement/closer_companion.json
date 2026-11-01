@@ -1,0 +1,23 @@
+{
+  "parent": "dragonmaid:root",
+  "display": {
+    "icon": {
+      "id": "dragonmaid:guardian_tag"
+    },
+    "title": {
+      "translate": "advancement.dragonmaid.closer_companion.title"
+    },
+    "description": {
+      "translate": "advancement.dragonmaid.closer_companion.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "completed": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

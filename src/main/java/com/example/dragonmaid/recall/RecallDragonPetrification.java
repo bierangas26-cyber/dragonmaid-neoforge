@@ -8,6 +8,8 @@ import com.example.dragonmaid.petrification.DragonDepetrifiedEvent;
 import com.example.dragonmaid.petrification.PetrificationLedger;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.StoneStatueEntity;
+import com.iafenvoy.iceandfire.item.component.StoneStatusComponent;
+import com.iafenvoy.iceandfire.registry.IafDataComponents;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.world.DragonPosWorldData;
 import com.mojang.logging.LogUtils;
@@ -544,7 +546,9 @@ public final class RecallDragonPetrification {
         } else {
             ItemStack itemstack = context.getItemInHand();
             if (!itemstack.isEmpty() && player.getItemInHand(context.getHand()) == itemstack) {
-                CompoundTag compoundtag = StackNbt.getOrCreateTag(itemstack).getCompound("IAFStoneStatueNBT");
+                // 1.21.1: the statue payload is an IafDataComponents.STONE_STATUS component now.
+                StoneStatusComponent stoneStatus = itemstack.get(IafDataComponents.STONE_STATUS.get());
+                CompoundTag compoundtag = stoneStatus == null ? new CompoundTag() : stoneStatus.nbt().copy();
                 CompoundTag compoundtag1 = compoundtag.getCompound("StatueEntityTag").getCompound("DragonMaidPetrification");
                 if (compoundtag1.hasUUID("Dragon") && compoundtag1.hasUUID("Token")) {
                     PetrificationLedger.Entry petrificationledger$entry = PetrificationLedger.get(serverlevel).entry(compoundtag1.getUUID("Dragon"));
@@ -604,7 +608,11 @@ public final class RecallDragonPetrification {
                                         compoundtag1.putLong("RecallGeneration", recallledger$entry.generation());
                                         compoundtag1.putUUID("RecallToken", recallledger$entry.token());
                                         compoundtag.getCompound("StatueEntityTag").put("DragonMaidPetrification", compoundtag1);
-                                        StackNbt.getOrCreateTag(itemstack).put("IAFStoneStatueNBT", compoundtag);
+                                        // 1.21.1: write the refreshed payload back into the data component.
+                                        itemstack.set(
+                                            IafDataComponents.STONE_STATUS.get(),
+                                            new StoneStatusComponent(stoneStatus.isPlayer(), stoneStatus.entityType(), compoundtag)
+                                        );
                                     }
 
                                     boolean flag = recallledger$entry != null && recallledger.reserve(petrificationledger$entry.dragon());

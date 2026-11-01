@@ -13,11 +13,13 @@ import java.util.function.Predicate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NumericTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.core.registries.BuiltInRegistries;
 import com.example.dragonmaid.compat.StackNbt;
 import com.example.dragonmaid.compat.Enchants;
@@ -107,12 +109,41 @@ public final class KnowledgeUpgrades {
         return !stack.isEmpty() && (stack.is(Items.ENCHANTED_BOOK) || BOOK_CARRIERS.containsKey(stack.getItem()));
     }
 
+    /**
+     * 1.21.1 port: enchanted books keep their enchantments in the STORED_ENCHANTMENTS data component.
+     * The 1.20.1 code read a "StoredEnchantments" ListTag out of the item tag (now custom_data), which
+     * no longer exists, so every enchanted book was rejected / gave 0 learning XP. Rebuild the legacy
+     * list shape so the existing parsing below stays untouched.
+     */
+    private static ListTag storedEnchantments(ItemStack stack) {
+        ItemEnchantments enchantments = stack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
+        if (enchantments.isEmpty()) {
+            return null;
+        }
+
+        ListTag listtag = new ListTag();
+
+        for (var entry : enchantments.entrySet()) {
+            ResourceLocation resourcelocation = entry.getKey().unwrapKey().map(key -> key.location()).orElse(null);
+            if (resourcelocation == null) {
+                continue;
+            }
+
+            CompoundTag compoundtag = new CompoundTag();
+            compoundtag.putString("id", resourcelocation.toString());
+            compoundtag.putInt("lvl", entry.getIntValue());
+            listtag.add(compoundtag);
+        }
+
+        return listtag.isEmpty() ? null : listtag;
+    }
+
     static int bookLearningExperience(ItemStack stack, int knowledgeLevel) {
         if (knowledgeLevel >= 1 && isBookCandidate(stack)) {
             ListTag listtag;
             if (stack.is(Items.ENCHANTED_BOOK)) {
-                CompoundTag compoundtag = StackNbt.getTag(stack);
-                if (compoundtag == null || !(compoundtag.get("StoredEnchantments") instanceof ListTag listtag1)) {
+                ListTag listtag1 = storedEnchantments(stack);
+                if (listtag1 == null) {
                     return 0;
                 }
 
@@ -196,13 +227,9 @@ public final class KnowledgeUpgrades {
         } else {
             ListTag listtag;
             if (stack.is(Items.ENCHANTED_BOOK)) {
-                CompoundTag compoundtag = StackNbt.getTag(stack);
-                if (compoundtag == null || !compoundtag.contains("StoredEnchantments")) {
+                ListTag listtag1 = storedEnchantments(stack);
+                if (listtag1 == null) {
                     return KnowledgeUpgrades.BookKind.INVALID;
-                }
-
-                if (!(compoundtag.get("StoredEnchantments") instanceof ListTag listtag1)) {
-                    return KnowledgeUpgrades.BookKind.UNKNOWN;
                 }
 
                 listtag = listtag1;

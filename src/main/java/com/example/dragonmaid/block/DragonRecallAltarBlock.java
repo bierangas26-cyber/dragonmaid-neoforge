@@ -10,6 +10,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -40,33 +43,56 @@ public final class DragonRecallAltarBlock extends Block {
         super(Properties.of().mapColor(MapColor.STONE).strength(4.0F, 12.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion());
     }
 
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return OUTLINE_SHAPE;
     }
 
+    @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return COLLISION_SHAPE;
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (player.isSpectator()) {
-            return InteractionResult.PASS;
-        } else {
-            if (player instanceof ServerPlayer serverplayer) {
-                NetworkHooks.openScreen(
-                    serverplayer,
-                    new SimpleMenuProvider(
-                        (id, inventory, ignored) -> new RecallMenu(id, inventory, pos), Component.translatable("screen.dragonmaid.recall.title")
-                    ),
-                    pos
-                );
-            }
-
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
+    /** 1.21.1: the old use(state, level, pos, player, hand, hit) signature no longer overrides anything. */
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return openRecallScreen(level, pos, player);
     }
 
-    public void appendHoverText(ItemStack stack, BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+                                              InteractionHand hand, BlockHitResult hit) {
+        // Let block placement win when the player is holding a block; every other held item opens the altar.
+        if (stack.getItem() instanceof BlockItem) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        InteractionResult result = openRecallScreen(level, pos, player);
+        return result.consumesAction()
+            ? ItemInteractionResult.sidedSuccess(level.isClientSide)
+            : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    private InteractionResult openRecallScreen(Level level, BlockPos pos, Player player) {
+        if (player.isSpectator()) {
+            return InteractionResult.PASS;
+        }
+
+        if (player instanceof ServerPlayer serverplayer) {
+            NetworkHooks.openScreen(
+                serverplayer,
+                new SimpleMenuProvider(
+                    (id, inventory, ignored) -> new RecallMenu(id, inventory, pos), Component.translatable("screen.dragonmaid.recall.title")
+                ),
+                pos
+            );
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("tooltip.dragonmaid.dragon_recall_altar"));
     }
 }

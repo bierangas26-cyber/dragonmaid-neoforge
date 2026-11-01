@@ -47,9 +47,11 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.core.registries.BuiltInRegistries;
 import org.slf4j.Logger;
 
+@EventBusSubscriber(modid = "dragonmaid")
 public final class RecallService {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final ResourceLocation ALTAR = ResourceLocation.fromNamespaceAndPath("dragonmaid", "dragon_recall_altar");

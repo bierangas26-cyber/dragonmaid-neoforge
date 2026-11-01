@@ -1,0 +1,10 @@
+{
+  "type": "dragonmaid:kaishaku_blade",
+  "category": "misc",
+  "pattern": [" B", "S "],
+  "key": {
+    "B": { "item": "iceandfire:dragonbone" },
+    "S": { "tag": "iceandfire:scales/dragon" }
+  },
+  "result": { "id": "dragonmaid:kaishaku_blade", "count": 1 }
+}

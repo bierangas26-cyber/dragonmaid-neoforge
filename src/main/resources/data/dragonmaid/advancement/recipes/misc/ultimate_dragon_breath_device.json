@@ -1,0 +1,73 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dragon_breath_emblem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:dragon_breath_emblem"
+            ]
+          }
+        ]
+      }
+    },
+    "has_lightning_discharge_device": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:lightning_discharge_device"
+            ]
+          }
+        ]
+      }
+    },
+    "has_steaming_drink": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:steaming_drink"
+            ]
+          }
+        ]
+      }
+    },
+    "has_icy_drink": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:icy_drink"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:ultimate_dragon_breath_device"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dragon_breath_emblem",
+      "has_lightning_discharge_device",
+      "has_steaming_drink",
+      "has_icy_drink",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:ultimate_dragon_breath_device"
+    ]
+  }
+}

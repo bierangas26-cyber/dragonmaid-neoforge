@@ -1,0 +1,23 @@
+{
+  "parent": "dragonmaid:closer_companion",
+  "display": {
+    "icon": {
+      "id": "dragonmaid:trinity_dragon_gem"
+    },
+    "title": {
+      "translate": "advancement.dragonmaid.trinity_of_dragons.title"
+    },
+    "description": {
+      "translate": "advancement.dragonmaid.trinity_of_dragons.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "completed": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

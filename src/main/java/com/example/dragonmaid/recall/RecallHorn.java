@@ -2,6 +2,7 @@ package com.example.dragonmaid.recall;
 
 import com.example.dragonmaid.data.HumanoidLife;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
+import com.iafenvoy.iceandfire.registry.IafDataComponents;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.item.DragonHornItem;
 import java.util.UUID;
@@ -53,6 +54,7 @@ public final class RecallHorn {
                 || entitydragonbase.isModelDead()
                 || entitydragonbase.isPassenger()
                 || entitydragonbase.isVehicle()
+                || itemstack.has(IafDataComponents.DRAGON_HORN.get())
                 || StackNbt.hasTag(itemstack)
                     && (!StackNbt.getTag(itemstack).getCompound("EntityTag").isEmpty() || !StackNbt.getTag(itemstack).getString("DragonHornEntityID").isEmpty())) {
                 return InteractionResult.FAIL;
@@ -323,7 +325,10 @@ public final class RecallHorn {
     }
 
     public static RecallLedger.Entry observe(ItemStack stack, ServerLevel level, BlockPos pos) {
-        CompoundTag compoundtag = StackNbt.getTag(stack);
+        // 1.21.1 port: StackNbt.getTag() returns a COPY of CUSTOM_DATA (1.20.1 returned the live tag).
+        // Everything written below (imported snapshot + DragonMaidRecall receipt) must be flushed back,
+        // otherwise the horn receipt never persists and release() rejects the stored dragon.
+        CompoundTag compoundtag = StackNbt.getOrCreateTag(stack);
         if (compoundtag == null) {
             return null;
         } else {
@@ -422,13 +427,13 @@ public final class RecallHorn {
     }
 
     public static void clear(ItemStack stack) {
-        CompoundTag compoundtag = StackNbt.getTag(stack);
-        if (compoundtag != null) {
-            compoundtag.remove("DragonHornEntityID");
-            compoundtag.remove("EntityTag");
-            compoundtag.remove("EntityUUID");
-            compoundtag.remove("DragonMaidRecall");
-        }
+        // 1.21.1 port: getTag() hands back a copy, so these removes() were silently discarded and a
+        // stale horn could never be cleared. getOrCreateTag() writes every mutation back to the stack.
+        CompoundTag compoundtag = StackNbt.getOrCreateTag(stack);
+        compoundtag.remove("DragonHornEntityID");
+        compoundtag.remove("EntityTag");
+        compoundtag.remove("EntityUUID");
+        compoundtag.remove("DragonMaidRecall");
     }
 
     static enum CaptureRecovery {

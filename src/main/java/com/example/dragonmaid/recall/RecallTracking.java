@@ -25,11 +25,15 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
+@EventBusSubscriber(modid = "dragonmaid")
 public final class RecallTracking {
     public static final String GENERATION = "DragonMaidRecallGeneration";
     public static final String TOKEN = "DragonMaidRecallToken";
     public static final String DRAGON = "DragonMaidRecallDragon";
+    private static final org.slf4j.Logger LOGGER = com.mojang.logging.LogUtils.getLogger();
+    private static final Map<UUID, Long> LOG_AT = new java.util.concurrent.ConcurrentHashMap<>();
     private static final Map<MinecraftServer, Map<UUID, DragonBaseEntity>> DIRTY = new WeakHashMap<>();
     private static final Map<MinecraftServer, Map<UUID, Entity>> JOIN_RECOVERY = new WeakHashMap<>();
 
@@ -93,6 +97,7 @@ public final class RecallTracking {
     }
 
     public static void changed(DragonBaseEntity dragon) {
+        dragonmaid$logChanged(dragon);
         if (dragon.level() instanceof ServerLevel serverlevel && supported(dragon)) {
             DIRTY.computeIfAbsent(serverlevel.getServer(), ignored -> new HashMap<>()).put(dragon.getUUID(), dragon);
         }
@@ -157,6 +162,8 @@ public final class RecallTracking {
     @SubscribeEvent
     public static void section(EnteringSection event) {
         if (event.didChunkChange() && event.getEntity() instanceof DragonBaseEntity entitydragonbase) {
+            LOGGER.info("[recall-dbg] EnteringSection hit uuid={} pos={} dim={}",
+                entitydragonbase.getUUID(), entitydragonbase.blockPosition(), entitydragonbase.level().dimension().location());
             changed(entitydragonbase);
         }
     }
@@ -228,6 +235,7 @@ public final class RecallTracking {
 
             Map<UUID, DragonBaseEntity> map1 = DIRTY.remove(event.getServer());
             if (map1 != null) {
+                LOGGER.info("[recall-dbg] flush tick={} dirtySize={}", event.getServer().getTickCount(), map1.size());
                 for (DragonBaseEntity entitydragonbase : map1.values()) {
                     Level level1 = entitydragonbase.level();
                     if (level1 instanceof ServerLevel) {
@@ -315,5 +323,20 @@ public final class RecallTracking {
         }
 
         return false;
+    }
+
+    private static void dragonmaid$logChanged(DragonBaseEntity dragon) {
+        long now = System.currentTimeMillis();
+        Long last = LOG_AT.get(dragon.getUUID());
+        if (last != null && now - last < 1000L) {
+            return;
+        }
+
+        LOG_AT.put(dragon.getUUID(), now);
+        LOGGER.info("[recall-dbg] changed uuid={} pos={} dim={} inLevel={}",
+            dragon.getUUID(),
+            dragon.blockPosition(),
+            dragon.level().dimension().location(),
+            dragon.level() instanceof ServerLevel serverlevel && serverlevel.getEntity(dragon.getUUID()) == dragon);
     }
 }

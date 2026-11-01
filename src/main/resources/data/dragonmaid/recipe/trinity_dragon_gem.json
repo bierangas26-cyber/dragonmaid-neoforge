@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "iceandfire:summoning_crystal_fire" },
+    { "item": "iceandfire:summoning_crystal_ice" },
+    { "item": "iceandfire:summoning_crystal_lightning" }
+  ],
+  "result": {
+    "id": "dragonmaid:trinity_dragon_gem",
+    "count": 1
+  }
+}

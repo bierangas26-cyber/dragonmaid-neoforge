@@ -41,8 +41,6 @@ public final class RecallContent {
 
     public static void setup(ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.SERVER, RecallConfig.SPEC, "dragonmaid-recall-server.toml");
-        NeoForge.EVENT_BUS.register(RecallTracking.class);
-        NeoForge.EVENT_BUS.register(RecallService.class);
         RecallService.setCompletionListener((player, result) -> {
             if (player.containerMenu instanceof RecallMenu recallmenu) {
                 recallmenu.completed(result.message());

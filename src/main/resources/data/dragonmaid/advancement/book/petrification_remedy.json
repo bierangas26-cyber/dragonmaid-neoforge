@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "has_gorgon_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:gorgon_head"
+            ]
+          }
+        ]
+      }
+    },
+    "has_mundane_potion": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:potion"
+            ],
+            "nbt": "{Potion:\"minecraft:mundane\"}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_gorgon_head",
+      "has_mundane_potion"
+    ]
+  ]
+}

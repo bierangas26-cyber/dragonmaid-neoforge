@@ -5,6 +5,8 @@ import com.example.dragonmaid.data.HumanoidLife;
 import com.example.dragonmaid.item.ModItems;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.StoneStatueEntity;
+import com.iafenvoy.iceandfire.item.component.StoneStatusComponent;
+import com.iafenvoy.iceandfire.registry.IafDataComponents;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.world.DragonPosWorldData;
 import com.mojang.logging.LogUtils;
@@ -322,7 +324,10 @@ public final class BasicDragonPetrification {
         } else if (context.getLevel() instanceof ServerLevel serverlevel) {
             ItemStack itemstack = context.getItemInHand();
             if (!itemstack.isEmpty() && player.getItemInHand(context.getHand()) == itemstack) {
-                CompoundTag compoundtag = StackNbt.getOrCreateTag(itemstack).getCompound("IAFStoneStatueNBT");
+                // 1.21.1: read the statue payload from the STONE_STATUS data component instead of the
+                // removed 1.20.1 "IAFStoneStatueNBT" item tag.
+                StoneStatusComponent stoneStatus = itemstack.get(IafDataComponents.STONE_STATUS.get());
+                CompoundTag compoundtag = stoneStatus == null ? new CompoundTag() : stoneStatus.nbt().copy();
                 CompoundTag compoundtag1 = compoundtag.getCompound("StatueEntityTag").getCompound("DragonMaidPetrification");
                 if (compoundtag1.hasUUID("Dragon") && compoundtag1.hasUUID("Token")) {
                     PetrificationLedger.Entry petrificationledger$entry = PetrificationLedger.get(serverlevel).entry(compoundtag1.getUUID("Dragon"));

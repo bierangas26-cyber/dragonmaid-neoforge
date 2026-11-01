@@ -1,0 +1,24 @@
+{
+  "type": "dragonmaid:vertical_accessory",
+  "category": "misc",
+  "pattern": [
+    "A",
+    "B",
+    "C"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:lava_bucket"
+    },
+    "B": {
+      "item": "minecraft:magma_cream"
+    },
+    "C": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:steaming_drink",
+    "count": 1
+  }
+}
