@@ -9,6 +9,7 @@
 | 渠道 | 链接 | 状态 |
 |---|---|---|
 | GitHub Release | [v1.1.0-beta.2-neoforge.2](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.1.0-beta.2-neoforge.2) | ✅ 可用（IAF CE 2.2 兼容） |
+| GitHub 中文下载目录（jar 直接放仓库里） | [download-cn/](download-cn/)（含中文安装说明 + sha256） | ✅ 可用 |
 | CurseForge | [Dragon Maid Companion: NeoForge 1.21.1](https://www.curseforge.com/minecraft/mc-mods/dragon-maid-companion-neoforge) | ⏳ 审核中（新项目首次提交需人工审核） |
 
 > **neoforge.2 变更**：适配 Ice and Fire Community Edition **2.2**（2026-11-05 发布）。
