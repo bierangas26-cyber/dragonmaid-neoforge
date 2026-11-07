@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[4,)"
 license="All Rights Reserved"
-issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/dragon-maid"
+issueTrackerURL="https://github.com/bierangas26-cyber/dragonmaid-neoforge/issues"
 
 [[mods]]
 modId="dragonmaid"
@@ -11,8 +11,9 @@ logoFile="dragonmaid.png"
 logoBlur=false
 authors="EvenFlowInShipGirl"
 description='''An Ice and Fire expansion mod focused on humanoid dragons.
-Private-use NeoForge 1.21.1 port. Original mod (c) EvenFlowInShipGirl, All Rights Reserved.
-Ported for local use only, not for redistribution.'''
+Unofficial community port of Dragon Maid Companion (NeoForge 1.21.1).
+Original mod (c) 别思丶 / EvenFlowInShipGirl, All Rights Reserved. Free, non-commercial distribution only.
+Port repository: https://github.com/bierangas26-cyber/dragonmaid-neoforge'''
 
 [[dependencies.dragonmaid]]
     modId="neoforge"
@@ -31,7 +32,7 @@ Ported for local use only, not for redistribution.'''
 [[dependencies.dragonmaid]]
     modId="iceandfire"
     type="required"
-    versionRange="[2.0,)"
+    versionRange="[2.2,)"
     ordering="AFTER"
     side="BOTH"
 

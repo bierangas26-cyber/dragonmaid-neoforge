@@ -1,9 +1,8 @@
 # CurseForge 项目信息（上传时填）
 
-## 名称（二选一）
+## 名称（已改）
 
-1. Dragon Maid Companion: NeoForge 1.21.1
-2. Dragon Maid Companion (Community Port) [1.21.1]
+已完成（评审要求去掉版本号）：**Dragon Maid Companion: NeoForge Community Port**
 
 ## Slug 建议
 
@@ -50,12 +49,13 @@ dragon-maid-companion-neoforge
 - Source: https://github.com/bierangas26-cyber/dragonmaid-neoforge
 - Issue tracker: https://github.com/bierangas26-cyber/dragonmaid-neoforge/issues
 
-## 上传文件（最终版）
+## 上传文件（最终版 · neoforge.2）
 
-文件：dragonmaid-neoforge-1.21.1-1.1.0-beta.2.jar
-size：6,813,542 B
-sha256：3106289AE919B5A0C6341E13358E6C51771A0376812FDEFFA33C57BE312C6843
-mtime：2026-11-01 21:21:43
+文件：dragonmaid-neoforge-1.21.1-1.1.0-beta.2-neoforge.2.jar
+size：6,812,966 B
+sha256：6125BA0B2672C8F9B527FC219D106472E6CEA7F33D1A318B55FD131AD4ACB8A0
+mtime：2026-11-07 17:46:01
+依赖基线：IAF CE **2.2**（1.21.1 NeoForge，2026-11-05），不再需要 Citadel
 
 - Release type: Beta
 - Changelog：见 changelog.md

@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.1.0-beta.2-neoforge.2 (2026-11-07)
+
+**适配 Ice and Fire Community Edition 2.2**（IAF CE 于 2026-11-05 为 1.21.1 NeoForge 发布的 2.2 版）。
+
+### 兼容性修复
+
+- **`MultipartPartEntity` 类型重构**：IAF CE 2.2 把它从普通 `Entity` 改成 NeoForge 的 `PartEntity`，并删除了同步字段 `getParentId()`。旧 mixin 还按 2.0 的方式 `@Shadow getParent()/getParentId()`，加载时会直接 `InvalidMixinException ... @Shadow method getParent was not located` 导致游戏启动失败。已改为走 `PartEntity#getParent()`（直接父实体引用），去掉 UUID 兜底查询；龙部位受伤判定逻辑不变。
+- **依赖要求提升**：`neoforge.mods.toml` 中 `iceandfire` 版本范围由 `[2.0,)` 改为 `[2.2,)`。
+- **不再需要 Citadel**：IAF CE 2.2 已不再依赖 Citadel，本移植同步移除该运行前置。
+
+### 验证
+
+- 编译：对 IAF CE 2.2 全量重编译，0 错误。
+- GameTest：`runGameTestServer` **9/9 通过**（数据包加载、龙角收放、饰品护甲、附魔书经验、祭坛开菜单、石化→复原、NBT key 回归），且在不装 Citadel 的环境下同样 9/9。
+- 服务端：全新 1.21.1 NeoForge 21.1.264 服务端 + IAF CE 2.2 + uranus 2.4.1 + jupiter 2.3.7 + GeckoLib 4.9.2 + Patchouli 93，正常启动（`Done`），24 个 main mixin 全部 apply，无 FATAL。
+- 客户端：同一依赖组合启动客户端（10 mods），进入主菜单并连入服务器；IAF CE 2.2 的龙模型正常渲染，Patchouli 手册可正常打开。
+
+### 兼容性说明
+
+- 本版本**需要 IAF CE 2.2 或更高**；IAF CE 2.0 / 2.1.x 不再受支持（其 `MultipartPartEntity` 结构与新 mixin 不兼容）。
+- 其余依赖版本不变：uranus 2.4.1+、jupiter 2.3.7+、GeckoLib 4.9.2、Patchouli 1.21.1-93+。
+- 原 mod（Dragon Maid Companion）作者截至 2026-11-07 仍停留在 **1.1.0-beta.2**，本版本不涉及内容更新，只是依赖兼容。
 ## v1.1.0-beta.2-neoforge.1 (2026-11-01)
 
 首个 1.21.1 NeoForge 移植版本。

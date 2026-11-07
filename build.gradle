@@ -24,6 +24,23 @@ neoForge {
             programArguments.addAll '--nogui'
             jvmArguments.addAll '-Xms1G', '-Xmx2G', '-Dfile.encoding=UTF-8'
         }
+
+        // Client run used to smoke-test client-side mixins / renderers against a new IAF CE build.
+        client {
+            client()
+            gameDirectory = file('run/client')
+            programArguments.addAll '--quickPlayMultiplayer', 'localhost:25615'
+            jvmArguments.addAll '-Xms1G', '-Xmx2G', '-Dfile.encoding=UTF-8'
+        }
+
+        // Headless GameTest run:  gradlew runGameTestServer
+        // The exit code of this run is the number of failed *required* game tests.
+        gameTestServer {
+            type = "gameTestServer"
+            gameDirectory = file('run/gametest')
+            systemProperty("neoforge.enabledGameTestNamespaces", "dragonmaid")
+            jvmArguments.addAll '-Xms1G', '-Xmx2G', '-Dfile.encoding=UTF-8'
+        }
     }
 
     mods {
@@ -41,6 +58,37 @@ repositories {
 dependencies {
     // External mod APIs compiled against (runtime provided by the live-server mods folder)
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Headless GameTest runtime: the mod declares iceandfire / geckolib / patchouli as
+    // *required* dependencies, so the game-test server has to see those mods on its
+    // classpath or FML refuses to load dragonmaid at all.  The jars are only read here
+    // (never copied or modified); anything missing from both roots is reported and skipped.
+    gametestModJars().each { runtimeOnly files(it) }
+}
+
+// Resolve the runtime jars needed by the game-test server.  Lookup order: libs/ first,
+// then the live test-server mods folder (read-only) for jars that are not vendored here.
+List<File> gametestModJars() {
+    def names = [
+        'geckolib-neoforge-1.21.1-4.9.2.jar',
+        'iceandfire-2.2.jar',
+        'uranus-2.4.1-1.21.1-neoforge.jar',
+        'jupiter-2.3.7-1.21.1-neoforge.jar',
+        'architectury-13.0.11-neoforge.jar',
+        'Patchouli-1.21.1-93-NEOFORGE.jar',
+    ]
+    def roots = [file('libs'), file(providers.gradleProperty('gametestModsDir')
+            .getOrElse('D:/mc-model/work/_probe_dm/mods'))]
+    def resolved = []
+    names.each { name ->
+        def hit = roots.collect { new File(it, name) }.find { it.isFile() }
+        if (hit != null) {
+            resolved << hit
+        } else {
+            logger.lifecycle("[dragonmaid] GameTest runtime mod not found, skipping: " + name)
+        }
+    }
+    return resolved
 }
 
 tasks.withType(JavaCompile).configureEach {

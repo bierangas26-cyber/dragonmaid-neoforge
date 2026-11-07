@@ -22,18 +22,24 @@
 |---|---|
 | Minecraft | 1.21.1 |
 | NeoForge | 21.1.264+ |
-| Ice and Fire Community Edition | 2.0+ |
+| Ice and Fire Community Edition | **2.2+**（2.0/2.1.x 已不支持） |
 | uranus | 2.4.1+ |
 | jupiter | 2.3.7+ |
 | GeckoLib | 4.9.2 |
 | Patchouli | 1.21.1-93+ |
 
+> ⚠️ **IAF CE 2.2 起不再需要 Citadel**；请不要装旧版 Citadel（装了也不会被本移植使用）。
+>
+> 本移植当前版本基于 **IAF CE 2.2**。如果你把 IAF CE 升到更高版本，请先看 release 说明是否已适配。
+
 ## 已知问题
 
 - 龙甲仅验证 silver 系，其它材质/部位可能有问题
 - 龙炉吐息加热链路未完整验证
+- 人形化形的**外观渲染**仅做过静态/启动级验证，尚未逐形态截图确认
 - 客户端渲染/动画、多人断线重连未覆盖
 - 创造模式下石化解药不消耗（设计如此）
+- **IAF CE 2.2 兼容版（neoforge.2）**：服务端与 GameTest 已验证；客户端可进服、IAF 龙模型正常显示，人形界面交互建议自行再点一遍
 
 ---
 
