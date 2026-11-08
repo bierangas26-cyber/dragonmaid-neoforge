@@ -11,8 +11,8 @@
 
 ```
 文件名：dragonmaid-neoforge-1.21.1-1.1.0-beta.2-neoforge.2.jar
-大小：7,261,374 B
-sha256：5602FC0E1FDD19913CD1D1EB283C1010E2478888CF1A9ACCDE686E3374DD3E9E
+大小：7,267,457 B
+sha256：048FE70382DF6E7BF0E10978CAF7AEB9EF9DE06E484C8E67C9FB58D3F1EBCD00
 ```
 
 > 本 jar 对应原版 **1.2.0-beta.4** 内容（龙的背包/双手、仙灵之愿、8 件战斗饰品、人形近战重做、分次学习、孵化性别等）。

@@ -19,7 +19,7 @@
 > IAF CE 2.2 把 `MultipartPartEntity` 改成了 NeoForge `PartEntity`，旧 mixin 会导致启动即崩，详见 [docs/IAFCE-2.2-COMPAT.md](docs/IAFCE-2.2-COMPAT.md)。
 
 最终发布 jar（1.2.0-beta.4-neoforge.1）：`dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar`
-size `7,261,374 B` / sha256 `5602FC0E1FDD19913CD1D1EB283C1010E2478888CF1A9ACCDE686E3374DD3E9E`
+size `7,267,457 B` / sha256 `048FE70382DF6E7BF0E10978CAF7AEB9EF9DE06E484C8E67C9FB58D3F1EBCD00`
 
 ## 授权说明
 

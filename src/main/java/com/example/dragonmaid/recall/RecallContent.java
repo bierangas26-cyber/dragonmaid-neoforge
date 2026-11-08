@@ -40,7 +40,8 @@ public final class RecallContent {
     }
 
     public static void setup(ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.SERVER, RecallConfig.SPEC, "dragonmaid-recall-server.toml");
+        RecallCommandArchive.setup();
+        modContainer.registerConfig(ModConfig.Type.SERVER, RecallConfig.SPEC, "dragonmaid-recall-sync-server.toml");
         RecallService.setCompletionListener((player, result) -> {
             if (player.containerMenu instanceof RecallMenu recallmenu) {
                 recallmenu.completed(result.message());

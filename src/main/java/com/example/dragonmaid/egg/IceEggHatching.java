@@ -6,7 +6,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** 1.2: ice dragon egg 的孵化性别提示（龙冰 / 普通冰决定 male/female）。 */
+/** 1.2: ice dragon egg 的孵化性别提示（霜凌 DRAGON_ICE / 蓝冰 BLUE_ICE 决定 male/female）。 */
 public final class IceEggHatching {
     private IceEggHatching() {
     }
@@ -16,7 +16,8 @@ public final class IceEggHatching {
         if (support.is(IafBlocks.DRAGON_ICE.get())) {
             return ExpectedSex.MALE;
         } else {
-            return support.is(Blocks.ICE) ? ExpectedSex.FEMALE : ExpectedSex.RANDOM;
+            // 1.2 上游是 Blocks.f_50568_，即 vanilla BLUE_ICE（蓝冰），不是普通 ICE。
+            return support.is(Blocks.BLUE_ICE) ? ExpectedSex.FEMALE : ExpectedSex.RANDOM;
         }
     }
 

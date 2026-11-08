@@ -23,6 +23,12 @@
 - 配置：`config/dragonmaid-sync-server.toml`（服务端同步数值）+ `config/dragonmaid-common.toml` / `dragonmaid-recall-common.toml`（可在主菜单编辑）
 - 移除模板 Config 注册（1.2 由 GlobalBalanceConfig 接管），修复 config 文件冲突崩溃
 
+### 一致性修正（对齐上游 1.2.0-beta.4）
+
+- 补上龙蛋性别 mixin（火/冰/雷）：孵化性别由环境决定（灵魂火+维度 / 霜凌·蓝冰 / 红石信号 1-7 雄、8-15 雌），此前仅 Jade 显示、孵化未生效
+- 补上 `/dragonmaid get` 的召回归档查询（号角收走/虚空/石化的龙仍可查询）
+- 修正原版方块 tag 路径为 1.21.1 单数形式（`tags/block`），`dragon_recall_altar` 恢复镐挖掘与石质工具等级判定
+- 修正冰龙蛋性别判定：普通冰 → **蓝冰**（与上游 1.2 及手册一致）
 ### 验证（本版）
 
 - 编译：`gradle compileJava` BUILD SUCCESSFUL（478 个 class，0 error）
