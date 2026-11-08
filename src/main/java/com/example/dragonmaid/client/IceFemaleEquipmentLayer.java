@@ -184,7 +184,10 @@ final class IceFemaleEquipmentLayer extends GeoRenderLayer<IceFemaleAnimatable> 
                                         OverlayTexture.NO_OVERLAY,
                                         packColor(femalechestplatematerial.red, femalechestplatematerial.green, femalechestplatematerial.blue)
                                     );
-                            } else {
+                            } else if (itemstack.getItem() instanceof net.minecraft.world.item.ArmorItem) {
+                                // 防御：只有真正的原版盔甲物品才走「原版盔甲模型 + armor_layer 纹理」回退。
+                                // 否则把任意物品（武器/饰品/道具）放进龙的装备槽时，会被当成盔甲渲染成
+                                // 1-2 格见方的纯色硬块（gold_layer_1 等），看起来就像"无贴图的黄色方块"。
                                 ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(itemstack.getItem());
                                 String s = resourcelocation == null ? "" : resourcelocation.getPath();
                                 String s1 = s.contains("gold")

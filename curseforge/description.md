@@ -45,7 +45,7 @@ An unofficial community port of *Dragon Maid Companion* (an Ice and Fire addon t
 
 ## Known issues
 
-- 1.2 client-side features (miniature rendering, shoulder-perch input, in-game config screen, accessory pickup button) are still being finished; a dedicated release will follow once the client smoke test passes
+- 1.2 client-side GUI (equipment screen, knowledge screen, human-form transform) was verified in-game; miniature/shoulder-perch and accessory visuals were verified by static checks only — please report anything odd
 - `HumanoidWater` keeps the 1.1 water-exit behaviour (the 1.2 rewrite is a known gap)
 - IAF CE 2.2 removed `eatFoodBonus`: the automatic-feeding meal bonus hook is missing (hunger/heal/particles/sounds still work)
 - Only the silver dragon armor set was verified; dragon-forge breath heating chain not fully verified; multiplayer reconnect not covered
@@ -108,7 +108,7 @@ This port is provided "as is", without warranty of any kind. Back up your world.
 
 ## 已知问题
 
-- 1.2 客户端特性（迷你化渲染、肩载输入、配置界面、饰品界面拾取按钮）仍在收尾，客户端冒烟通过后会单独发版
+- 1.2 客户端界面（装备页/知识页/人形变身）已实机验证；迷你化/肩载与饰品外观为静态校验，若有异常请反馈
 - `HumanoidWater` 的 1.2 出水/水面逻辑暂保留 1.1 行为（已知缺口）
 - IAF CE 2.2 删除 `eatFoodBonus`：自动进食的进食加成钩子缺失（饥饿/回血/粒子/音效正常）
 - 龙甲仅验证 silver 系；龙炉吐息加热链路未完整验证；多人断线重连未覆盖

@@ -25,16 +25,21 @@
 
 ### 验证（本版）
 
-- 编译：`gradle compileJava` BUILD SUCCESSFUL（462 个 class，0 error）
+- 编译：`gradle compileJava` BUILD SUCCESSFUL（478 个 class，0 error）
 - GameTest：`runGameTestServer` **All 9 required tests passed**，数据包/配方/进度 0 解析错误
 - 服务端冒烟：独立 1.21.1 NeoForge 服务端 + IAF CE 2.2 正常启动（`Done`）；9 件新物品可注册/获取（Eye of Majesty / Faerie's Wish / Thornfeather Charm 等显示名正确）；冰/火/雷三龙可生成
-- 客户端：1.2 客户端渲染/输入/配置界面仍在收尾（见已知问题）
+- 客户端实机（dev client + dedicated server）：
+  - 启动/进服正常，全部服务端 45 + 客户端 22 个 mixin 无 apply error（7 个 ForgeConfig* @Pseudo 目标模组不存在时静默跳过）
+  - 龙界面（Shift+右键驯服龙）→ 我们的 4 个页面按钮正常；**1.2 装备界面**（252×232、窄高预览框、装备/手部槽、拾取模式按钮、27 格龙仓库、玩家背包、知识等级标签、锁槽 tooltip）正常渲染
+  - **知识界面**：交书学习实测 60 本书 → 知识 Lv.0→Lv.1（300 XP），按钮/进度条/提示正常
+  - **人形变身**：知识 Lv.1 + 命名 5 阶龙 → Human form 成功变身，人形模型（蓝发女仆龙）贴图/姿态渲染正常，解锁成就「A Closer Companion!」
+  - 装备/知识/变身流程中客户端日志无 FATAL/异常
 
 ### 已知问题 / 说明
 
-- 客户端 1.2 新特性（迷你化渲染、肩载输入、配置界面、饰品界面拾取按钮等）移植收尾中，发布前会做客户端冒烟
 - `data/HumanoidWater` 的 1.2 出水/水面逻辑暂保留 1.1 行为（已知缺口）
 - IAF CE 2.2 删除 `eatFoodBonus`：背包自动进食的「进食加成」钩子缺失（饥饿/回血/粒子/音效正常）
+- 7 个 ForgeConfig* 客户端 mixin 目标第三方模组（fuzs.forgeconfigscreens）无 1.21.1 NeoForge 版，保持 @Pseudo 静默跳过，不影响 NeoForge 自带配置界面
 - 其它既有已知限制同上一版（龙甲仅验证 silver 系等）
 ## v1.1.0-beta.2-neoforge.2 (2026-11-07)
 

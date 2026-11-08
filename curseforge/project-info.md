@@ -52,8 +52,8 @@ dragon-maid-companion-neoforge
 ## 上传文件（最终版 · 1.2 内容版）
 
 文件：dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar
-size：7,235,488 B
-sha256：6A5394C7859FEA590B7E3D250D1DD022E57350428D90B6CFD1BCF328D916893A
+size：7,261,374 B
+sha256：5602FC0E1FDD19913CD1D1EB283C1010E2478888CF1A9ACCDE686E3374DD3E9E
 依赖基线：IAF CE 2.2+（1.21.1 NeoForge），不再需要 Citadel，Jade 为可选
 ## 图片
 

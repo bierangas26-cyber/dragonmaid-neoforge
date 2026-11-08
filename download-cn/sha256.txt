@@ -1,1 +1,1 @@
-b0c7a7755186e79b1d2cbac61f6aa2c23744fc6c41dcd4be5d77b1c6c389b02c  dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar
+5602fc0e1fdd19913cd1d1eb283c1010e2478888cf1a9accde686e3374dd3e9e  dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar

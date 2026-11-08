@@ -372,7 +372,11 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
             j = Integer.MAX_VALUE;
         } else if (humanoidmeleettiming != null) {
             HumanoidMeleeTiming.Frame humanoidmeleettiming$frame = humanoidmeleettiming.frame(worldTick, state.getPartialTick());
-            this.rig.sampleOnce(this.getAnimation(animatable, humanoidmeleettiming$frame.clip()), humanoidmeleettiming$frame.tick(), this.targetPose);
+            Animation humanoidmeleeclip = this.getAnimation(animatable, humanoidmeleettiming$frame.clip());
+            if (humanoidmeleeclip != null) {
+                this.rig.sampleOnce(humanoidmeleeclip, humanoidmeleettiming$frame.tick(), this.targetPose);
+            }
+
             this.getBone("sleep_eyelids").ifPresent(bonex -> bonex.setHidden(true));
             j = 2147483646;
         } else if (sittimeline$frame.active()) {
