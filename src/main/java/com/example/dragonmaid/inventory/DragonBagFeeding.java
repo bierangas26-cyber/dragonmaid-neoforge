@@ -77,8 +77,9 @@ public final class DragonBagFeeding {
                                     }
 
                                     feedback(dragon, itemstack1, flag1);
-                                    // TODO(IAF CE 2.2): 上游 1.2 在此调用 dragon.eatFoodBonus(itemstack1)，
-                                    // CE 2.2 的 DragonBaseEntity 已无此方法（进食音效/粒子在上面 feedback 里自己做了）。
+                                    // 1.21.1 说明：IAF 1.20.1 的 eatFoodBonus(ItemStack) 本身就是空实现
+                                    // （源码注释 "// FIXME :: ?"），上游 1.2 的调用等价于 no-op；这里无需替代实现。
+                                    // 进食音效/粒子由上面的 feedback() 完成。
                                     return;
                                 }
                             }

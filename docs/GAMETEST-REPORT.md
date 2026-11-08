@@ -14,7 +14,7 @@
 覆盖：数据包加载（配方/进度/标签）、召回号角收放龙（UUID 不变）、饰品护甲加成、附魔书知识经验、
 祭坛开界面、石化→复原 round-trip。
 
-> **2026-11-08 更新**：测试增至 **13 条**（新增 `MiniatureGameTests`，以及 3 条 `BackpackGameTests`：自动进食 / 拾取模式 / 知识解锁槽位），最近一次 `runGameTestServer` = `13 GAME TESTS COMPLETE` / `All 13 required tests passed :)` / `BUILD SUCCESSFUL in 22s`。本报告正文记录 2026-11-01 的 9 条基线，供环境搭建复现用。
+> **2026-11-08 更新**：测试增至 **15 条**（新增 `MiniatureGameTests`、3 条 `BackpackGameTests`、2 条 `HumanoidWaterGameTests`），最近一次 `runGameTestServer` = `15 GAME TESTS COMPLETE` / `All 15 required tests passed :)` / `BUILD SUCCESSFUL in 26s`。本报告正文记录 2026-11-01 的 9 条基线，供环境搭建复现用。
 
 ---
 

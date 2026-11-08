@@ -39,8 +39,7 @@
 
 ## 已知限制（不算 bug）
 
-- `HumanoidWater` 的 1.2 出水/水面逻辑暂保留 1.1 行为
-- IAF CE 2.2 删除 `eatFoodBonus`，自动进食的“进食加成”钩子缺失（饥饿/回血/音效正常）
+- IAF 1.20.1 原版 `eatFoodBonus` 为空实现（no-op），本移植的自动进食行为与上游一致（饥饿/回血/粒子/音效正常）
 - 7 个 ForgeConfig* mixin 目标第三方模组无 1.21.1 版，静默跳过（不影响 NeoForge 自带配置界面）
 - 龙甲只验证 silver 系
 
