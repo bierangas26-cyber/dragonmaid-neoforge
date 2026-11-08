@@ -6,6 +6,8 @@
 
 ## 下载
 
+> 完整验证记录（构建/GameTest/服务端冒烟/客户端实机截图）：[docs/1.2-VERIFICATION.md](docs/1.2-VERIFICATION.md)
+
 | 渠道 | 链接 | 状态 |
 |---|---|---|
 | GitHub Release（最新） | [v1.2.0-beta.4-neoforge.1](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.2.0-beta.4-neoforge.1) | ✅ 追平原版 1.2.0-beta.4 内容 |
