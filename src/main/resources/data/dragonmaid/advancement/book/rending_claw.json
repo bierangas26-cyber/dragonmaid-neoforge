@@ -1,0 +1,86 @@
+{
+  "criteria": {
+    "has_material_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:feather"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chain"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragonbone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:name_tag"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:wither_shard"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:hippogryph_talon"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_material_0",
+      "has_material_1",
+      "has_material_2",
+      "has_material_3",
+      "has_material_4",
+      "has_material_5"
+    ]
+  ]
+}

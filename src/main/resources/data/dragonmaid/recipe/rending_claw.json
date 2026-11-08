@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FCF",
+    "DND",
+    "STS"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "D": {
+      "item": "iceandfire:dragonbone"
+    },
+    "N": {
+      "item": "minecraft:name_tag"
+    },
+    "S": {
+      "item": "iceandfire:wither_shard"
+    },
+    "T": {
+      "item": "iceandfire:hippogryph_talon"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:rending_claw",
+    "count": 1
+  }
+}

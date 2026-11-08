@@ -1,0 +1,86 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_material_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chain"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:hydra_fang"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:fire_dragon_blood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_fire_heart": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:fire_dragon_heart"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blaze_powder"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:venomfang_pendant"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_material_0",
+      "has_material_1",
+      "has_material_2",
+      "has_material_3",
+      "has_fire_heart",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:venomfang_pendant"
+    ]
+  }
+}

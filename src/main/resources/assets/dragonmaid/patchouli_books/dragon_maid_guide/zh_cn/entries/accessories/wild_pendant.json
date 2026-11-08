@@ -1,0 +1,31 @@
+{
+  "name": "狂野吊坠",
+  "icon": "dragonmaid:wild_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 15,
+  "advancement": "dragonmaid:book/wild_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "龙心的搏动",
+      "item": "dragonmaid:wild_pendant",
+      "link_recipe": false,
+      "text": "龙心能与活龙的心跳共鸣，将力量药剂的效力留在这件信物中。佩戴者近身搏杀时更为凶猛，人形龙受其激发，出爪也更快、更连贯。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "吊坠的合成",
+      "recipe": "dragonmaid:wild_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "追近猎物",
+      "text": "两种形态的近战伤害提高10%%。人形时会更积极近身，普通爪击更快，甩尾冷却减少20%%；近战机会过去后，仍可使用吐息和龙啸。不能与裂阵爪饰或猎王吊坠同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

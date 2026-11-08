@@ -44,6 +44,13 @@ Port repository: https://github.com/bierangas26-cyber/dragonmaid-neoforge'''
     side="BOTH"
 
 [[dependencies.dragonmaid]]
+    modId="jade"
+    type="optional"
+    versionRange="[15.10,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.dragonmaid]]
     modId="patchouli"
     type="required"
     versionRange="[1.21,)"

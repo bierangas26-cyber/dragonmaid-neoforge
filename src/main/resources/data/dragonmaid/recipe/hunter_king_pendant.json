@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dragonmaid:wild_pendant"
+    },
+    {
+      "item": "dragonmaid:rending_claw"
+    }
+  ],
+  "result": {
+    "id": "dragonmaid:hunter_king_pendant",
+    "count": 1
+  }
+}

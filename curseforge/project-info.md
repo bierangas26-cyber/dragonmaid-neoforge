@@ -49,17 +49,12 @@ dragon-maid-companion-neoforge
 - Source: https://github.com/bierangas26-cyber/dragonmaid-neoforge
 - Issue tracker: https://github.com/bierangas26-cyber/dragonmaid-neoforge/issues
 
-## 上传文件（最终版 · neoforge.2）
+## 上传文件（最终版 · 1.2 内容版）
 
-文件：dragonmaid-neoforge-1.21.1-1.1.0-beta.2-neoforge.2.jar
-size：6,812,966 B
-sha256：6125BA0B2672C8F9B527FC219D106472E6CEA7F33D1A318B55FD131AD4ACB8A0
-mtime：2026-11-07 17:46:01
-依赖基线：IAF CE **2.2**（1.21.1 NeoForge，2026-11-05），不再需要 Citadel
-
-- Release type: Beta
-- Changelog：见 changelog.md
-
+文件：dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar
+size：7,235,488 B
+sha256：6A5394C7859FEA590B7E3D250D1DD022E57350428D90B6CFD1BCF328D916893A
+依赖基线：IAF CE 2.2+（1.21.1 NeoForge），不再需要 Citadel，Jade 为可选
 ## 图片
 
 images/ 下 3 张，建议顺序：

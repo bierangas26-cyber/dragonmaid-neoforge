@@ -13,13 +13,18 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Moving an Injured Dragon",
+      "title": "Moving the Injured",
       "text": "A severely injured companion cannot enter a horn, but a matching summoning crystal can still bind and summon it.$(br2)Find a safe place, feed it, and wait until it is fully healed before giving a new command."
     },
     {
       "type": "patchouli:text",
       "title": "Old Dragon Remains",
       "text": "The remains of dragons that died on an older journey are still remains; the new care methods cannot wake them.$(br2)If your companion is severely injured, read $(l:dragonmaid:care/injury)Wounds and Stone$(/l). For the difference between injury and death, see $(l:dragonmaid:care/execution)The Final Choice$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Lasting Bond",
+      "text": "In your inventory or a chest, hover over a Trinity Dragon Gem and Shift-right-click to switch between one-time and continuous binding.$(br2)One-time binding clears after a successful summon. Continuous binding keeps the same companion bound for the next call. The tooltip shows the mode."
     }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "name": "毒焰之心",
+  "icon": "dragonmaid:venomfang_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 13,
+  "advancement": "dragonmaid:book/venomfang_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "生命的回路",
+      "item": "dragonmaid:venomfang_pendant",
+      "link_recipe": false,
+      "text": "九头蛇的毒牙既能施毒，也能夺取猎物的生机。龙心将这两种力量与佩戴者相连，使毒性随近战与龙焰侵入敌体。主手空着时，近战夺来的生机还能用来修补自身。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "毒焰之心的合成",
+      "recipe": "dragonmaid:venomfang_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "从搏杀中恢复",
+      "text": "近战与战斗龙焰的直接命中附加中毒Ⅱ，持续6秒。仅当主手为空，近战使敌人实际失去生命时，恢复其中20%%的生命；副手持盾不影响。吐息、燃烧和中毒的后续伤害不会触发恢复；不能与自然龙心项链等恢复类饰品同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "毒焰不侵",
+      "text": "这颗心只回应火龙。佩戴时，它会驱散已有的中毒，并阻止新的中毒效果。$(br2)主手握着兵刃时，免毒与攻击附毒仍然有效；只有汲取生命需要主手空着。"
+    }
+  ]
+}

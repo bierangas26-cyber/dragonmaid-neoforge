@@ -5,13 +5,17 @@ import com.example.dragonmaid.data.HumanoidLife;
 import com.example.dragonmaid.data.InjuryRecovery;
 import com.example.dragonmaid.item.DragonAccessoryItem;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
+import com.iafenvoy.iceandfire.entity.FireDragonEntity;
 import com.iafenvoy.iceandfire.entity.LightningDragonEntity;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -20,11 +24,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.registries.BuiltInRegistries;
 
 public final class DragonAccessories {
     private static final CopyOnWriteArrayList<DragonAccessories.AdapterEntry> ADAPTERS = new CopyOnWriteArrayList<>();
-    private static final net.minecraft.resources.ResourceLocation ARMOR_ID = net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("dragonmaid", "accessory_armor");
+    private static final ResourceLocation ARMOR_ID = ResourceLocation.fromNamespaceAndPath("dragonmaid", "accessory_armor");
     public static final int REGENERATION_INTERVAL = 50;
     public static final int MAX_SLOTS = 3;
 
@@ -115,6 +118,21 @@ public final class DragonAccessories {
         return Math.max(0, Math.min(3, knowledgeLevel(dragon)));
     }
 
+    // 1.2: 背包额外槽位由饰品（effects.storageSlots）提供
+    static int bonusStorageSlots(DragonBaseEntity dragon) {
+        DragonAccessoryInventory.Effects effects = DragonForms.state(dragon).dragonmaid$getAccessories().effects;
+        if (!dragon.level().isClientSide
+            && (effects.dirty
+                || effects.adapters != ADAPTERS.size()
+                || effects.slots != unlockedSlots(dragon)
+                || effects.stage != dragon.getDragonStage()
+                || effects.eligible != effectsAllowed(dragon))) {
+            refresh(dragon);
+        }
+
+        return effects.storageSlots;
+    }
+
     public static boolean canManage(DragonBaseEntity dragon, Player player) {
         return dragon != null
             && player != null
@@ -153,11 +171,13 @@ public final class DragonAccessories {
                     boolean flag2 = false;
                     double d1 = 0.0;
                     int k = 0;
+                    Set<ResourceLocation> set = new HashSet<>();
                     if (flag) {
                         for (int l = 0; l < j; l++) {
                             ItemStack itemstack = dragonaccessoryinventory.getItem(l);
                             DragonAccessoryBehavior dragonaccessorybehavior = behavior(itemstack);
                             if (dragonaccessorybehavior != null && dragonaccessorybehavior.canEquip(itemstack, dragon)) {
+                                set.addAll(dragonaccessorybehavior.activeEffects(itemstack, dragon));
                                 double d2 = dragonaccessorybehavior.armorBonus(itemstack, dragon);
                                 if (Double.isFinite(d2) && d2 > 0.0) {
                                     d0 = Math.min(Double.MAX_VALUE, d0 + d2);
@@ -184,11 +204,18 @@ public final class DragonAccessories {
                     dragonaccessoryinventory$effects.enhancesBreath = flag2;
                     dragonaccessoryinventory$effects.breathDamageBonus = d1;
                     dragonaccessoryinventory$effects.storageSlots = k;
+                    dragonaccessoryinventory$effects.activeEffects = Set.copyOf(set);
+                    if (dragon instanceof FireDragonEntity && set.contains(DragonAccessoryBehavior.FIRE_FANG) && dragon.hasEffect(MobEffects.POISON)) {
+                        dragon.removeEffect(MobEffects.POISON);
+                    }
+
+                    DragonForms.state(dragon).dragonmaid$setFrostyTail(set.contains(DragonAccessoryBehavior.ICE_TAIL));
                     dragonaccessoryinventory$effects.stage = i;
                     dragonaccessoryinventory$effects.slots = j;
                     dragonaccessoryinventory$effects.adapters = ADAPTERS.size();
                     dragonaccessoryinventory$effects.eligible = flag;
                     dragonaccessoryinventory$effects.dirty = false;
+                    MiniatureForm.equipmentChanged(dragon, set.contains(DragonAccessoryBehavior.MINIATURE));
                 }
 
                 AttributeInstance attributeinstance = dragon.getAttribute(Attributes.ARMOR);
@@ -207,6 +234,29 @@ public final class DragonAccessories {
                     }
                 }
             }
+        }
+    }
+
+    // 1.2: 查询饰品激活效果（战斗饰品用）
+    public static boolean hasEffect(DragonBaseEntity dragon, ResourceLocation effect) {
+        if (dragon != null && effect != null && !dragon.level().isClientSide) {
+            DragonAccessoryInventory dragonaccessoryinventory = DragonForms.state(dragon).dragonmaid$getAccessories();
+            if (dragonaccessoryinventory == null) {
+                return false;
+            } else {
+                DragonAccessoryInventory.Effects dragonaccessoryinventory$effects = dragonaccessoryinventory.effects;
+                if (dragonaccessoryinventory$effects.dirty
+                    || dragonaccessoryinventory$effects.stage != dragon.getDragonStage()
+                    || dragonaccessoryinventory$effects.slots != unlockedSlots(dragon)
+                    || dragonaccessoryinventory$effects.adapters != ADAPTERS.size()
+                    || dragonaccessoryinventory$effects.eligible != effectsAllowed(dragon)) {
+                    refresh(dragon);
+                }
+
+                return dragonaccessoryinventory$effects.activeEffects.contains(effect);
+            }
+        } else {
+            return false;
         }
     }
 
@@ -293,6 +343,7 @@ public final class DragonAccessories {
 
     public static void dropAll(DragonBaseEntity dragon) {
         if (!dragon.level().isClientSide) {
+            DragonHands.dropAll(dragon);
             DragonAccessoryInventory dragonaccessoryinventory = DragonForms.state(dragon).dragonmaid$getAccessories();
 
             for (int i = 0; i < 5; i++) {

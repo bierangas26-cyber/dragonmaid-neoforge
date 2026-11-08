@@ -11,13 +11,48 @@
     },
     {
       "type": "patchouli:text",
-      "title": "尚未完成的内容",
-      "text": "知识二、三级已经开放，每次进阶都会解锁一个饰品栏，条件见$(l:dragonmaid:learning/books)龙的学识$(/l)。$(br2)更高知识等级、额外行囊、武器、骑乘与新的相处本领，尚待以后开放。"
+      "title": "旅程与远方",
+      "text": "知识一至三级都能扩大行囊，二级还可以持武器与盾。进阶条件见$(l:dragonmaid:learning/books)龙的学识$(/l)。$(br2)更高知识等级、人形骑乘与新的相处本领，留待今后的旅程。"
     },
     {
       "type": "patchouli:text",
       "title": "手册插图",
       "text": "旅途中的风景和同行的时刻，已经留在这本书里。往后还有更多故事，等你们一起写下。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "全局配置",
+      "text": "可从主菜单的模组配置调整驯养龙的生命、伤害、成长封顶、成熟掉鳞与仙灵体型；野生龙仍沿用冰与火的数值。$(br2)人形普通攻击可选择本模组动画或直接攻击；首次入世赠书也可关闭。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "配置文件",
+      "text": "两份全局配置均在config目录：$(br2)主要配置：$(br)dragonmaid-common.toml$(br2)召回台配置：$(br)dragonmaid-recall-common.toml"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "让设置生效",
+      "text": "全局设置也适用于已有世界。修改后重新进入世界，或重启服务器；联机时以服务端设置为准。$(br2)服务器的数值只在当前会话中使用，不会覆盖本机的配置文件。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "查阅伙伴",
+      "text": "输入 /dragonmaid help 查看帮助。用 /dragonmaid get all 查询自己的伙伴，点击报告中的数值即可复制。$(br2)种类、名字与数量都可筛选，同名伙伴也按由近到远选择。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "调整成长与饥饿",
+      "text": "age与hunger指令可设定、增加或减少年龄与饥饿，使用set、add或remove。$(br2)这些修改需要作弊或管理员权限，只影响自己在同维度已加载的伙伴。例如：$(br)/dragonmaid age add 1 fire * 1$(br)让最近一只火龙增加一天年龄。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "归队传送",
+      "text": "自动归队传送也能用指令控制，需要作弊或管理员权限：$(br2)/dragonmaid teleport off$(br)关闭；将off改为on可开启，改为status可查看当前状态。$(br2)普通跟随、宝石和召回台不受这个开关影响。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "调整孵化时间",
+      "text": "需要调整孵化进度时，可用：$(br2)/dragonmaid egg remaining 60$(br2)这会将32格内最近龙蛋的剩余孵化时间设为60秒，需要作弊或管理员权限。冰龙蛋须先冻入冰中；适合的孵化环境仍不可少。"
     }
   ]
 }

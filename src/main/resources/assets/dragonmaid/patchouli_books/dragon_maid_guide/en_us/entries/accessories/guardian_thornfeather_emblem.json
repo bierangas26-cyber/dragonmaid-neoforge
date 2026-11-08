@@ -1,0 +1,31 @@
+{
+  "name": "Warding Thornfeather Emblem",
+  "icon": "dragonmaid:guardian_thornfeather_emblem",
+  "category": "dragonmaid:accessories",
+  "sortnum": 17,
+  "advancement": "dragonmaid:book/guardian_thornfeather_emblem",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Warding Wings",
+      "item": "dragonmaid:guardian_thornfeather_emblem",
+      "link_recipe": false,
+      "text": "The ward grows stronger as a dragon matures. Thornfeather magic answers the wounds the ward cannot prevent.$(br2)Joined together, they offer a little more protection to companions bound for dangerous places.$(br2)Not a drop of blood on these wings of freedom is shed in vain."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Emblem",
+      "recipe": "dragonmaid:guardian_thornfeather_emblem",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Protection and Retaliation",
+      "text": "Grants 2 to 6 armor according to growth stage and retains the Thornfeather Charm's retaliation.$(br2)Its armor bonus stacks with other armor accessories, but it cannot be worn with a Thornfeather Charm. The owner and allies are safe from retaliation."
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

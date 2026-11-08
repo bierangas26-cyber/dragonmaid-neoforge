@@ -22,7 +22,21 @@
     {
       "type": "patchouli:text",
       "title": "Keeping Equipment",
-      "text": "Accessories stay with a dragon through transformation, rest, and time in a horn. To begin, try a $(l:dragonmaid:accessories/guardian_tag)Guardian Tag$(/l).$(br2)Dragons currently have no extra storage, so carry supplies in your own inventory."
+      "text": "Each knowledge level opens another row in your companion’s pack, up to three rows. Dragon Equipment shows your inventory beside your companion's pack, ready to pass things over.$(br2)You can have it gather everything, nothing, or only items already in the pack. A fight comes first."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Sword and Shield",
+      "text": "At knowledge level two, a melee weapon adds to your humanoid companion’s strength and reaches farther. An off-hand shield lets it block and counter.$(br2)It puts both away to rest or sleep, then takes them up again. After battle, check blade and shield for wear."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Pack a Lunch",
+      "text": "Below 80 hunger or short of full health, your dragon takes meat or an ordinary Dragon Meal from the first suitable slot. Put its next lunch up front. It eats more often in a fight and leaves Creative and Sickly Meals alone."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Feed a critically injured friend by hand. After maturity, shed scales go into the pack and any excess falls at its feet."
     },
     {
       "type": "patchouli:text",
@@ -43,6 +57,31 @@
       "type": "patchouli:text",
       "title": "Combining Effects",
       "text": "The $(l:dragonmaid:accessories/ultimate_dragon_breath_device)Ultimate Dragon Breath Device$(/l) combines four breath accessories in one slot and fits all three dragon types.$(br2)Armor bonuses can stack; accessories with other identical benefits cannot be worn together."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Roars and Barbs",
+      "text": "The $(l:dragonmaid:accessories/majesty_eye_pendant)Eye of Majesty$(/l) strengthens a dragon's roar. The $(l:dragonmaid:accessories/thornfeather_charm)Thornfeather Charm$(/l) answers an attacker when its wearer is wounded."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Venom and Frost",
+      "text": "Fire dragons can wear the $(l:dragonmaid:accessories/venomfang_pendant)Venomflame Heart$(/l) for poison and healing through melee combat. The $(l:dragonmaid:accessories/frosty_tail_fin)Frosttide Tail Fin$(/l) gives ice dragons a heavier tail sweep that slows enemies."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The Close Hunt",
+      "text": "Choose the $(l:dragonmaid:accessories/wild_pendant)Wild Pendant$(/l) for more sustained close combat in human form, or $(l:dragonmaid:accessories/rending_claw)Rending Claw$(/l) for greater reach. Both strengthen melee attacks in either form, but cannot be worn together."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Two Charms in One",
+      "text": "The $(l:dragonmaid:accessories/guardian_thornfeather_emblem)Warding Thornfeather Emblem$(/l) combines armor with retaliation. The $(l:dragonmaid:accessories/hunter_king_pendant)Hunter King Pendant$(/l) unites the $(l:dragonmaid:accessories/wild_pendant)Wild Pendant$(/l) and $(l:dragonmaid:accessories/rending_claw)Rending Claw$(/l). Each saves a slot while retaining its components' equipment restrictions."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Before Moving On",
+      "text": "Nearby items allowed by the pickup mode enter the pack. While idle, your companion also walks over to collect them; after battle, it may gather nearby drops before returning.$(br2)Horns and recall altars preserve its pack, held equipment and knowledge."
     }
   ]
 }

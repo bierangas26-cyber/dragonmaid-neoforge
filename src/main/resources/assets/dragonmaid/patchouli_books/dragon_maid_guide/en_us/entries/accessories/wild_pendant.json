@@ -1,0 +1,31 @@
+{
+  "name": "Wild Pendant",
+  "icon": "dragonmaid:wild_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 15,
+  "advancement": "dragonmaid:book/wild_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "A Dragon's Heartbeat",
+      "item": "dragonmaid:wild_pendant",
+      "link_recipe": false,
+      "text": "A dragon heart answers the pulse of a living dragon, preserving the potions' power within the pendant. Its wearer fights harder at close quarters, with faster, more sustained claw attacks in human form."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Pendant",
+      "recipe": "dragonmaid:wild_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Closing on Prey",
+      "text": "Melee damage increases by 10%% in either form. In human form, the dragon favors close combat, strikes faster with its claws and has a 20%% shorter tail-sweep cooldown. It can still use breath and roars once that opportunity passes. It cannot be worn with Rending Claw or the Hunter King Pendant."
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

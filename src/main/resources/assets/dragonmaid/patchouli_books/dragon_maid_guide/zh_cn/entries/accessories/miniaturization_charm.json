@@ -1,0 +1,42 @@
+{
+  "name": "仙灵之愿",
+  "icon": "dragonmaid:miniaturization_charm",
+  "category": "dragonmaid:accessories",
+  "sortnum": 30,
+  "advancement": "dragonmaid:book/miniaturization_charm",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "dragonmaid:miniaturization_charm",
+      "title": "小时候的模样",
+      "link_recipe": false,
+      "text": "龙化作人形时，年岁与本领并不会随外貌改变。缩小身躯用的也是同一类咒术：将精灵尘融入龙骨，让龙形重新显出幼年的模样，原有的成长照常继续。$(br2)于是，那些早已长大的伙伴，又能回到你的肩头。一起走过的路，他们却也一点都没忘。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "仙灵之愿的合成",
+      "recipe": "dragonmaid:miniaturization_charm",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "重回肩头",
+      "text": "佩戴后，真实年龄、学识与成长照常保留，龙形默认缩至约十天大的模样。空手右键自己的龙形伙伴，便能让它重回肩头。$(br2)摘下护符后，若周围空间足够，便会恢复原本体型。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "小龙也会咬人",
+      "text": "缩小后，成熟伙伴仍会扑翼、咬击、甩尾或跳扑，近战范围、步速与击退随小身躯调整，狩猎的经验却不曾失去。$(br2)真实成长达到三阶后，还能在肩头寻敌协战：火龙与冰龙将吐息聚成一束，电龙发射小型雷弹。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "乘风而行吧",
+      "text": "肩上的伙伴，一只可帮助你减缓下落，两只你们能一起滑翔更远；三只一起振翼，便能带你升空、悬停。$(br2)携三龙起跳，或者在某处下落后，三只小家伙会一起振翅，此时你可以按住跳跃键上升，松开悬停。空中按住潜行键下降；落地后松开再按一次潜行，可放下肩上的所有小龙。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "小小的守护者",
+      "text": "佩戴仙灵之愿的小龙不会破坏地形。守护时，若追敌离你太远，它们会先放下眼前的战斗，回到你的身边。"
+    }
+  ]
+}

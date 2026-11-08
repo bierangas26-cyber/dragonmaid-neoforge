@@ -7,7 +7,7 @@
     {
       "type": "patchouli:spotlight",
       "title": "Opening the Guide",
-      "text": "On your first visit, receive this guide and New Journey. If inventory is full, look nearby. Right-click the air to read it. It is not reissued on respawn or rejoining.",
+      "text": "By default, your first visit brings this guide and New Journey. If inventory is full, look nearby. Right-click the air to read it. It is not reissued on respawn or rejoining.",
       "item": "dragonmaid:dragon_maid_guide",
       "link_recipe": false
     },
@@ -20,6 +20,11 @@
       "type": "patchouli:text",
       "title": "What to Bring",
       "text": "Bring a name tag, books, and your companion's favorite food. Books, manuscripts, and bottles o' enchanting are for learning; dragon meal is food.$(br2)Use bone, a name tag, and scales to craft a Guardian Tag. Equip it under $(l:dragonmaid:accessories/companions)Dragon Equipment$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "If No Book Arrives",
+      "text": "The first-entry gift can be disabled in global settings. New Journey and the guide recipe remain available.$(br2)If no book arrives, craft one from a book and an Ice and Fire manuscript. Rejoining or respawning does not reissue it."
     }
   ],
   "advancement": "dragonmaid:book/dragon_maid_guide"

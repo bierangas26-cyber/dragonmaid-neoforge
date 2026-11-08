@@ -1,0 +1,31 @@
+{
+  "name": "猎王吊坠",
+  "icon": "dragonmaid:hunter_king_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 18,
+  "advancement": "dragonmaid:book/hunter_king_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "龙心与利爪",
+      "item": "dragonmaid:hunter_king_pendant",
+      "link_recipe": false,
+      "text": "龙心维持着药剂的力量，爪饰则将锋锐延至爪尖之外。人形龙借此出爪更快，也能触及更远的敌人。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "吊坠的合成",
+      "recipe": "dragonmaid:hunter_king_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "组合后的效果",
+      "text": "两种形态的近战伤害提高15%%，不叠成25%%。人形同时获得狂野的近战连贯性与甩尾冷却缩短，以及裂阵的普通爪击范围扩大。只占一个饰品栏，不能再与这两件组件同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

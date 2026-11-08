@@ -6,13 +6,18 @@
   "pages": [
     {
       "type": "dragonmaid:first_page_title",
-      "title": "Wander, Rest, and Guard",
-      "text": "Empty hands, right-click a healthy human dragon:$(br2)Wander: roam and fight.$(br)Rest: defend self, owner, pets; then rest.$(br)Guard: follow and watch for enemies.$(br2)Mode shown on screen; no staff needed."
+      "title": "Giving Commands",
+      "text": "With empty hands, right-click your human-form dragon unless severely injured. This cycles Wander, Rest and Guard. The mode appears on screen; no staff is needed."
     },
     {
       "type": "dragonmaid:illustration_scene",
       "image": "dragonmaid:textures/gui/book/illustrations/scene_06_campfire.png",
       "text": "A pause by the fire."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Three Commands",
+      "text": "Wander: roam nearby, protect you and your pets, and help with your attacks.$(br2)Rest: stay put, but defend self, owner and pets before resting again.$(br2)Guard: follow the owner and watch for enemies."
     },
     {
       "type": "patchouli:text",
@@ -22,7 +27,7 @@
     {
       "type": "patchouli:text",
       "title": "Following the Owner",
-      "text": "While guarding, your companion stays near you. Without enemies it follows you, and if left too far behind it finds safe ground near you to teleport to.$(br2)Look back while crossing forests or walls and leave it a clear path."
+      "text": "While guarding, your companion stays near you and teleports closer if left far behind.$(br2)From knowledge level one, both forms seek visible hostile creatures while wandering or guarding. A resting or sleeping dragon leaves them alone, but still rises to defend its companions when threatened."
     },
     {
       "type": "patchouli:text",
@@ -43,6 +48,11 @@
       "type": "patchouli:text",
       "title": "Avoiding Hazards",
       "text": "The three dragon types choose different paths. Fire dragons tolerate lava but avoid dragon ice spikes; ice dragons cross those spikes but avoid lava. Lightning dragons are wary of both.$(br2)Keep an eye on the ground when traveling through dangerous places."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Still Watching Over You",
+      "text": "An awake, seated fire or ice dragon in human form may watch you or nearby creatures, then look away.$(br2)A companion that meets the waking conditions also wakes to protect you when absorption hearts take the whole hit, before normal health is lost."
     }
   ]
 }

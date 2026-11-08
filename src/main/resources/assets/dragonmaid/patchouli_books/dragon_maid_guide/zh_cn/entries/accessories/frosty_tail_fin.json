@@ -1,0 +1,31 @@
+{
+  "name": "寒潮尾桨",
+  "icon": "dragonmaid:frosty_tail_fin",
+  "category": "dragonmaid:accessories",
+  "sortnum": 14,
+  "advancement": "dragonmaid:book/frosty_tail_fin",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "寒潮的余波",
+      "item": "dragonmaid:frosty_tail_fin",
+      "link_recipe": false,
+      "text": "冰龙血能将寒意留在淬炼过的兵刃中。尾桨借用同样的力量，使甩尾带起寒潮，让中招者脚步迟缓，伴着一阵反胃。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "尾桨的合成",
+      "recipe": "dragonmaid:frosty_tail_fin",
+      "text": "正中放海马鳍，左右各放一片闪光鳞片，上下各放一瓶冰龙血；左下与右下各放一根龙霜刺。$(br2)龙霜刺是冰龙吐息留下的尖刺，用带有精准采集的工具采下。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "寒潮随尾而起",
+      "text": "龙形与人形甩尾的范围扩大20%%，扫击时掀起寒气弧。龙形与人形的甩尾伤害提高15%%；命中附加缓慢Ⅲ与反胃Ⅲ各5秒，非冰龙敌人还会冰封3秒；普通爪击与吐息不获得这些效果。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

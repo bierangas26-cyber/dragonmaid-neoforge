@@ -19,7 +19,7 @@
     {
       "type": "patchouli:text",
       "title": "Shedding Scales",
-      "text": "After 125 days, a tamed dragon sheds scales of its own color as it grows, naturally or from dragon meal, in either form.$(br2)Keep the scales you find for crafting later."
+      "text": "After maturity, further growth can shed scales of the dragon's own color, naturally or from ordinary dragon meal, in either form. The default maturity threshold is 125 days.$(br2)Scales enter its pack first; excess drops on the ground. Global settings control maturity age, scale count and chance."
     }
   ]
 }

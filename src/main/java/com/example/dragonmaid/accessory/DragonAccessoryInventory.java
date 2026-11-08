@@ -1,8 +1,10 @@
 package com.example.dragonmaid.accessory;
 
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
+import java.util.Set;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 
@@ -102,6 +104,8 @@ public final class DragonAccessoryInventory extends SimpleContainer {
         double breathDamageBonus;
         int storageSlots;
         int healingTicks;
+        // 1.2: 饰品的激活效果集合（供 DragonAccessories.hasEffect 查询）
+        Set<ResourceLocation> activeEffects = Set.of();
 
         Effects() {
         }

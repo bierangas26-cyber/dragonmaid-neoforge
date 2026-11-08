@@ -1,0 +1,31 @@
+{
+  "name": "Eye of Majesty",
+  "icon": "dragonmaid:majesty_eye_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 11,
+  "advancement": "dragonmaid:book/majesty_eye_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Dread in the Voice",
+      "item": "dragonmaid:majesty_eye_pendant",
+      "link_recipe": false,
+      "text": "A cockatrice eye retains a trace of its deadly gaze. The pendant lends that power to a dragon's roar, deepening the dread it stirs in foes and the courage it gives allies. The roar's power also lasts longer."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Pendant",
+      "recipe": "dragonmaid:majesty_eye_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Stronger Roar",
+      "text": "The roar grants Strength II and inflicts Weakness II, with both effects lasting 25%% longer. This works in either form. The pendant strengthens an existing roar; it does not grant the ability to young dragons."
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

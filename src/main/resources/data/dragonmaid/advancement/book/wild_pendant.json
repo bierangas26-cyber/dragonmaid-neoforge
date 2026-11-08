@@ -1,0 +1,138 @@
+{
+  "criteria": {
+    "has_material_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragonbone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "iceandfire:dragon_hearts"
+          }
+        ]
+      }
+    },
+    "has_material_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_scrap"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:name_tag"
+            ]
+          }
+        ]
+      }
+    },
+    "has_potion_strength": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:potion",
+              "minecraft:splash_potion",
+              "minecraft:lingering_potion"
+            ],
+            "potion": "minecraft:strength"
+          }
+        ]
+      }
+    },
+    "has_potion_long_strength": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:potion",
+              "minecraft:splash_potion",
+              "minecraft:lingering_potion"
+            ],
+            "potion": "minecraft:long_strength"
+          }
+        ]
+      }
+    },
+    "has_potion_strong_strength": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:potion",
+              "minecraft:splash_potion",
+              "minecraft:lingering_potion"
+            ],
+            "potion": "minecraft:strong_strength"
+          }
+        ]
+      }
+    },
+    "has_potion_custom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:potion",
+              "minecraft:splash_potion",
+              "minecraft:lingering_potion"
+            ],
+            "nbt": "{CustomPotionEffects:[{Id:5}]}"
+          }
+        ]
+      }
+    },
+    "has_potion_custom_byte": {
+      "conditions": {
+        "items": [
+          {
+            "nbt": "{CustomPotionEffects:[{Id:5b}]}",
+            "items": [
+              "minecraft:potion",
+              "minecraft:splash_potion",
+              "minecraft:lingering_potion"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_material_1",
+      "has_material_2",
+      "has_material_3",
+      "has_material_4",
+      "has_potion_strength",
+      "has_potion_long_strength",
+      "has_potion_strong_strength",
+      "has_potion_custom",
+      "has_potion_custom_byte"
+    ]
+  ]
+}

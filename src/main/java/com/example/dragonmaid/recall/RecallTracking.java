@@ -49,7 +49,6 @@ public final class RecallTracking {
 
     public static void stamp(Entity entity, RecallLedger.Entry entry) {
         stampData(entity.getPersistentData(), entry);
-        }
     }
 
     public static void stamp(CompoundTag snapshot, RecallLedger.Entry entry) {
@@ -338,4 +337,5 @@ public final class RecallTracking {
 
         return false;
     }
+
 }

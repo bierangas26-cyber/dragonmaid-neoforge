@@ -1,5 +1,6 @@
 package com.example.dragonmaid.client;
 
+import com.example.dragonmaid.accessory.MiniatureForm;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.StoneStatueEntity;
 import com.iafenvoy.iceandfire.registry.IafEntities;
@@ -63,7 +64,7 @@ public final class HumanoidStatueRenderer {
                     DragonBaseEntity entitydragonbase1 = humanoidstatuerenderer$cached.dragon();
                     entitydragonbase1.setPos(statue.position());
                     IceFemaleRenderer icefemalerenderer = ClientRegistration.dragonRenderers.get(FemaleDragonAssets.of(entitydragonbase1))[FemaleDragonAssets.stageIndex(
-                        entitydragonbase1.getDragonStage()
+                        MiniatureForm.humanoidModelStage(entitydragonbase1)
                     )];
                     float f = Mth.rotLerp(partial, statue.yRotO, statue.getYRot());
 

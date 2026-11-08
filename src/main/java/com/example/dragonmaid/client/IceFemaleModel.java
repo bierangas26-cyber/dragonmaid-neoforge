@@ -1,5 +1,8 @@
 package com.example.dragonmaid.client;
 
+import com.example.dragonmaid.combat.DragonShield;
+import com.example.dragonmaid.combat.HumanoidIdleLook;
+import com.example.dragonmaid.combat.HumanoidMeleeTiming;
 import com.example.dragonmaid.combat.HumanoidRoar;
 import com.example.dragonmaid.data.DragonForms;
 import com.example.dragonmaid.data.HumanoidLife;
@@ -35,7 +38,9 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
         asset("animations/shared/dragon_shared.legacy_tail.animation.json"),
         asset("animations/shared/dragon_shared.breath_followup.animation.json"),
         asset("animations/breath/fire_ice/dragon_fire_ice.breath_first.animation.json"),
-        asset("animations/shared/dragon_shared.tail_sweep.animation.json")
+        asset("animations/shared/dragon_shared.tail_sweep.animation.json"),
+        asset("animations/shared/dragon_shared.claw_combo.animation.json"),
+        asset("animations/shared/dragon_shared.sword_combo.animation.json")
     };
     private static final String[] LOWER_ARMS = new String[]{"arm_lower_right", "arm_lower_left", "hand_right", "hand_left"};
     private static final String[] TAIL = new String[]{"tail_1", "tail_2", "tail_3", "tail_4", "tail_5", "tail_6"};
@@ -72,7 +77,17 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
     private final Map<DragonBaseEntity, LightningBreathTimeline> lightningBreath = new WeakHashMap<>();
     private final Map<DragonBaseEntity, ForgeBreathTimeline> forgeBreath = new WeakHashMap<>();
     private final Map<DragonBaseEntity, IceFemaleModel.SitSupport> sitSupports = new WeakHashMap<>();
+    /** 1.2: 坐/睡姿势下把手里拿的东西收起来（IceFemaleEquipmentLayer 每帧读取）。 */
+    private boolean heldItemsStowed;
     private BakedGeoModel checkedFinModel;
+
+    boolean heldItemsStowed() {
+        return this.heldItemsStowed;
+    }
+
+    void setHeldItemsStowed(boolean stowed) {
+        this.heldItemsStowed = stowed;
+    }
 
     IceFemaleModel(Context context, FemaleDragonAssets assets, int stage) {
         this.assets = assets;
@@ -87,8 +102,18 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
             arraylist.add(assets.breathResource);
         }
 
+        // 1.2: 水中姿势新增 swim_tail / water_idle 动画（冰龙复用 fire 的 water_idle）
+        if (assets.species.equals("ice")) {
+            arraylist.add(asset("animations/water/dragon_ice_stage" + (3 + FemaleDragonAssets.stageIndex(stage)) + ".swim_tail.animation.json"));
+        }
+
+        arraylist.add(asset("animations/water/dragon_" + this.waterIdleSpecies() + ".water_idle.animation.json"));
         this.animationFallbacks = arraylist.toArray(ResourceLocation[]::new);
         this.vanillaPose = HumanoidDragonRenderer.createPoseModel(context, !assets.male, false);
+    }
+
+    private String waterIdleSpecies() {
+        return this.assets.species.equals("ice") ? "fire" : this.assets.species;
     }
 
     public BakedGeoModel getBakedModel(ResourceLocation location) {
@@ -170,6 +195,7 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
     }
 
     void clearWorldState() {
+        this.heldItemsStowed = false;
         this.transitions.clear();
         this.breathLayers.clear();
         this.sitting.clear();
@@ -212,6 +238,11 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
         boolean flag1 = HumanoidWater.active(entitydragonbase);
         boolean flag2 = HumanoidWater.submerged(entitydragonbase);
         int i = DragonForms.state(entitydragonbase).dragonmaid$getAction();
+        // 1.2: 近战动作（爪击/剑技）时间线 + 盾牌姿态
+        long worldTick = entitydragonbase.level().getGameTime();
+        HumanoidMeleeTiming humanoidmeleettiming = i == 1
+            ? HumanoidMeleeTiming.decode(DragonForms.state(entitydragonbase).dragonmaid$getMeleeMotion(), worldTick)
+            : null;
         BreathTimeline.Frame breathtimeline$frame1 = null;
         if (this.assets.breathResource == null) {
             boolean flag3 = tailsweeptimeline$frame != null
@@ -307,6 +338,7 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
             animation5.length(),
             animation6.length()
         );
+        this.heldItemsStowed = flag || sittimeline$frame.active();
         if (!flag) {
             animatable.rememberSeatedPose(
                 entitydragonbase, sittimeline$frame.active() && sittimeline$frame.phase() != SitTimeline.Phase.EXIT, locomotionmotion.generation()
@@ -338,6 +370,11 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
 
             this.getBone("sleep_eyelids").ifPresent(bonex -> bonex.setHidden(true));
             j = Integer.MAX_VALUE;
+        } else if (humanoidmeleettiming != null) {
+            HumanoidMeleeTiming.Frame humanoidmeleettiming$frame = humanoidmeleettiming.frame(worldTick, state.getPartialTick());
+            this.rig.sampleOnce(this.getAnimation(animatable, humanoidmeleettiming$frame.clip()), humanoidmeleettiming$frame.tick(), this.targetPose);
+            this.getBone("sleep_eyelids").ifPresent(bonex -> bonex.setHidden(true));
+            j = 2147483646;
         } else if (sittimeline$frame.active()) {
             Animation animation7 = switch (sittimeline$frame.phase()) {
                 case ENTER -> animation4;
@@ -365,14 +402,28 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
                 EntityModelData entitymodeldata = (EntityModelData)state.getData(DataTickets.ENTITY_MODEL_DATA);
                 this.rig.add(this.targetPose, "Head", 0, entitymodeldata.headPitch() * (float) (Math.PI / 180.0) * breathtimeline$frame1.weight());
                 this.rig.add(this.targetPose, "Head", 1, entitymodeldata.netHeadYaw() * (float) (Math.PI / 180.0) * breathtimeline$frame1.weight());
+            } else if (!flag8
+                && sittimeline$frame.phase() == SitTimeline.Phase.LOOP
+                && HumanoidIdleLook.seatedGlance(entitydragonbase)
+                && (breathtimeline$frame == null || breathtimeline$frame.weight() <= 0.0F)) {
+                EntityModelData entitymodeldata0 = (EntityModelData)state.getData(DataTickets.ENTITY_MODEL_DATA);
+                this.rig.add(this.targetPose, "Head", 0, Mth.clamp(entitymodeldata0.headPitch(), -25.0F, 25.0F) * (float) (Math.PI / 180.0));
+                this.rig.add(this.targetPose, "Head", 1, Mth.clamp(entitymodeldata0.netHeadYaw(), -45.0F, 45.0F) * (float) (Math.PI / 180.0));
             }
 
             j = 100 + sittimeline$frame.revision();
         } else if (flag1) {
-            boolean flag10 = flag2 && !entitydragonbase.onGround();
+            boolean flag10 = HumanoidWater.canDive(entitydragonbase) && flag2 && !entitydragonbase.onGround();
             if (flag10) {
                 this.rig.reset(this.targetPose);
                 EntityModelData entitymodeldata2 = (EntityModelData)state.getData(DataTickets.ENTITY_MODEL_DATA);
+                boolean idleSwimLook = DragonForms.state(entitydragonbase).dragonmaid$isIdleLooking()
+                    && i == 0
+                    && !flag9
+                    && breathtimeline$frame == null
+                    && !entitydragonbase.isBreathingFire()
+                    && !HumanoidRoar.isRoaring(entitydragonbase)
+                    && entitydragonbase.getAttackAnim(state.getPartialTick()) <= 0.0F;
                 this.vanillaPose.attackTime = 0.0F;
                 this.vanillaPose.young = false;
                 this.vanillaPose.prepareMobModel(entitydragonbase, state.getLimbSwing(), state.getLimbSwingAmount(), state.getPartialTick());
@@ -386,17 +437,50 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
                         -entitymodeldata2.netHeadYaw(),
                         -entitymodeldata2.headPitch()
                     );
-                this.vanillaPose.head.xRot = (float) (-Math.PI / 4);
+                this.vanillaPose.head.xRot = (float) (-Math.PI / 4)
+                    - (idleSwimLook ? entitymodeldata2.headPitch() * (float) (Math.PI / 180.0) : 0.0F);
                 this.copyPose("Head", this.vanillaPose.head, 0.0F, 0.0F, 0.0F);
                 this.copyPose("Body", this.vanillaPose.body, 0.0F, 0.0F, 0.0F);
                 this.copyPose("Right Arm", this.vanillaPose.rightArm, -5.0F, 2.0F, 0.0F);
                 this.copyPose("Left Arm", this.vanillaPose.leftArm, 5.0F, 2.0F, 0.0F);
                 this.copyPose("Right Leg", this.vanillaPose.rightLeg, -1.9F, 12.0F, 0.0F);
                 this.copyPose("Left Leg", this.vanillaPose.leftLeg, 1.9F, 12.0F, 0.0F);
-                SwimPose.root(this.rig, this.targetPose, Mth.lerp(state.getPartialTick(), entitydragonbase.xRotO, entitydragonbase.getXRot()));
-                j = 30;
+                SwimPose.root(
+                    this.rig,
+                    this.targetPose,
+                    idleSwimLook ? 0.0F : Mth.lerp(state.getPartialTick(), entitydragonbase.xRotO, entitydragonbase.getXRot())
+                );
+                Animation swimTailAnimation = this.getAnimation(animatable, "animation.dragon_ice.swim_tail");
+                if (swimTailAnimation != null) {
+                    this.rig.sample(swimTailAnimation, d0, this.walkPose);
+
+                    for (String s : TAIL) {
+                        this.rig.mixBone(s, this.walkPose, 1.0F, this.targetPose);
+                    }
+                }
+
+                j = idleSwimLook ? 32 : 30;
             } else {
-                this.rig.sample(this.getAnimation(animatable, "animation.dragon_shared.idle"), d0, this.targetPose);
+                boolean waterIdle = !entitydragonbase.onGround()
+                    && i == 0
+                    && !flag9
+                    && breathtimeline$frame == null
+                    && !entitydragonbase.isBreathingFire()
+                    && !HumanoidRoar.isRoaring(entitydragonbase)
+                    && entitydragonbase.getAttackAnim(state.getPartialTick()) <= 0.0F;
+                Animation waterIdleAnimation = waterIdle
+                    ? this.getAnimation(animatable, "animation.dragon_" + this.waterIdleSpecies() + ".water_idle")
+                    : null;
+                waterIdle = waterIdleAnimation != null;
+                this.rig.sample(
+                    waterIdle ? waterIdleAnimation : this.getAnimation(animatable, "animation.dragon_shared.idle"),
+                    d0,
+                    this.targetPose
+                );
+                if (waterIdle) {
+                    this.getBone("sleep_eyelids").ifPresent(bonex -> bonex.setHidden(false));
+                }
+
                 float f = !flag9
                         && i != 1
                         && i != 5
@@ -412,7 +496,7 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
                 EntityModelData entitymodeldata1 = (EntityModelData)state.getData(DataTickets.ENTITY_MODEL_DATA);
                 this.rig.add(this.targetPose, "Head", 0, entitymodeldata1.headPitch() * (float) (Math.PI / 180.0));
                 this.rig.add(this.targetPose, "Head", 1, entitymodeldata1.netHeadYaw() * (float) (Math.PI / 180.0));
-                j = 31;
+                j = waterIdle ? 33 : 31;
             }
 
             for (int k = 0; k < TAIL.length; k++) {
@@ -547,7 +631,10 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
             }
 
             if (flag11 || flag13) {
-                this.vanillaPose.attackTime = entitydragonbase.getAttackAnim(state.getPartialTick());
+                float f7 = entitydragonbase.getAttackAnim(state.getPartialTick());
+                this.vanillaPose.attackTime = i == 1 && DragonForms.state(entitydragonbase).dragonmaid$isFastClaw()
+                    ? Math.min(1.0F, f7 * 1.2F)
+                    : f7;
                 this.vanillaPose.young = false;
                 this.vanillaPose.swimAmount = entitydragonbase.getSwimAmount(state.getPartialTick());
                 float f4 = flag11 ? state.getLimbSwing() : 0.0F;
@@ -591,10 +678,30 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
             }
         }
 
+        if (DragonShield.isRaised(entitydragonbase)
+            && i == 0
+            && humanoidmeleettiming == null
+            && tailsweeptimeline$frame == null
+            && !flag
+            && !sittimeline$frame.active()
+            && !flag6
+            && !entitydragonbase.isModelDead()
+            && !flag9
+            && (breathtimeline$frame == null || breathtimeline$frame.weight() <= 0.0F)) {
+            this.rig.set(this.targetPose, "Left Arm", 0, 0.72F);
+            this.rig.set(this.targetPose, "Left Arm", 1, -0.52F);
+            this.rig.set(this.targetPose, "Left Arm", 2, 0.12F);
+            this.rig.set(this.targetPose, "arm_lower_left", 0, 0.35F);
+            this.rig.set(this.targetPose, "arm_lower_left", 1, 0.0F);
+            this.rig.set(this.targetPose, "arm_lower_left", 2, 0.0F);
+            this.rig.resetBone(this.targetPose, "hand_left");
+            j = 2147483645;
+        }
+
         this.transitions
             .computeIfAbsent(entitydragonbase, ignored -> new SharedAnimationPose.Transition(this.targetPose.length))
             .apply(this.targetPose, j, d0, locomotionmotion.generation(), this.assets.male, j == Integer.MAX_VALUE ? tailsweeptimeline$frame.age() : 0.0);
-        if (tailsweeptimeline$frame == null && !flag1 && !flag && !sittimeline$frame.active() && !entitydragonbase.isModelDead() && !flag6 && !flag9) {
+        if (humanoidmeleettiming == null && tailsweeptimeline$frame == null && !flag1 && !flag && !sittimeline$frame.active() && !entitydragonbase.isModelDead() && !flag6 && !flag9) {
             BreathTimeline.EyeFrame breathtimeline$eyeframe = entitydragonbase.isModelDead()
                 ? BreathTimeline.EyeFrame.OPEN
                 : (this.assets.breathResource == null ? ClientBreathAnimations.eye(entitydragonbase, state.getPartialTick()) : BreathTimeline.EyeFrame.OPEN);

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "FHF",
+    "PBP"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "F": {
+      "item": "iceandfire:hydra_fang"
+    },
+    "H": {
+      "item": "iceandfire:fire_dragon_heart"
+    },
+    "B": {
+      "item": "iceandfire:fire_dragon_blood"
+    },
+    "P": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:venomfang_pendant",
+    "count": 1
+  }
+}

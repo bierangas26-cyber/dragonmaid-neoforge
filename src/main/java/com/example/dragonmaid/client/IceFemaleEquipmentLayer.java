@@ -1,9 +1,11 @@
 package com.example.dragonmaid.client;
 
+import com.example.dragonmaid.accessory.DragonHands;
 import com.example.dragonmaid.item.ServiceDragonArmorItem;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,6 +79,35 @@ final class IceFemaleEquipmentLayer extends GeoRenderLayer<IceFemaleAnimatable> 
     ) {
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)this.parent.getCurrentEntity();
         if (!entitydragonbase.isInvisible()) {
+            // 1.2: 人形龙主/副手拿的武器、盾牌画在 hand_right/hand_left 骨骼上（坐/睡时由模型层收起）。
+            if (!bone.isHidden()
+                && (bone.getName().equals("hand_right") || bone.getName().equals("hand_left"))
+                && !((IceFemaleModel)this.getGeoModel()).heldItemsStowed()) {
+                boolean left = bone.getName().equals("hand_left");
+                ItemStack held = left ? DragonHands.offHand(entitydragonbase) : DragonHands.mainHand(entitydragonbase);
+                if (!held.isEmpty()) {
+                    pose.pushPose();
+
+                    try {
+                        RenderUtil.translateToPivotPoint(pose, bone);
+                        pose.translate(0.0, -0.09375, 0.0);
+                        pose.mulPose(Axis.XP.rotationDegrees(left ? -90.0F : -80.0F));
+                        this.items.renderItem(
+                            entitydragonbase,
+                            held,
+                            left ? ItemDisplayContext.THIRD_PERSON_LEFT_HAND : ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
+                            left,
+                            pose,
+                            buffers,
+                            light
+                        );
+                    } finally {
+                        pose.popPose();
+                        buffers.getBuffer(renderType);
+                    }
+                }
+            }
+
             IceFemaleEquipmentLayer.Piece icefemaleequipmentlayer$piece = this.armor.get(bone.getName());
             boolean flag = bone.getName().equals("Body") && entitydragonbase.getOffhandItem().getItem() instanceof BannerItem;
             if (icefemaleequipmentlayer$piece != null || flag) {

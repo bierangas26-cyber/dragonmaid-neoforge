@@ -11,13 +11,48 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Planned Features",
-      "text": "Knowledge levels two and three are available, each unlocking an accessory slot. Find the requirements in $(l:dragonmaid:learning/books)Lessons and Lore$(/l).$(br2)Higher knowledge levels, extra storage, weapons, riding, and new ways to spend time together await a future update."
+      "title": "Further Along",
+      "text": "The first three knowledge levels expand your dragon’s pack. At level two, it can carry a weapon and shield. Find the requirements in $(l:dragonmaid:learning/books)Lessons and Lore$(/l).$(br2)Higher knowledge levels, humanoid riding, and new ways to spend time together await a future update."
     },
     {
       "type": "patchouli:text",
       "title": "Guide Illustrations",
       "text": "Landscapes and moments from your travels have found a place in this book. More stories are waiting for you to write them together."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Global Settings",
+      "text": "Use the mod configuration from the main menu to adjust tamed dragons' health, damage, growth limit, scale drops and miniature size. Wild dragons retain Ice and Fire's values.$(br2)Choose animated or direct human-form attacks, or turn off the first-entry guide."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Settings Files",
+      "text": "Both global files are in the config folder:$(br2)Main settings:$(br)dragonmaid-common.toml$(br2)Recall altar settings:$(br)dragonmaid-recall-common.toml"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Applying Settings",
+      "text": "Global settings also apply to existing worlds. Re-enter the world or restart the server after changes.$(br2)In multiplayer, the server's settings take precedence for that session without overwriting your local files."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Companion Details",
+      "text": "Use /dragonmaid help for command help. /dragonmaid get all lists your companions; click a reported value to copy it.$(br2)Filter by species, name and count. Companions sharing a name are selected nearest first."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Age and Hunger",
+      "text": "The age and hunger commands use set, add or remove. They require cheats or operator permission and affect only your loaded companions in your dimension.$(br2)/dragonmaid age add 1 fire * 1$(br)adds one day to your nearest fire dragon."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Return Teleporting",
+      "text": "With cheats or operator permission, use:$(br2)/dragonmaid teleport off$(br)Replace off with on to enable it, or status to check the setting.$(br2)This controls automatic return teleporting, not ordinary following, crystals or recall altars."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Incubation Time",
+      "text": "To adjust incubation progress, use:$(br2)/dragonmaid egg remaining 60$(br2)With cheats or operator permission, this sets the nearest egg within 32 blocks to 60 seconds remaining. Ice eggs must freeze first. The usual incubation conditions still apply."
     }
   ]
 }

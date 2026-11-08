@@ -5,9 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Item.Properties;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import com.example.dragonmaid.compat.RO;
 import com.example.dragonmaid.compat.Reg;
 
@@ -68,6 +66,34 @@ public class ModItems {
         "guardian_pendant", () -> new SustainingAccessoryItem(true, false, true)
     );
     public static final RO<Item> DRAGON_RECALL_ALTAR = RecallContent.item();
+    // 1.2: 战斗饰品（CombatAccessoryItem 的 9 个 Kind）
+    public static final RO<CombatAccessoryItem> MAJESTY_EYE_PENDANT = ITEMS.register(
+        "majesty_eye_pendant", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.MAJESTY)
+    );
+    public static final RO<CombatAccessoryItem> THORNFEATHER_CHARM = ITEMS.register(
+        "thornfeather_charm", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.THORNFEATHER)
+    );
+    public static final RO<CombatAccessoryItem> VENOMFANG_PENDANT = ITEMS.register(
+        "venomfang_pendant", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.VENOMFANG)
+    );
+    public static final RO<CombatAccessoryItem> FROSTY_TAIL_FIN = ITEMS.register(
+        "frosty_tail_fin", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.FROSTY_TAIL)
+    );
+    public static final RO<CombatAccessoryItem> WILD_PENDANT = ITEMS.register(
+        "wild_pendant", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.WILD)
+    );
+    public static final RO<CombatAccessoryItem> RENDING_CLAW = ITEMS.register(
+        "rending_claw", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.RENDING)
+    );
+    public static final RO<CombatAccessoryItem> GUARDIAN_THORNFEATHER_EMBLEM = ITEMS.register(
+        "guardian_thornfeather_emblem", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.GUARDIAN_THORNFEATHER)
+    );
+    public static final RO<CombatAccessoryItem> HUNTER_KING_PENDANT = ITEMS.register(
+        "hunter_king_pendant", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.HUNTER_KING)
+    );
+    public static final RO<CombatAccessoryItem> MINIATURE_CHARM = ITEMS.register(
+        "miniaturization_charm", () -> new CombatAccessoryItem(CombatAccessoryItem.Kind.MINI)
+    );
 
     public ModItems() {
     }

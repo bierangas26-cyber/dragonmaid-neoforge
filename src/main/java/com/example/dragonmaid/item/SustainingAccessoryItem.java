@@ -25,7 +25,11 @@ public final class SustainingAccessoryItem extends DragonAccessoryItem {
 
     @Override
     public double armorBonus(ItemStack stack, DragonBaseEntity dragon) {
-        return this.armor ? (double)(Math.max(1, Math.min(5, dragon.getDragonStage())) + 1) : 0.0;
+        return this.armor ? wardingArmorBonus(dragon) : 0.0;
+    }
+
+    static double wardingArmorBonus(DragonBaseEntity dragon) {
+        return (double)(Math.max(1, Math.min(5, dragon.getDragonStage())) + 1);
     }
 
     @Override

@@ -1,0 +1,31 @@
+{
+  "name": "Thornfeather Charm",
+  "icon": "dragonmaid:thornfeather_charm",
+  "category": "dragonmaid:accessories",
+  "sortnum": 12,
+  "advancement": "dragonmaid:book/thornfeather_charm",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "A Traveller's Wings",
+      "item": "dragonmaid:thornfeather_charm",
+      "link_recipe": false,
+      "text": "The metallic feathers of a Stymphalian bird remain sharp after being shed. Made into a charm, they turn some of the hurt back on the attacker.$(br2)The wings stand for a traveller's longing for freedom. Whatever dangers lie ahead, there is still a world beyond."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Charm",
+      "recipe": "dragonmaid:thornfeather_charm",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Wound Answered",
+      "text": "When an attack costs your companion health, the charm deals 25%% of the health lost back to the attacker, up to 8 damage per hit. Environmental damage and hits that cost no health do not trigger it.$(br2)It never retaliates against the owner or allies. It cannot be worn with a Warding Thornfeather Emblem."
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

@@ -34,6 +34,55 @@
       "type": "patchouli:text",
       "title": "Poses and Injury",
       "text": "Different types and sexes have their own human sitting, standing, sleeping, and waking poses; tails move while swimming.$(br2)Faint breathing means an injured dragon is alive. At full health it sits and waits for a command."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Before Hatching",
+      "text": "While tending an egg, pay attention to its surroundings as well as its incubation. Heat and cold affect the sex of fire and ice dragons; lightning dragons respond to electrical power."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Sex is settled by conditions at the moment of hatching. You can still change the surroundings during incubation, but a dragon's sex will not change after birth.$(br2)If the specific conditions below are not used, sex remains random."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Soul-Fire Cradle",
+      "text": "When tending a fire dragon egg with soul fire, take note of where you are. Soul fire burns cooler in the Overworld and the End, producing a male, and warmer in the Nether, producing a female.$(br2)With ordinary fire, or with soul fire in any other dimension, sex remains random."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Beneath the Ice",
+      "text": "Dragon Ice, formed by an ice dragon's breath, is colder than natural blue ice. Keep this distinction in mind when choosing a support for an ice dragon egg.$(br2)Once the egg has frozen into its block, place Dragon Ice directly beneath the frozen egg block for a male, or blue ice for a female."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "With any other support block, sex remains random. Do not mistake Frosted Ice for Dragon Ice: Frosted Ice beneath the egg also leaves sex random."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Glimmer in the Rain",
+      "text": "Even before hatching, a lightning dragon can sense the power around it, and redstone signals can affect its sex."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Check the redstone signal at the egg and directly beneath it, using the stronger reading. The support block's own output counts too. Strength 1 to 7 produces a male, 8 to 15 a female, and no signal leaves sex random."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A lightning dragon egg still needs rain and open sky. Ordinary rain is enough; there is no need to wait for a thunderstorm."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Little Redstone",
+      "text": "You do not need redstone dust to supply a signal to a lightning dragon egg. A redstone block directly beneath the egg supplies strength 15 and produces a female."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "For a male, let a single egg rest on a light or heavy weighted pressure plate. This produces strength 1, which results in a male if no stronger signal is present."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Signals do not add together; only the strongest reading counts. Once everything is in place, players with Jade installed can look at the egg for the current prediction. It changes with the surroundings until the egg hatches."
     }
   ]
 }

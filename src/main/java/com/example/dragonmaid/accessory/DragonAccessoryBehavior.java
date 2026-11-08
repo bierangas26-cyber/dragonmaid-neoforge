@@ -13,6 +13,15 @@ public interface DragonAccessoryBehavior {
     ResourceLocation BREATH_TIMING = ResourceLocation.fromNamespaceAndPath("dragonmaid", "breath_timing");
     ResourceLocation BREATH_DAMAGE = ResourceLocation.fromNamespaceAndPath("dragonmaid", "breath_damage");
     ResourceLocation STORAGE = ResourceLocation.fromNamespaceAndPath("dragonmaid", "storage");
+    // 1.2 新增：战斗类饰品的 effect key（CombatAccessoryItem 会 override activeEffects/exclusiveEffects）
+    ResourceLocation ROAR_MAJESTY = ResourceLocation.fromNamespaceAndPath("dragonmaid", "roar_majesty");
+    ResourceLocation THORNS = ResourceLocation.fromNamespaceAndPath("dragonmaid", "thorns");
+    ResourceLocation FIRE_FANG = ResourceLocation.fromNamespaceAndPath("dragonmaid", "fire_fang");
+    ResourceLocation ICE_TAIL = ResourceLocation.fromNamespaceAndPath("dragonmaid", "ice_tail");
+    ResourceLocation MELEE_DAMAGE = ResourceLocation.fromNamespaceAndPath("dragonmaid", "melee_damage");
+    ResourceLocation WILD_RHYTHM = ResourceLocation.fromNamespaceAndPath("dragonmaid", "wild_rhythm");
+    ResourceLocation CLAW_SWEEP = ResourceLocation.fromNamespaceAndPath("dragonmaid", "claw_sweep");
+    ResourceLocation MINIATURE = ResourceLocation.fromNamespaceAndPath("dragonmaid", "miniature");
 
     default boolean canEquip(ItemStack stack, DragonBaseEntity dragon) {
         return true;
@@ -66,5 +75,10 @@ public interface DragonAccessoryBehavior {
         }
 
         return set;
+    }
+
+    // 1.2 新增：饰品当前的激活效果集合（默认等同互斥效果）。战斗饰品会自己 override。
+    default Set<ResourceLocation> activeEffects(ItemStack stack, DragonBaseEntity dragon) {
+        return this.exclusiveEffects(stack, dragon);
     }
 }

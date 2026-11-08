@@ -1,0 +1,60 @@
+{
+  "criteria": {
+    "has_material_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:hippocampus_fin"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:ice_dragon_blood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragon_ice_spikes"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:shiny_scales"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_material_1",
+      "has_material_2",
+      "has_material_3",
+      "has_material_4"
+    ]
+  ]
+}

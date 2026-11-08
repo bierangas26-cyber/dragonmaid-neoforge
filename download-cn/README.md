@@ -6,14 +6,16 @@
 
 | 文件 | 说明 |
 |---|---|
-| `dragonmaid-neoforge-1.21.1-1.1.0-beta.2-neoforge.2.jar` | 当前版本（适配 IAF CE 2.2） |
+| `dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar` | 当前版本（1.2 内容版，适配 IAF CE 2.2） |
 | `sha256.txt` | 校验值（下载后建议核对） |
 
 ```
 文件名：dragonmaid-neoforge-1.21.1-1.1.0-beta.2-neoforge.2.jar
-大小：6,812,966 B
-sha256：6125BA0B2672C8F9B527FC219D106472E6CEA7F33D1A318B55FD131AD4ACB8A0
+大小：7,261,323 B
+sha256：B0C7A7755186E79B1D2CBAC61F6AA2C23744FC6C41DCD4BE5D77B1C6C389B02C
 ```
+
+> 本 jar 对应原版 **1.2.0-beta.4** 内容（龙的背包/双手、仙灵之愿、8 件战斗饰品、人形近战重做、分次学习、孵化性别等）。
 
 ## 必装依赖（版本必须对，缺一个都启动不了）
 
@@ -26,6 +28,7 @@ sha256：6125BA0B2672C8F9B527FC219D106472E6CEA7F33D1A318B55FD131AD4ACB8A0
 | jupiter | 2.3.7+ |
 | GeckoLib | 4.9.2 |
 | Patchouli | 1.21.1-93+ |
+| Jade（可选） | 15.10+，可看蛋孵化性别预期 |
 
 > ⚠️ IAF CE 2.2 起**不需要 Citadel**，别装旧 Citadel。
 > 单人游戏：客户端装齐即可；多人服务器：服务端也装同一套。

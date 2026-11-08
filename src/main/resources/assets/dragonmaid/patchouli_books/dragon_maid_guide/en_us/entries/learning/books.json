@@ -24,11 +24,11 @@
     {
       "type": "patchouli:text",
       "title": "Knowledge Level Two",
-      "text": "At 1,000 accumulated knowledge, add a non-cursed enchanted book and select Advance. $(bold)Knowledge level two$() unlocks the second accessory slot.$(br2)Advancing consumes the book, but does not spend knowledge."
+      "text": "Level two needs 1,000 knowledge and one non-cursed enchanted task book. Read the book in a lower slot whenever you are ready; its progress is saved.$(br2)When both are ready, advance to open the second accessory slot. Knowledge is not spent."
     },
     {
       "type": "patchouli:text",
-      "title": "Enchanted Book Learning",
+      "title": "Enchanted Books",
       "text": "At knowledge level one, non-cursed enchanted books can be placed in the learning slot. At level two, cursed books can be read too. More enchantments and higher levels usually bring more knowledge.$(br2)Learning and advancement use separate slots. Knowledge beyond the next goal is kept."
     },
     {
@@ -39,11 +39,11 @@
     {
       "type": "patchouli:text",
       "title": "Knowledge Level Three",
-      "text": "After level two, keep learning until 2,500 knowledge. Place two non-cursed enchanted books and one cursed enchanted book in their separate slots.$(br2)Advancing to level three unlocks the third accessory slot; knowledge is retained."
+      "text": "After level two, reach 2,500 knowledge and read two non-cursed task books and one cursed task book. Read them together or one at a time.$(br2)Advancing to level three opens the third accessory slot; knowledge is retained."
     },
     {
       "type": "patchouli:text",
-      "title": "Books for Advancement",
+      "title": "Choosing Task Books",
       "text": "Non-cursed books need enchantments and no curse. Cursed books go in the cursed slot; normal books do not count.$(br2)Any valid enchantment or level works; books can be identical. Each book counts once, even with several enchantments. Effects do not transfer."
     },
     {
@@ -54,7 +54,27 @@
     {
       "type": "patchouli:text",
       "title": "Knowledge and Growth",
-      "text": "Growth and knowledge are separate. Levels two and three do not require growth stages four or five. The $(l:dragonmaid:forms/transformation)first transformation$(/l) still needs a name, stage three, and knowledge level one (300 total XP).$(br2)Extra dragon storage and other future features are not available yet."
+      "text": "Knowledge levels two and three do not require growth stages four or five. The $(l:dragonmaid:forms/transformation)first transformation$(/l) still needs a name, stage three, and knowledge level one (300 total XP).$(br2)Starting at level one, each level opens another row in $(l:dragonmaid:accessories/companions)your companion’s pack$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Tending the Flame",
+      "text": "At knowledge level two or higher, an ice dragon that sees you catch fire can cool you with a harmless puff of frost. Fire dragons of level two or higher favour their usual breath when a hydra is not burning, and their flames linger to hinder its regrowth."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Little Further",
+      "text": "At knowledge level three, a nearby fire dragon can grant you fire resistance when you catch fire or enter the Nether. An ice dragon lends you water breathing when you dip your head underwater. Stray from your companion and the protection soon wears off."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Chapter at a Time",
+      "text": "Each batch pauses at the next XP goal, keeping the last item's extra XP and leaving unused materials in the slot. Click Learn again after 300 or 1,000 to continue.$(br2)At or above 2,500, extra XP from the last item is still kept, but further learning stops."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Lessons Remembered",
+      "text": "Read task books in the lower slots to consume them and save progress. Changing form or travelling in a horn does not erase it. These books give no XP.$(br2)Learn becomes Advance when this batch can meet the XP goal and the task books are ready. Removing materials updates the button."
     }
   ]
 }

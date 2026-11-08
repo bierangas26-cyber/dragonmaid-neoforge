@@ -6,8 +6,50 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 
 public final class DragonStorageInventory extends SimpleContainer {
+    // 1.2: 拾取模式（全部 / 关闭 / 只拾取袋内已有种类）
+    private DragonStorage.PickupMode mode = DragonStorage.PickupMode.OFF;
+    private int revision;
+
     public DragonStorageInventory() {
         super(27);
+    }
+
+    public DragonStorage.PickupMode pickupMode() {
+        return this.mode;
+    }
+
+    public void setPickupMode(DragonStorage.PickupMode mode) {
+        this.mode = mode;
+    }
+
+    // 内容版本号：DragonBagFeeding 用它做"袋内没有可吃的东西"的缓存键
+    public int revision() {
+        return this.revision;
+    }
+
+    public void setChanged() {
+        super.setChanged();
+        this.revision++;
+    }
+
+    public ItemStack removeItemNoUpdate(int slot) {
+        ItemStack itemstack = super.removeItemNoUpdate(slot);
+        if (!itemstack.isEmpty()) {
+            this.revision++;
+        }
+
+        return itemstack;
+    }
+
+    public void loadPickupMode(String saved) {
+        for (DragonStorage.PickupMode dragonstorage$pickupmode : DragonStorage.PickupMode.values()) {
+            if (dragonstorage$pickupmode.name().equals(saved)) {
+                this.mode = dragonstorage$pickupmode;
+                return;
+            }
+        }
+
+        this.mode = DragonStorage.PickupMode.OFF;
     }
 
     public ListTag save() {

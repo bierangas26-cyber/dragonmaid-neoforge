@@ -57,6 +57,9 @@ enum FemaleDragonAssets {
     final boolean male;
     private final ResourceLocation[] textures;
     private final ResourceLocation[] highTextures;
+    /** 1.2: 冰龙「霜尾」状态的贴图（frosty_ 前缀变体）。 */
+    private final ResourceLocation[] frostyTextures;
+    private final ResourceLocation[] highFrostyTextures;
     private final ResourceLocation[] models;
 
     private FemaleDragonAssets(String model, String species, String[] textures) {
@@ -92,6 +95,18 @@ enum FemaleDragonAssets {
         this.highTextures = Arrays.stream(textures)
             .map(name -> asset("textures/entity/" + name.replace("_3_128", "_4_5_128")))
             .toArray(ResourceLocation[]::new);
+        // 1.2: frosty 变体（assets 已随 1.2 资源就位：frosty_ice_dragon_{female,male}_<color>_{3,4_5}_128.png）
+        this.frostyTextures = Arrays.stream(textures)
+            .map(name -> asset("textures/entity/frosty_" + name))
+            .toArray(ResourceLocation[]::new);
+        this.highFrostyTextures = Arrays.stream(textures)
+            .map(name -> asset("textures/entity/frosty_" + name.replace("_3_128", "_4_5_128")))
+            .toArray(ResourceLocation[]::new);
+    }
+
+    ResourceLocation frostyTexture(int stage, int variant) {
+        ResourceLocation[] palette = stageIndex(stage) == 0 ? this.frostyTextures : this.highFrostyTextures;
+        return palette[variant >= 0 && variant < palette.length ? variant : 0];
     }
 
     static int stageIndex(int stage) {
@@ -135,6 +150,31 @@ enum FemaleDragonAssets {
         }
 
         return this.texture(stage, 0);
+    }
+
+    /**
+     * 1.2: 霜尾状态下的贴图解析。CE 2.0 的 getVariant() 返回颜色名（不是 1.20.1 的 variant 索引），
+     * 所以和 {@link #texture(int, DragonBaseEntity)} 一样按文件名里的颜色 token 匹配。
+     */
+    ResourceLocation frostyTexture(int stage, DragonBaseEntity dragon) {
+        String variant = dragon.getVariant();
+        DragonColor color = variant == null ? null : DragonColor.getById(variant);
+        String name = color != null ? color.getName() : variant;
+        if (name == null) {
+            return this.frostyTexture(stage, 0);
+        }
+
+        String needle = "_" + name.toLowerCase(Locale.ROOT) + "_";
+        ResourceLocation[] candidates = stageIndex(stage) == 0 ? this.frostyTextures : this.highFrostyTextures;
+
+        for (int i = 0; i < candidates.length; i++) {
+            String path = candidates[i].getPath();
+            if (path.contains(needle) || (name.equalsIgnoreCase("silver") && path.contains("_siliver_"))) {
+                return candidates[i];
+            }
+        }
+
+        return this.frostyTexture(stage, 0);
     }
 
     boolean kneelingSleep() {

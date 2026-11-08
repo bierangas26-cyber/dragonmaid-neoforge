@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "found_charm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["dragonmaid:miniaturization_charm"] }] }
+    },
+    "found_material": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": ["iceandfire:silver_ingot", "iceandfire:pixie_dust", "iceandfire:dragonbone", "minecraft:name_tag"] }]
+      }
+    }
+  },
+  "requirements": [["found_charm", "found_material"]]
+}

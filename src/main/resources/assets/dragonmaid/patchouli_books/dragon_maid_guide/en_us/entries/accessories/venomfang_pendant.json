@@ -1,0 +1,36 @@
+{
+  "name": "Venomflame Heart",
+  "icon": "dragonmaid:venomfang_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 13,
+  "advancement": "dragonmaid:book/venomfang_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Life in the Blood",
+      "item": "dragonmaid:venomfang_pendant",
+      "link_recipe": false,
+      "text": "Hydra fangs can poison prey and draw life from it. A dragon heart binds both powers to the wearer: venom passes through melee strikes and direct flame. With an empty main hand, life taken by melee strikes also mends the dragon's own injuries."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Heart",
+      "recipe": "dragonmaid:venomfang_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Life from Battle",
+      "text": "Melee hits and direct combat breath inflict Poison II for 6 seconds. With an empty main hand, the wearer heals for 20%% of the health an enemy actually loses to melee attacks; an off-hand shield is allowed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Breath, burning and poison do not heal. It cannot be worn with healing accessories such as the Natural Dragon Heart Necklace."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Venom Ward",
+      "text": "This heart answers only fire dragons. Wearing it clears existing poison and prevents new Poison effects.$(br2)Its protection and venomous attacks remain active while a weapon is held. Only life steal requires an empty main hand."
+    }
+  ]
+}

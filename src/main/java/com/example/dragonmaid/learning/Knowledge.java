@@ -3,6 +3,7 @@ package com.example.dragonmaid.learning;
 public final class Knowledge {
     public static final int HUMAN_THRESHOLD = 300;
     public static final int MAX_KNOWLEDGE = 10000;
+    public static final int LEARNING_MAX = 2500;
     private static final int[] THRESHOLDS = new int[]{300, 1000, 2500, 5500, 10000};
 
     private Knowledge() {
@@ -10,6 +11,21 @@ public final class Knowledge {
 
     public static int clamp(int total) {
         return Math.max(0, Math.min(10000, total));
+    }
+
+    /** 1.2: 单次学习最多把知识推到 LEARNING_MAX（2500，即 3 级）。 */
+    public static int batchLimit(int total) {
+        if (total >= 2500) {
+            return 2500;
+        } else {
+            for (int threshold : THRESHOLDS) {
+                if (threshold > total) {
+                    return Math.min(2500, threshold);
+                }
+            }
+
+            return 2500;
+        }
     }
 
     public static int level(int total) {

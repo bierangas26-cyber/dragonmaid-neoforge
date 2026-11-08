@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
+/** 1.2: 知识界面支持「先交书自动升级」——学习/升级按钮文案与提示随 canLearnBooks()/learningWillUpgrade() 切换。 */
 public final class KnowledgeScreen extends AbstractContainerScreen<KnowledgeMenu> {
     private Button learn;
     private Button upgrade;
@@ -61,6 +62,9 @@ public final class KnowledgeScreen extends AbstractContainerScreen<KnowledgeMenu
     private void updateButtons() {
         boolean flag = this.minecraft != null && DragonForms.canManage(((KnowledgeMenu)this.menu).dragon(), this.minecraft.player);
         this.learn.active = flag && ((KnowledgeMenu)this.menu).previewCount() > 0;
+        this.learn.setMessage(
+            Component.translatable(((KnowledgeMenu)this.menu).learningWillUpgrade() ? "button.dragonmaid.upgrade" : "button.dragonmaid.learn")
+        );
         String s = !((KnowledgeMenu)this.menu).canLearn()
             ? "label.dragonmaid.learning_max"
             : (
@@ -72,19 +76,32 @@ public final class KnowledgeScreen extends AbstractContainerScreen<KnowledgeMenu
             );
         this.learn.setTooltip(Tooltip.create(Component.translatable(s)));
         this.upgrade.visible = ((KnowledgeMenu)this.menu).knowledgeLevel() > 0;
-        this.upgrade.active = this.upgrade.visible && flag && ((KnowledgeMenu)this.menu).upgradeReady();
+        this.upgrade.active = this.upgrade.visible
+            && flag
+            && (((KnowledgeMenu)this.menu).upgradeReady() || ((KnowledgeMenu)this.menu).canLearnBooks());
+        this.upgrade.setMessage(
+            Component.translatable(((KnowledgeMenu)this.menu).upgradeReady() ? "button.dragonmaid.upgrade" : "button.dragonmaid.learn")
+        );
         Component component = ((KnowledgeMenu)this.menu).knowledgeLevel() == 0
             ? Component.translatable("label.dragonmaid.knowledge_first_step")
             : (
                 !((KnowledgeMenu)this.menu).upgradeAvailable()
                     ? Component.translatable("label.dragonmaid.knowledge_max")
                     : (
-                        ((KnowledgeMenu)this.menu).knowledge() < ((KnowledgeMenu)this.menu).learningLimit()
-                            ? Component.translatable(
-                                "label.dragonmaid.upgrade_missing_knowledge",
-                                new Object[]{((KnowledgeMenu)this.menu).learningLimit() - ((KnowledgeMenu)this.menu).knowledge()}
+                        ((KnowledgeMenu)this.menu).canLearnBooks() && !((KnowledgeMenu)this.menu).upgradeReady()
+                            ? Component.translatable("label.dragonmaid.upgrade_save_books")
+                            : (
+                                ((KnowledgeMenu)this.menu).knowledge() < ((KnowledgeMenu)this.menu).learningLimit()
+                                    ? Component.translatable(
+                                        "label.dragonmaid.upgrade_missing_knowledge",
+                                        new Object[]{((KnowledgeMenu)this.menu).learningLimit() - ((KnowledgeMenu)this.menu).knowledge()}
+                                    )
+                                    : (
+                                        !((KnowledgeMenu)this.menu).upgradeReady()
+                                            ? Component.translatable("label.dragonmaid.upgrade_missing_books")
+                                            : null
+                                    )
                             )
-                            : (!((KnowledgeMenu)this.menu).upgradeReady() ? Component.translatable("label.dragonmaid.upgrade_missing_books") : null)
                     )
             );
         this.upgrade.setTooltip(component == null ? null : Tooltip.create(component));
@@ -179,11 +196,11 @@ public final class KnowledgeScreen extends AbstractContainerScreen<KnowledgeMenu
                 this.font,
                 Component.translatable(
                     "label.dragonmaid.upgrade_regular_count",
-                    new Object[]{((KnowledgeMenu)this.menu).regularPlaced(), ((KnowledgeMenu)this.menu).regularRequired()}
+                    new Object[]{((KnowledgeMenu)this.menu).regularLearned(), ((KnowledgeMenu)this.menu).regularRequired()}
                 ),
                 8,
                 89,
-                ((KnowledgeMenu)this.menu).regularPlaced() >= ((KnowledgeMenu)this.menu).regularRequired() ? 2646093 : 4210752,
+                ((KnowledgeMenu)this.menu).regularLearned() >= ((KnowledgeMenu)this.menu).regularRequired() ? 2646093 : 4210752,
                 false
             );
             if (((KnowledgeMenu)this.menu).curseRequired() > 0) {
@@ -191,11 +208,11 @@ public final class KnowledgeScreen extends AbstractContainerScreen<KnowledgeMenu
                     this.font,
                     Component.translatable(
                         "label.dragonmaid.upgrade_curse_count",
-                        new Object[]{((KnowledgeMenu)this.menu).cursePlaced(), ((KnowledgeMenu)this.menu).curseRequired()}
+                        new Object[]{((KnowledgeMenu)this.menu).curseLearned(), ((KnowledgeMenu)this.menu).curseRequired()}
                     ),
                     134,
                     89,
-                    ((KnowledgeMenu)this.menu).cursePlaced() >= ((KnowledgeMenu)this.menu).curseRequired() ? 2646093 : 4210752,
+                    ((KnowledgeMenu)this.menu).curseLearned() >= ((KnowledgeMenu)this.menu).curseRequired() ? 2646093 : 4210752,
                     false
                 );
             }

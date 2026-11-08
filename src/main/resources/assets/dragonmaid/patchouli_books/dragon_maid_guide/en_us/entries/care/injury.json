@@ -32,7 +32,7 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Commands After Recovery",
+      "title": "After Recovery",
       "text": "At full health, your companion sits up and waits for you to decide what comes next.$(br2)In human form, right-click with empty hands; in dragon form, use a dragon staff.$(br2)Recovery does not require $(l:dragonmaid:care/execution)mercy killing$(/l), an irreversible farewell."
     },
     {
@@ -45,7 +45,7 @@
     },
     {
       "type": "patchouli:text",
-      "title": "What Recovery Preserves",
+      "title": "What Stays with You",
       "text": "After the stone shell falls away, owner, growth, knowledge, equipment, accessories, and inventory are retained.$(br2)The remedy does not heal existing injuries. If the dragon was severely injured, keep caring for it. The remedy is consumed only on success."
     },
     {
@@ -55,8 +55,13 @@
     },
     {
       "type": "patchouli:text",
-      "title": "Remedy and Old Statues",
+      "title": "Remedy and Statues",
       "text": "Brew a mundane potion with a Gorgon's head to obtain a Petrification Remedy. See $(l:dragonmaid:care/petrification_remedy)the remedy page$(/l) for the method.$(br2)Apply it directly to a statue; it cannot be drunk or thrown. Old statues made before this recovery method was added cannot currently be restored."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Call for Help",
+      "text": "When a dragon becomes severely injured, its online owner receives a message with its dimension and XYZ coordinates. Find it, clear nearby danger, and feed it.$(br2)This notice also stays silent if the world has death messages disabled."
     }
   ]
 }

@@ -7,7 +7,7 @@
     {
       "type": "dragonmaid:first_page_title",
       "title": "Breath, Claws, and Tail",
-      "text": "A human-form dragon still hunts with breath and claws. Its tail sweep strikes harder, reaches farther, and pushes foes away.$(br2)As it grows stronger, fight alongside it to learn its rhythm."
+      "text": "A human-form dragon still hunts with breath and claws. Its tail sweep strikes harder, reaches farther, and pushes foes away. A shield that blocks the sweep is briefly disabled.$(br2)As it grows stronger, fight alongside it to learn its rhythm."
     },
     {
       "type": "dragonmaid:illustration_scene",
@@ -48,6 +48,11 @@
       "type": "patchouli:text",
       "title": "Roars and Projectiles",
       "text": "At stage four, a human-form companion can roar to encourage allies and frighten enemies ahead.$(br2)At stage five it can also launch elemental charges that strike nearby enemies. Give it room to act."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Blade and Claw",
+      "text": "With empty hands it strikes with claws; with a sword, it uses a three-hit combo. Human-form dragons resist knockback more as they grow through stages three to five.$(br2)Global settings can instead use direct attacks without combo animations. Tail sweeps, breath and dragon-form combat are unchanged."
     }
   ]
 }

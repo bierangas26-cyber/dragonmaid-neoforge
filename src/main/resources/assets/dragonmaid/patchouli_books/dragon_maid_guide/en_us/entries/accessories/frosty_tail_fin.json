@@ -1,0 +1,36 @@
+{
+  "name": "Frosttide Tail Fin",
+  "icon": "dragonmaid:frosty_tail_fin",
+  "category": "dragonmaid:accessories",
+  "sortnum": 14,
+  "advancement": "dragonmaid:book/frosty_tail_fin",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "The Frosttide's Wake",
+      "item": "dragonmaid:frosty_tail_fin",
+      "link_recipe": false,
+      "text": "Ice dragon blood leaves its chill in the weapons it tempers. The fin draws on the same power, carrying cold through a tail sweep to slow those struck and bring a wave of nausea."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Fin",
+      "recipe": "dragonmaid:frosty_tail_fin",
+      "text": "Collect Dragon Ice Spikes left by an ice dragon's breath with a Silk Touch tool."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Laying Out the Fin",
+      "text": "Place a Hippocampus Fin in the center, with Shiny Scales to either side and Ice Dragon Blood directly above and below. Put Dragon Ice Spikes in both lower corners."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The Tail's Cold Wake",
+      "text": "In either form, tail sweeps reach 20%% farther, deal 15%% more damage and trace an arc of frost. Hits inflict Slowness III and Nausea III for 5 seconds; enemies other than ice dragons are also frozen for 3 seconds. These effects do not apply to ordinary claw attacks or breath."
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

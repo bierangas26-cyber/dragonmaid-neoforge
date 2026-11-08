@@ -2,7 +2,7 @@
   "name": "item.dragonmaid.dragon_maid_guide",
   "landing_text": "book.dragonmaid.landing",
   "subtitle": "book.dragonmaid.subtitle",
-  "version": 34,
+  "version": 35,
   "use_resource_pack": true,
   "dont_generate_book": true,
   "custom_book_item": "dragonmaid:dragon_maid_guide",

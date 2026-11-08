@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SCS",
+    "SOS",
+    "SNS"
+  ],
+  "key": {
+    "S": {
+      "item": "iceandfire:wither_shard"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "O": {
+      "item": "iceandfire:cockatrice_eye"
+    },
+    "N": {
+      "item": "minecraft:name_tag"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:majesty_eye_pendant",
+    "count": 1
+  }
+}

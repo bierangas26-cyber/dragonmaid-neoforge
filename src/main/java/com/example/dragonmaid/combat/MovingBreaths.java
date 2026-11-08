@@ -29,140 +29,142 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import com.example.dragonmaid.compat.net.PacketDistributor;
 
 @EventBusSubscriber(
-    modid = "dragonmaid"
+   modid = "dragonmaid"
 )
 public final class MovingBreaths {
-    private static final Map<ServerLevel, List<MovingBreaths.Wave>> ACTIVE = new WeakHashMap<>();
-    private static final int MAX_PER_DRAGON = 4;
-    private static long nextWaveId;
+   private static final Map<ServerLevel, List<MovingBreaths.Wave>> ACTIVE = new WeakHashMap<>();
+   private static final int MAX_PER_DRAGON = 4;
+   private static long nextWaveId;
 
-    private MovingBreaths() {
-    }
+   private MovingBreaths() {
+   }
 
-    public static void emit(DragonBaseEntity dragon, LivingEntity target, BreathProfile profile) {
-        if (dragon.level() instanceof ServerLevel serverlevel && profile.canHit(dragon, target)) {
-            List<MovingBreaths.Wave> list = ACTIVE.computeIfAbsent(serverlevel, ignored -> new ArrayList<>());
-            if (list.stream().filter(w -> w.owner.equals(dragon.getUUID())).count() >= 4L) {
-                return;
-            }
-
-            Vec3 vec3 = HumanoidWater.breathOrigin(dragon);
-            Vec3 vec31 = target.getBoundingBox().getCenter().subtract(vec3).normalize();
-            if (vec31.lengthSqr() < 0.5) {
-                return;
-            }
-
-            BreathFan breathfan = new BreathFan(vec3, vec31, profile.range(), profile.halfAngle(), profile.speed());
-            list.add(
-                new MovingBreaths.Wave(++nextWaveId, dragon.getUUID(), profile.stage(), breathfan, HumanoidCombat.breathDamageAmount(dragon, profile.stage()))
-            );
-            BreathAnimationSync.shot(dragon, 1);
-            DragonNetwork.CHANNEL
-                .send(
-                    PacketDistributor.TRACKING_ENTITY.with(() -> dragon),
-                    new BreathWaveMessage(
-                        serverlevel.dimension().location(),
-                        breathfan,
-                        dragon instanceof IceDragonEntity,
-                        serverlevel.getGameTime(),
-                        dragon.getId(),
-                        dragon.getUUID()
-                    )
-                );
+   public static void emit(DragonBaseEntity dragon, LivingEntity target, BreathProfile profile) {
+      if (dragon.level() instanceof ServerLevel level && profile.canHit(dragon, target)) {
+         List<MovingBreaths.Wave> waves = ACTIVE.computeIfAbsent(level, ignored -> new ArrayList<>());
+         if (waves.stream().filter(w -> w.owner.equals(dragon.getUUID())).count() >= 4L) {
             return;
-        }
-    }
+         }
 
-    @SubscribeEvent
-    public static void tick(LevelTickEvent.Post event) {
-        if (event.getLevel() instanceof ServerLevel serverlevel) {
-            advance(serverlevel);
-        }
-    }
+         Vec3 origin = HumanoidWater.breathOrigin(dragon);
+         Vec3 direction = target.getBoundingBox().getCenter().subtract(origin).normalize();
+         if (direction.lengthSqr() < 0.5) {
+            return;
+         }
 
-    public static void advance(ServerLevel level) {
-        List<MovingBreaths.Wave> list = ACTIVE.get(level);
-        if (list != null) {
-            list.removeIf(wave -> !wave.tick(level));
-            if (list.isEmpty()) {
-                ACTIVE.remove(level);
+         BreathFan fan = new BreathFan(origin, direction, profile.range(), profile.halfAngle(), profile.speed());
+         waves.add(
+            new MovingBreaths.Wave(
+               ++nextWaveId,
+               dragon.getUUID(),
+               profile.stage(),
+               fan,
+               HumanoidCombat.breathDamageAmount(dragon, profile.stage()),
+               DragonCombatAccessories.fireFang(dragon)
+            )
+         );
+         BreathAnimationSync.shot(dragon, 1);
+         DragonNetwork.CHANNEL
+            .send(
+               PacketDistributor.TRACKING_ENTITY.with(() -> dragon),
+               new BreathWaveMessage(
+                  level.dimension().location(), fan, dragon instanceof IceDragonEntity, level.getGameTime(), dragon.getId(), dragon.getUUID()
+               )
+            );
+         return;
+      }
+   }
+
+   @SubscribeEvent
+   public static void tick(LevelTickEvent.Post event) {
+      if (event.getLevel() instanceof ServerLevel level) {
+         advance(level);
+      }
+   }
+
+   public static void advance(ServerLevel level) {
+      List<MovingBreaths.Wave> waves = ACTIVE.get(level);
+      if (waves != null) {
+         waves.removeIf(wave -> !wave.tick(level));
+         if (waves.isEmpty()) {
+            ACTIVE.remove(level);
+         }
+      }
+   }
+
+   @SubscribeEvent
+   public static void unload(Unload event) {
+      ACTIVE.remove(event.getLevel());
+   }
+
+   @SubscribeEvent
+   public static void stopped(ServerStoppedEvent event) {
+      ACTIVE.clear();
+   }
+
+   public static int activeCount(ServerLevel level, UUID owner) {
+      return (int)ACTIVE.getOrDefault(level, List.of()).stream().filter(w -> w.owner.equals(owner)).count();
+   }
+
+   private static final class Wave {
+      private final long id;
+      private final UUID owner;
+      private final int stage;
+      private final BreathFan fan;
+      private final float damage;
+      private final boolean poison;
+      private final Set<UUID> hit = new HashSet<>();
+      private double distance;
+      private int reportedImpacts;
+
+      Wave(long id, UUID owner, int stage, BreathFan fan, float damage, boolean poison) {
+         this.id = id;
+         this.owner = owner;
+         this.stage = stage;
+         this.fan = fan;
+         this.damage = damage;
+         this.poison = poison;
+      }
+
+      boolean tick(ServerLevel level) {
+         if (level.getEntity(this.owner) instanceof DragonBaseEntity dragon && dragon.isAlive() && !dragon.isModelDead()) {
+            double front = Math.min(this.fan.range(), this.distance + this.fan.speed());
+            List<Vec3> impacts = null;
+
+            for (LivingEntity enemy : level.getEntitiesOfClass(
+               LivingEntity.class, this.fan.bounds(this.distance, front), e -> HumanoidTargetGoal.isEnemy(dragon, e) && !this.hit.contains(e.getUUID())
+            )) {
+               if (this.fan.intersects(enemy.getBoundingBox(), this.distance, front)
+                  && level.clip(new ClipContext(this.fan.origin(), enemy.getBoundingBox().getCenter(), Block.COLLIDER, Fluid.NONE, dragon)).getType() == Type.MISS
+                  )
+                {
+                  this.hit.add(enemy.getUUID());
+                  if (HumanoidCombat.damage(dragon, enemy, this.stage, this.damage, this.poison)
+                     && this.reportedImpacts < 24
+                     && (impacts == null || impacts.size() < 6)) {
+                     if (impacts == null) {
+                        impacts = new ArrayList<>();
+                     }
+
+                     impacts.add(enemy.getBoundingBox().getCenter());
+                     this.reportedImpacts++;
+                  }
+               }
             }
-        }
-    }
 
-    @SubscribeEvent
-    public static void unload(Unload event) {
-        ACTIVE.remove(event.getLevel());
-    }
-
-    @SubscribeEvent
-    public static void stopped(ServerStoppedEvent event) {
-        ACTIVE.clear();
-    }
-
-    public static int activeCount(ServerLevel level, UUID owner) {
-        return (int)ACTIVE.getOrDefault(level, List.of()).stream().filter(w -> w.owner.equals(owner)).count();
-    }
-
-    private static final class Wave {
-        private final long id;
-        private final UUID owner;
-        private final int stage;
-        private final BreathFan fan;
-        private final float damage;
-        private final Set<UUID> hit = new HashSet<>();
-        private double distance;
-        private int reportedImpacts;
-
-        Wave(long id, UUID owner, int stage, BreathFan fan, float damage) {
-            this.id = id;
-            this.owner = owner;
-            this.stage = stage;
-            this.fan = fan;
-            this.damage = damage;
-        }
-
-        boolean tick(ServerLevel level) {
-            if (level.getEntity(this.owner) instanceof DragonBaseEntity entitydragonbase && entitydragonbase.isAlive() && !entitydragonbase.isModelDead()) {
-                double d0 = Math.min(this.fan.range(), this.distance + this.fan.speed());
-                List<Vec3> list = null;
-
-                for (LivingEntity livingentity : level.getEntitiesOfClass(
-                    LivingEntity.class,
-                    this.fan.bounds(this.distance, d0),
-                    e -> HumanoidTargetGoal.isEnemy(entitydragonbase, e) && !this.hit.contains(e.getUUID())
-                )) {
-                    if (this.fan.intersects(livingentity.getBoundingBox(), this.distance, d0)
-                        && level.clip(new ClipContext(this.fan.origin(), livingentity.getBoundingBox().getCenter(), Block.COLLIDER, Fluid.NONE, entitydragonbase))
-                                .getType()
-                            == Type.MISS) {
-                        this.hit.add(livingentity.getUUID());
-                        if (HumanoidCombat.damage(entitydragonbase, livingentity, this.stage, this.damage)
-                            && this.reportedImpacts < 24
-                            && (list == null || list.size() < 6)) {
-                            if (list == null) {
-                                list = new ArrayList<>();
-                            }
-
-                            list.add(livingentity.getBoundingBox().getCenter());
-                            this.reportedImpacts++;
-                        }
-                    }
-                }
-
-                if (list != null) {
-                    DragonNetwork.CHANNEL
-                        .send(
-                            PacketDistributor.TRACKING_ENTITY.with(() -> entitydragonbase),
-                            new BreathImpactMessage(level.dimension().location(), this.id, level.getGameTime(), entitydragonbase instanceof IceDragonEntity, list)
-                        );
-                }
-
-                this.distance = d0;
-                return this.distance < this.fan.range();
+            if (impacts != null) {
+               DragonNetwork.CHANNEL
+                  .send(
+                     PacketDistributor.TRACKING_ENTITY.with(() -> dragon),
+                     new BreathImpactMessage(level.dimension().location(), this.id, level.getGameTime(), dragon instanceof IceDragonEntity, impacts)
+                  );
             }
 
-            return false;
-        }
-    }
+            this.distance = front;
+            return this.distance < this.fan.range();
+         }
+
+         return false;
+      }
+   }
 }

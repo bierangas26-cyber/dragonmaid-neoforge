@@ -1,7 +1,9 @@
 package com.example.dragonmaid.menu;
 
 import com.example.dragonmaid.accessory.DragonAccessories;
+import com.example.dragonmaid.compat.StackNbt;
 import com.example.dragonmaid.data.DragonForms;
+import com.example.dragonmaid.learning.Knowledge;
 import com.example.dragonmaid.learning.KnowledgeMaterials;
 import com.example.dragonmaid.learning.KnowledgeUpgrades;
 import com.example.dragonmaid.network.AccessoryMenuAction;
@@ -21,7 +23,6 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
-import com.example.dragonmaid.compat.StackNbt;
 
 public final class KnowledgeMenu extends AbstractContainerMenu {
     public static final int MATERIAL_SLOT = 0;
@@ -35,7 +36,8 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
     private final DragonBaseEntity dragon;
     private final Player viewer;
     private final SimpleContainer input = new SimpleContainer(4);
-    private final SimpleContainerData data = new SimpleContainerData(14);
+    // 1.2: 同步数据槽 14 -> 18（14/15 已学书数，16 可交书，17 本次学习会升级）
+    private final SimpleContainerData data = new SimpleContainerData(18);
 
     public KnowledgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
         this(id, inventory, readDragon(inventory, buffer));
@@ -73,14 +75,14 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
         this.addBookSlot(2, 34);
         this.addBookSlot(3, 70);
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                this.addSlot(new Slot(inventory, j + i * 9 + 9, 34 + j * 18, 144 + i * 18));
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 9; col++) {
+                this.addSlot(new Slot(inventory, col + row * 9 + 9, 34 + col * 18, 144 + row * 18));
             }
         }
 
-        for (int k = 0; k < 9; k++) {
-            this.addSlot(new Slot(inventory, k, 34 + k * 18, 202));
+        for (int col = 0; col < 9; col++) {
+            this.addSlot(new Slot(inventory, col, 34 + col * 18, 202));
         }
 
         this.addDataSlots(this.data);
@@ -117,28 +119,40 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
 
     private void updateData() {
         if (this.server()) {
-            KnowledgeUpgrades.Requirement knowledgeupgrades$requirement = KnowledgeUpgrades.nextRequirement(this.dragon);
+            KnowledgeUpgrades.Requirement requirement = KnowledgeUpgrades.nextRequirement(this.dragon);
             this.data.set(0, DragonForms.state(this.dragon).dragonmaid$getKnowledge());
-            ItemStack itemstack = this.input.getItem(0);
-            int i = KnowledgeMaterials.experience(itemstack, this.knowledgeLevel());
-            this.data.set(1, Math.min(10001, i));
+            ItemStack material = this.input.getItem(0);
+            int perItem = KnowledgeMaterials.experience(material, this.knowledgeLevel());
+            this.data.set(1, Math.min(10001, perItem));
             this.data.set(2, DragonForms.state(this.dragon).dragonmaid$getKnowledgeLevel());
             this.data.set(3, KnowledgeUpgrades.learningLimit(this.dragon));
-            this.data.set(4, knowledgeupgrades$requirement != null ? 1 : 0);
-            this.data.set(5, knowledgeupgrades$requirement == null ? 0 : knowledgeupgrades$requirement.bookCount());
-            this.data.set(6, knowledgeupgrades$requirement == null ? 0 : knowledgeupgrades$requirement.cursedBookCount());
+            this.data.set(4, requirement != null ? 1 : 0);
+            this.data.set(5, requirement == null ? 0 : requirement.bookCount());
+            this.data.set(6, requirement == null ? 0 : requirement.cursedBookCount());
             this.data
                 .set(
                     7, (KnowledgeUpgrades.isNonCursedBook(this.input.getItem(1)) ? 1 : 0) + (KnowledgeUpgrades.isNonCursedBook(this.input.getItem(2)) ? 1 : 0)
                 );
             this.data.set(8, KnowledgeUpgrades.isCursedBook(this.input.getItem(3)) ? 1 : 0);
             this.data.set(9, KnowledgeUpgrades.canUpgrade(this.dragon, this.input.getItem(1), this.input.getItem(2), this.input.getItem(3)) ? 1 : 0);
-            this.data.set(10, knowledgeupgrades$requirement == null ? 0 : this.knowledgeLevel() + 1);
-            this.data
-                .set(11, knowledgeupgrades$requirement == null ? DragonAccessories.unlockedSlots(this.dragon) : Math.min(3, this.knowledgeLevel() + 1));
-            int j = this.completeItemsToLearn(itemstack, i);
-            this.data.set(12, j);
-            this.data.set(13, j * i);
+            this.data.set(10, requirement == null ? 0 : this.knowledgeLevel() + 1);
+            this.data.set(11, requirement == null ? DragonAccessories.unlockedSlots(this.dragon) : Math.min(3, this.knowledgeLevel() + 1));
+            int count = this.completeItemsToLearn(material, perItem);
+            this.data.set(12, count);
+            this.data.set(13, Knowledge.afterLearning(this.knowledge(), count, perItem, 10000) - this.knowledge());
+            KnowledgeUpgrades.Progress paid = KnowledgeUpgrades.progress(this.dragon);
+            this.data.set(14, paid.regular());
+            this.data.set(15, paid.curse());
+            this.data.set(16, KnowledgeUpgrades.canLearnBooks(this.dragon, this.input.getItem(1), this.input.getItem(2), this.input.getItem(3)) ? 1 : 0);
+            boolean blocked = count <= 0
+                || (
+                    this.knowledgeLevel() == 0
+                        ? this.knowledge() + this.data.get(13) < 300
+                        : !KnowledgeUpgrades.canUpgradeAt(
+                            this.dragon, this.knowledge() + this.data.get(13), this.input.getItem(1), this.input.getItem(2), this.input.getItem(3)
+                        )
+                );
+            this.data.set(17, blocked ? 0 : 1);
         }
     }
 
@@ -167,8 +181,9 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
         return this.server() ? KnowledgeUpgrades.available(this.dragon) : this.data.get(4) != 0;
     }
 
+    /** 1.2: 单次学习上限降到 2500（3 级），超过后必须走升级流程。 */
     public boolean canLearn() {
-        return this.knowledge() < 10000;
+        return this.knowledge() < 2500;
     }
 
     public int previewCount() {
@@ -180,17 +195,22 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
     }
 
     private int completeItemsToLearn(ItemStack material, int perItem) {
-        return !material.isEmpty() && perItem > 0 && this.canLearn() ? Math.min(material.getCount(), (10000 - this.knowledge()) / perItem) : 0;
+        if (!material.isEmpty() && perItem > 0 && this.canLearn()) {
+            int batch = Knowledge.itemsToConsume(this.knowledge(), material.getCount(), perItem, Knowledge.batchLimit(this.knowledge()));
+            return Math.min(batch, (10000 - this.knowledge()) / perItem);
+        } else {
+            return 0;
+        }
     }
 
     public int regularRequired() {
-        KnowledgeUpgrades.Requirement knowledgeupgrades$requirement = this.server() ? KnowledgeUpgrades.nextRequirement(this.dragon) : null;
-        return this.server() ? (knowledgeupgrades$requirement == null ? 0 : knowledgeupgrades$requirement.bookCount()) : this.data.get(5);
+        KnowledgeUpgrades.Requirement requirement = this.server() ? KnowledgeUpgrades.nextRequirement(this.dragon) : null;
+        return this.server() ? (requirement == null ? 0 : requirement.bookCount()) : this.data.get(5);
     }
 
     public int curseRequired() {
-        KnowledgeUpgrades.Requirement knowledgeupgrades$requirement = this.server() ? KnowledgeUpgrades.nextRequirement(this.dragon) : null;
-        return this.server() ? (knowledgeupgrades$requirement == null ? 0 : knowledgeupgrades$requirement.cursedBookCount()) : this.data.get(6);
+        KnowledgeUpgrades.Requirement requirement = this.server() ? KnowledgeUpgrades.nextRequirement(this.dragon) : null;
+        return this.server() ? (requirement == null ? 0 : requirement.cursedBookCount()) : this.data.get(6);
     }
 
     public int regularPlaced() {
@@ -199,6 +219,28 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
 
     public int cursePlaced() {
         return this.data.get(8);
+    }
+
+    /** 1.2: 当前等级已交的普通书进度（跨会话持久）。 */
+    public int regularLearned() {
+        return this.server() ? KnowledgeUpgrades.progress(this.dragon).regular() : this.data.get(14);
+    }
+
+    /** 1.2: 当前等级已交的诅咒书进度。 */
+    public int curseLearned() {
+        return this.server() ? KnowledgeUpgrades.progress(this.dragon).curse() : this.data.get(15);
+    }
+
+    /** 1.2: 手上的书能交（记进度）但还不足以立刻升级。 */
+    public boolean canLearnBooks() {
+        return this.server()
+            ? KnowledgeUpgrades.canLearnBooks(this.dragon, this.input.getItem(1), this.input.getItem(2), this.input.getItem(3))
+            : this.data.get(16) != 0;
+    }
+
+    /** 1.2: 本次学习会触发升级（客户端据此把"学习"按钮显示成"升级"）。 */
+    public boolean learningWillUpgrade() {
+        return this.data.get(17) != 0;
     }
 
     public boolean upgradeReady() {
@@ -219,17 +261,17 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
         if (this.upgradeAvailable()) {
             switch (index) {
                 case 1:
-                    if (this.regularRequired() > 0) {
+                    if (this.regularRequired() > this.regularLearned()) {
                         return true;
                     }
                     break;
                 case 2:
-                    if (this.regularRequired() > 1) {
+                    if (this.regularRequired() - this.regularLearned() > 1) {
                         return true;
                     }
                     break;
                 case 3:
-                    if (this.curseRequired() > 0) {
+                    if (this.curseRequired() > this.curseLearned()) {
                         return true;
                     }
             }
@@ -300,7 +342,11 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
         } else if (button == 3) {
             return AccessoryMenuAction.transform(serverplayer, this.dragon);
         } else if (button == 4) {
-            if (!KnowledgeUpgrades.tryUpgrade(this.dragon, this.input.getItem(1), this.input.getItem(2), this.input.getItem(3))) {
+            // 1.2: 升级按钮也可以"先交书记进度"（攒够不够都可以投）
+            ItemStack a = this.input.getItem(1);
+            ItemStack b = this.input.getItem(2);
+            ItemStack c = this.input.getItem(3);
+            if (!KnowledgeUpgrades.tryUpgrade(this.dragon, a, b, c) && !KnowledgeUpgrades.learnBooks(this.dragon, a, b, c)) {
                 return false;
             } else {
                 this.input.setChanged();
@@ -308,19 +354,25 @@ public final class KnowledgeMenu extends AbstractContainerMenu {
                 return true;
             }
         } else if (button == 0 && this.canLearn()) {
-            ItemStack itemstack = this.input.getItem(0);
-            int i = KnowledgeMaterials.experience(itemstack, this.knowledgeLevel());
-            if (i <= 0) {
+            ItemStack material = this.input.getItem(0);
+            int perItem = KnowledgeMaterials.experience(material, this.knowledgeLevel());
+            if (perItem <= 0) {
                 return false;
             } else {
-                int j = DragonForms.state(this.dragon).dragonmaid$getKnowledge();
-                int k = this.completeItemsToLearn(itemstack, i);
-                if (k == 0) {
+                int previous = DragonForms.state(this.dragon).dragonmaid$getKnowledge();
+                int previousLevel = this.knowledgeLevel();
+                int consumed = this.completeItemsToLearn(material, perItem);
+                if (consumed == 0) {
                     return false;
                 } else {
-                    itemstack.shrink(k);
+                    material.shrink(consumed);
                     this.input.setChanged();
-                    DragonForms.state(this.dragon).dragonmaid$setKnowledge(j + k * i);
+                    DragonForms.state(this.dragon).dragonmaid$setKnowledge(Knowledge.afterLearning(previous, consumed, perItem, 10000));
+                    // 1.2: 知识等级没变化时顺手结算手上的书（够条件就直接升级）
+                    if (this.knowledgeLevel() == previousLevel) {
+                        KnowledgeUpgrades.tryUpgrade(this.dragon, this.input.getItem(1), this.input.getItem(2), this.input.getItem(3));
+                    }
+
                     this.broadcastChanges();
                     return true;
                 }

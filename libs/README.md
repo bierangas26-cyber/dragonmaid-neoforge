@@ -12,6 +12,7 @@
 | `geckolib-neoforge-1.21.1-4.9.2.jar` | GeckoLib 4.9.2（动画） | Modrinth: GeckoLib |
 | `Patchouli-1.21.1-93-NEOFORGE.jar` | Patchouli（手册） | Modrinth: Patchouli |
 | `jei-1.21.1-neoforge-19.70.0.458.jar` | JEI（可选，仅编译参考） | Modrinth: JEI |
+| `Jade-1.21.1-NeoForge-15.10.6.jar` | Jade（**可选**；蛋孵化性别提示 / 兼容插件编译用） | Modrinth: Jade |
 
 > 版本必须与上表一致或兼容。
 >

@@ -1,0 +1,31 @@
+{
+  "name": "棘羽护符",
+  "icon": "dragonmaid:thornfeather_charm",
+  "category": "dragonmaid:accessories",
+  "sortnum": 12,
+  "advancement": "dragonmaid:book/thornfeather_charm",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "远行者的双翼",
+      "item": "dragonmaid:thornfeather_charm",
+      "link_recipe": false,
+      "text": "青铜鹗的金属羽毛脱落后仍不失锋锐。制成护符后，尖锐的羽毛便能将部分伤痛还给袭击者。$(br2)双翼寄托着远行者对自由的向往。前路虽有凶险，却也总还有一片天地。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "护符的合成",
+      "recipe": "dragonmaid:thornfeather_charm",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "受伤后的回击",
+      "text": "伙伴受到攻击并损失生命时，会将损失量的25%%作为伤害返还给袭击者，每次最多8点。环境伤害与未损失生命的攻击不会触发。$(br2)主人与友军不会被反伤。棘羽护符不能与护佑棘羽纹章同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

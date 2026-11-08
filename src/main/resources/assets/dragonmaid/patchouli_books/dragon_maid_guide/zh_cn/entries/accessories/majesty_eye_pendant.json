@@ -1,0 +1,31 @@
+{
+  "name": "威仪眼坠",
+  "icon": "dragonmaid:majesty_eye_pendant",
+  "category": "dragonmaid:accessories",
+  "sortnum": 11,
+  "advancement": "dragonmaid:book/majesty_eye_pendant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "威势与回声",
+      "item": "dragonmaid:majesty_eye_pendant",
+      "link_recipe": false,
+      "text": "鸡蛇之眼仍留着致命凝视的余威。眼坠将这股力量带入龙啸，使来敌更为畏惧，也令同伴受到更强、更持久的鼓舞。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "眼坠的合成",
+      "recipe": "dragonmaid:majesty_eye_pendant",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "龙啸的威势",
+      "text": "佩戴后，龙啸给予的力量和虚弱提升至Ⅱ级，持续时间增加25%%。龙形与人形均可生效。眼坠只强化已有的龙啸，不会让幼龙提前学会这门本领。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_material_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:warding_emblem"
+            ]
+          }
+        ]
+      }
+    },
+    "has_material_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:thornfeather_charm"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:guardian_thornfeather_emblem"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_material_0",
+      "has_material_1",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:guardian_thornfeather_emblem"
+    ]
+  }
+}

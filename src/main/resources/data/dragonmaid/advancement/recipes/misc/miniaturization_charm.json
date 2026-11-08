@@ -1,0 +1,17 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_material": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": ["iceandfire:silver_ingot", "iceandfire:pixie_dust", "iceandfire:dragonbone", "minecraft:name_tag"] }]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": { "recipe": "dragonmaid:miniaturization_charm" }
+    }
+  },
+  "requirements": [["has_material", "has_the_recipe"]],
+  "rewards": { "recipes": ["dragonmaid:miniaturization_charm"] }
+}

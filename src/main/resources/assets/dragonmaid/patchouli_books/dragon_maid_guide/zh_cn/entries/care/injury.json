@@ -21,7 +21,7 @@
     {
       "type": "patchouli:spotlight",
       "title": "重伤时的限制",
-      "text": "养伤时，普通龙食用来恢复生命，不会催它长大；疾病龙食不适合重伤的龙，它会拒绝。$(br2)重伤的龙不能收入号角。需要离开险地时，可以用对应属性的召唤宝石，见$(l:dragonmaid:care/items)号角与归途$(/l)。",
+      "text": "养伤时，普通龙食用来恢复生命，不会催它长大；萎靡龙食不适合重伤的龙，它会拒绝。$(br2)重伤的龙不能收入号角。需要离开险地时，可以用对应属性的召唤宝石，见$(l:dragonmaid:care/items)号角与归途$(/l)。",
       "item": "iceandfire:dragon_meal",
       "link_recipe": false
     },
@@ -57,6 +57,11 @@
       "type": "patchouli:text",
       "title": "药剂与旧石像",
       "text": "用美杜莎的头酿造平凡药水，可以得到解石药剂。详细做法见$(l:dragonmaid:care/petrification_remedy)药剂这一页$(/l)。$(br2)药剂直接用于石像，不能饮用或投掷。解石方法加入前留下的旧石像暂时无法唤醒。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "传来的求救",
+      "text": "伙伴陷入重伤时，在线的主人会收到消息，附上所在维度与XYZ坐标。循着位置找到它，先护住周围，再喂食救治。$(br2)世界若关闭了死亡消息，这条通知也不会出现。"
     }
   ]
 }

@@ -1,0 +1,31 @@
+{
+  "name": "裂阵爪饰",
+  "icon": "dragonmaid:rending_claw",
+  "category": "dragonmaid:accessories",
+  "sortnum": 16,
+  "advancement": "dragonmaid:book/rending_claw",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "爪击的余势",
+      "item": "dragonmaid:rending_claw",
+      "link_recipe": false,
+      "text": "骏鹰死后，利爪依旧锋锐。制成爪饰后，这股力量能随挥击向前延伸，让人形龙的爪击触及更远的敌人。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "爪饰的合成",
+      "recipe": "dragonmaid:rending_claw",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "撕开包围",
+      "text": "两种形态的近战伤害提高15%%；人形普通爪击的触及与前方横扫半径扩大20%%。它不扩大甩尾，也不改变龙形原有的攻击范围。不能与狂野吊坠或猎王吊坠同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

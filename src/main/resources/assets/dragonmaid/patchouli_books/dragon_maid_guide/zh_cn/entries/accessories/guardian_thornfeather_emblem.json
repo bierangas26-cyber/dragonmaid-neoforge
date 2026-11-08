@@ -1,0 +1,31 @@
+{
+  "name": "护佑棘羽纹章",
+  "icon": "dragonmaid:guardian_thornfeather_emblem",
+  "category": "dragonmaid:accessories",
+  "sortnum": 17,
+  "advancement": "dragonmaid:book/guardian_thornfeather_emblem",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "护佑的双翼",
+      "item": "dragonmaid:guardian_thornfeather_emblem",
+      "link_recipe": false,
+      "text": "护佑纹章的咒术会随龙一同成长，棘羽则回应护佑未能挡住的创伤。$(br2)将两者合在一起，是为仍要前往险境的伙伴多添一分庇护。$(br2)自由的双翼上，流的每一滴血都不是无谓的。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "纹章的合成",
+      "recipe": "dragonmaid:guardian_thornfeather_emblem",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "护甲与回击",
+      "text": "按成长阶段提供2至6点护甲，并保留棘羽护符的反伤效果。$(br2)护甲可与其他护甲饰品叠加，但不能与棘羽护符同时佩戴。主人与友军不会被反伤。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

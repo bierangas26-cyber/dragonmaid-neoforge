@@ -8,15 +8,16 @@
 
 | 渠道 | 链接 | 状态 |
 |---|---|---|
-| GitHub Release | [v1.1.0-beta.2-neoforge.2](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.1.0-beta.2-neoforge.2) | ✅ 可用（IAF CE 2.2 兼容） |
-| GitHub 中文下载目录（jar 直接放仓库里） | [download-cn/](download-cn/)（含中文安装说明 + sha256） | ✅ 可用 |
+| GitHub Release（最新） | [v1.2.0-beta.4-neoforge.1](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.2.0-beta.4-neoforge.1) | ✅ 追平原版 1.2.0-beta.4 内容 |
+| GitHub 中文下载目录 | [download-cn/](download-cn/)（含中文安装说明 + sha256） | ✅ 可用 |
+| GitHub Release（旧） | [v1.1.0-beta.2-neoforge.2](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/tag/v1.1.0-beta.2-neoforge.2) | ✅ 保留（IAF CE 2.2 兼容版） |
 | CurseForge | [Dragon Maid Companion: NeoForge 1.21.1](https://www.curseforge.com/minecraft/mc-mods/dragon-maid-companion-neoforge) | ⏳ 审核中（新项目首次提交需人工审核） |
 
 > **neoforge.2 变更**：适配 Ice and Fire Community Edition **2.2**（2026-11-05 发布）。
 > IAF CE 2.2 把 `MultipartPartEntity` 改成了 NeoForge `PartEntity`，旧 mixin 会导致启动即崩，详见 [docs/IAFCE-2.2-COMPAT.md](docs/IAFCE-2.2-COMPAT.md)。
 
-最终发布 jar：`dragonmaid-neoforge-1.21.1-1.1.0-beta.2-neoforge.2.jar`
-size `6,812,966 B` / sha256 `6125BA0B2672C8F9B527FC219D106472E6CEA7F33D1A318B55FD131AD4ACB8A0`
+最终发布 jar（1.2.0-beta.4-neoforge.1）：`dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar`
+size `7,235,488 B` / sha256 `6A5394C7859FEA590B7E3D250D1DD022E57350428D90B6CFD1BCF328D916893A`
 
 ## 授权说明
 

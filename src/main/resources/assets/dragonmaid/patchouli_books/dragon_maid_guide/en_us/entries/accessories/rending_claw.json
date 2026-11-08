@@ -1,0 +1,31 @@
+{
+  "name": "Rending Claw",
+  "icon": "dragonmaid:rending_claw",
+  "category": "dragonmaid:accessories",
+  "sortnum": 16,
+  "advancement": "dragonmaid:book/rending_claw",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "The Reach of a Strike",
+      "item": "dragonmaid:rending_claw",
+      "link_recipe": false,
+      "text": "A hippogryph talon keeps its sharpness after death. Bound into this charm, that force reaches beyond the claw tips, giving a dragon's forward claw sweep greater reach in human form."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Claw",
+      "recipe": "dragonmaid:rending_claw",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Breaking the Line",
+      "text": "Melee damage increases by 15%% in either form. In human form, ordinary claw attacks have 20%% more reach and a wider forward sweep. Tail sweeps and the dragon form's native attack range are unchanged. It cannot be worn with the Wild Pendant or Hunter King Pendant."
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

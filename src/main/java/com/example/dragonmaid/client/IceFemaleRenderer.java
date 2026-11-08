@@ -35,11 +35,21 @@ final class IceFemaleRenderer extends GeoReplacedEntityRenderer<DragonBaseEntity
     }
 
     public ResourceLocation getTextureLocation(IceFemaleAnimatable animatable) {
-        return this.assets.texture(this.stage, (DragonBaseEntity)this.getCurrentEntity());
+        return this.getTextureLocation((DragonBaseEntity)this.getCurrentEntity());
     }
 
+    /**
+     * 1.2: 冰龙处于「霜尾」状态时改用 frosty_ 贴图（CE 2.0 的 variant 是颜色名，
+     * 由 {@link FemaleDragonAssets#frostyTexture(int, DragonBaseEntity)} 解析）。
+     */
     public ResourceLocation getTextureLocation(DragonBaseEntity dragon) {
-        return this.assets.texture(this.stage, dragon);
+        if (dragon == null) {
+            return this.assets.texture(this.stage, 0);
+        }
+
+        return this.assets.species.equals("ice") && DragonForms.state(dragon).dragonmaid$hasFrostyTail()
+            ? this.assets.frostyTexture(this.stage, dragon)
+            : this.assets.texture(this.stage, dragon);
     }
 
     public void render(DragonBaseEntity dragon, float yaw, float partial, PoseStack pose, MultiBufferSource buffers, int light) {
@@ -89,6 +99,9 @@ final class IceFemaleRenderer extends GeoReplacedEntityRenderer<DragonBaseEntity
 
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)this.currentEntity;
         Matrix4f matrix4f = this.mouthRenderInverse;
+        // 1.2: 坐/睡/死亡姿势下要把手里的物品收起来（手部挂点不渲染手持物）
+        IceFemaleModel humanoidModel = (IceFemaleModel)this.model;
+        boolean previousStowed = humanoidModel.heldItemsStowed();
         this.currentEntity = dragon;
         this.mouthRenderInverse = null;
         PoseStack posestack = new PoseStack();
@@ -100,6 +113,7 @@ final class IceFemaleRenderer extends GeoReplacedEntityRenderer<DragonBaseEntity
         try {
             flag1 = true;
             boolean flag = dragon.isSleeping() || DragonForms.isSeated(dragon) || dragon.isModelDead();
+            humanoidModel.setHeldItemsStowed(dragon.isSleeping() || DragonForms.isSeated(dragon));
             String s = dragon.isModelDead()
                 ? this.assets.sitPrefix + ".injury_breath"
                 : (
@@ -138,6 +152,7 @@ final class IceFemaleRenderer extends GeoReplacedEntityRenderer<DragonBaseEntity
             flag1 = false;
         } finally {
             if (flag1) {
+                humanoidModel.setHeldItemsStowed(previousStowed);
                 posestack.popPose();
                 this.currentEntity = entitydragonbase;
                 this.mouthRenderInverse = matrix4f;
@@ -171,6 +186,7 @@ final class IceFemaleRenderer extends GeoReplacedEntityRenderer<DragonBaseEntity
             }
         }
 
+        humanoidModel.setHeldItemsStowed(previousStowed);
         posestack.popPose();
         this.currentEntity = entitydragonbase;
         this.mouthRenderInverse = matrix4f;

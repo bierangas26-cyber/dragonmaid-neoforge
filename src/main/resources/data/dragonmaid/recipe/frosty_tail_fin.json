@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " B ",
+    "SFS",
+    "IBI"
+  ],
+  "key": {
+    "F": {
+      "item": "iceandfire:hippocampus_fin"
+    },
+    "B": {
+      "item": "iceandfire:ice_dragon_blood"
+    },
+    "S": {
+      "item": "iceandfire:shiny_scales"
+    },
+    "I": {
+      "item": "iceandfire:dragon_ice_spikes"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:frosty_tail_fin",
+    "count": 1
+  }
+}

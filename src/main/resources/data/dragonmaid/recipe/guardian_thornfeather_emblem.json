@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dragonmaid:warding_emblem"
+    },
+    {
+      "item": "dragonmaid:thornfeather_charm"
+    }
+  ],
+  "result": {
+    "id": "dragonmaid:guardian_thornfeather_emblem",
+    "count": 1
+  }
+}

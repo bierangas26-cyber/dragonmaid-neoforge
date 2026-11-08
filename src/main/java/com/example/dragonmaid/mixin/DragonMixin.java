@@ -3,7 +3,10 @@ package com.example.dragonmaid.mixin;
 import com.example.dragonmaid.accessory.DragonAccessories;
 import com.example.dragonmaid.accessory.DragonAccessoryInventory;
 import com.example.dragonmaid.accessory.DragonStorageInventory;
+import com.example.dragonmaid.accessory.MiniatureForm;
 import com.example.dragonmaid.combat.CompanionDefense;
+import com.example.dragonmaid.combat.DragonCombatAccessories;
+import com.example.dragonmaid.inventory.DragonBagPickupGoal;
 import com.example.dragonmaid.combat.GuardEscort;
 import com.example.dragonmaid.combat.HumanoidCombat;
 import com.example.dragonmaid.combat.HumanoidGoal;
@@ -76,7 +79,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(remap = false, value = {DragonBaseEntity.class})
-public abstract class DragonMixin extends TamableAnimal implements DragonState {
+public abstract class DragonMixin extends TamableAnimal implements DragonState, MiniatureForm.Holder, DragonBagPickupGoal.Holder {
     @Unique
     private static final EntityDataAccessor<Integer> DRAGONMAID_KNOWLEDGE = SynchedEntityData.defineId(DragonBaseEntity.class, EntityDataSerializers.INT);
     @Unique
@@ -85,6 +88,12 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
     private static final EntityDataAccessor<Integer> DRAGONMAID_ACTION = SynchedEntityData.defineId(DragonBaseEntity.class, EntityDataSerializers.INT);
     @Unique
     private static final int DRAGONMAID_IDLE_LOOK_BIT = 256;
+    @Unique
+    private static final int DRAGONMAID_FROSTY_TAIL_BIT = 512;
+    @Unique
+    private static final int DRAGONMAID_FAST_CLAW_BIT = 1024;
+    @Unique
+    private static final int DRAGONMAID_ACTION_FLAGS = 1792;
     @Unique
     private static final EntityDataAccessor<Boolean> DRAGONMAID_EXECUTED = SynchedEntityData.defineId(DragonBaseEntity.class, EntityDataSerializers.BOOLEAN);
     @Unique
@@ -113,6 +122,14 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
     private final DragonStorageInventory dragonmaid$storage = new DragonStorageInventory();
     @Unique
     private int dragonmaid$knowledgeLevel;
+    @Unique
+    private CompoundTag dragonmaid$knowledgeProgress = new CompoundTag();
+    @Unique
+    private boolean dragonmaid$small;
+    @Unique
+    private boolean dragonmaid$miniWorn;
+    @Unique
+    private DragonBagPickupGoal dragonmaid$pickupGoal;
             @Inject(remap = false, method = {"spawnItemCrackParticles"},
         at = {@At("HEAD")},
         cancellable = true)
@@ -279,6 +296,11 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
     }
 
     @Override
+    public CompoundTag dragonmaid$getKnowledgeProgress() {
+        return this.dragonmaid$knowledgeProgress;
+    }
+
+    @Override
     public int dragonmaid$getKnowledgeLevel() {
         return Knowledge.normalizeLevel(this.dragonmaid$getKnowledge(), this.dragonmaid$knowledgeLevel);
     }
@@ -336,13 +358,76 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
     }
 
     @Override
+    public boolean dragonmaid$hasFrostyTail() {
+        return ((Integer)this.entityData.get(DRAGONMAID_ACTION) & DRAGONMAID_FROSTY_TAIL_BIT) != 0;
+    }
+
+    @Override
+    public void dragonmaid$setFrostyTail(boolean equipped) {
+        int state = (Integer)this.entityData.get(DRAGONMAID_ACTION);
+        this.entityData.set(DRAGONMAID_ACTION, equipped ? state | DRAGONMAID_FROSTY_TAIL_BIT : state & ~DRAGONMAID_FROSTY_TAIL_BIT);
+    }
+
+    @Override
+    public boolean dragonmaid$isFastClaw() {
+        return ((Integer)this.entityData.get(DRAGONMAID_ACTION) & DRAGONMAID_FAST_CLAW_BIT) != 0;
+    }
+
+    @Override
+    public int dragonmaid$getMeleeMotion() {
+        return (Integer)this.entityData.get(DRAGONMAID_ACTION) >>> 11;
+    }
+
+    @Override
+    public void dragonmaid$setMeleeMotion(int motion) {
+        int old = (Integer)this.entityData.get(DRAGONMAID_ACTION);
+        this.entityData.set(DRAGONMAID_ACTION, old & DRAGONMAID_ACTION_FLAGS | 1 | motion << 11);
+    }
+
+    @Override
+    public boolean dragonmaid$small() {
+        return this.dragonmaid$small;
+    }
+
+    @Override
+    public boolean dragonmaid$miniWorn() {
+        return this.dragonmaid$miniWorn;
+    }
+
+    @Override
+    public boolean dragonmaid$readingSize() {
+        return this.dragonmaid$loading;
+    }
+
+    @Override
+    public void dragonmaid$sizeState(boolean small, boolean worn) {
+        this.dragonmaid$small = small;
+        this.dragonmaid$miniWorn = worn;
+    }
+
+    @Override
+    public DragonBagPickupGoal dragonmaid$pickupGoal() {
+        return this.dragonmaid$pickupGoal;
+    }
+
+    @Override
     public int dragonmaid$getAction() {
-        return (Integer)this.entityData.get(DRAGONMAID_ACTION) & -257;
+        return (Integer)this.entityData.get(DRAGONMAID_ACTION) & 0xFF;
     }
 
     @Override
     public void dragonmaid$setAction(int value) {
-        this.entityData.set(DRAGONMAID_ACTION, (Integer)this.entityData.get(DRAGONMAID_ACTION) & 256 | value & -257);
+        int flags = (Integer)this.entityData.get(DRAGONMAID_ACTION) & DRAGONMAID_ACTION_FLAGS;
+        if (!this.level().isClientSide) {
+            if (value == 1 && DragonCombatAccessories.wild((DragonBaseEntity)(Object)this)) {
+                flags |= DRAGONMAID_FAST_CLAW_BIT;
+            } else {
+                flags &= ~DRAGONMAID_FAST_CLAW_BIT;
+            }
+        }
+
+        int motion = value == 1 ? this.dragonmaid$getMeleeMotion() << 11 : 0;
+        this.entityData.set(DRAGONMAID_ACTION, motion | flags | value & 0xFF);
     }
 
     @Override
@@ -479,6 +564,10 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
         compoundtag.putInt("Version", 6);
         compoundtag.putInt("Knowledge", this.dragonmaid$getKnowledge());
         compoundtag.putInt("KnowledgeLevel", this.dragonmaid$getKnowledgeLevel());
+        compoundtag.put("KnowledgeProgress", this.dragonmaid$knowledgeProgress.copy());
+        compoundtag.putBoolean("Miniature", this.dragonmaid$small);
+        compoundtag.putBoolean("MiniWorn", this.dragonmaid$miniWorn);
+        compoundtag.putString("PickupMode", this.dragonmaid$storage.pickupMode().name());
         compoundtag.putBoolean("Humanoid", this.dragonmaid$isHumanoid());
         compoundtag.putBoolean("Executed", this.dragonmaid$isExecuted());
         compoundtag.putBoolean("LifeTracked", this.dragonmaid$isLifeTracked());
@@ -511,6 +600,10 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
         this.dragonmaid$setKnowledgeLevel(
             compoundtag.contains("KnowledgeLevel", 99) ? compoundtag.getInt("KnowledgeLevel") : Knowledge.level(compoundtag.getInt("Knowledge"))
         );
+        this.dragonmaid$knowledgeProgress = compoundtag.getCompound("KnowledgeProgress").copy();
+        this.dragonmaid$small = compoundtag.getBoolean("Miniature");
+        this.dragonmaid$miniWorn = compoundtag.getBoolean("MiniWorn");
+        this.dragonmaid$storage.loadPickupMode(compoundtag.getString("PickupMode"));
         this.dragonmaid$setHumanoid(compoundtag.getBoolean("Humanoid"));
         this.dragonmaid$setExecuted(compoundtag.getBoolean("Executed"));
         boolean flag = LifeStateMigration.trackedOnLoad(compoundtag, ((DragonBaseEntity)(Object)this).getDeathStage());
@@ -638,6 +731,8 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState {
         this.targetSelector.addGoal(-10, new HumanoidTargetGoal(entitydragonbase));
         this.targetSelector.addGoal(4, new NativeCompanionTargetGoal(entitydragonbase));
         this.targetSelector.addGoal(4, new WildDragonTargetGoal(entitydragonbase));
+        this.dragonmaid$pickupGoal = new DragonBagPickupGoal(entitydragonbase);
+        this.goalSelector.addGoal(9, this.dragonmaid$pickupGoal);
     }
 
     @Inject(remap = false, method = {"tick"},

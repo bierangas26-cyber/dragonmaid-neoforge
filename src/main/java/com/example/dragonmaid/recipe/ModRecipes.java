@@ -31,5 +31,7 @@ public final class ModRecipes {
 
     public static void register(IEventBus bus) {
         SERIALIZERS.register(bus);
+        // 1.2: 自定义原料 dragonmaid:strength_potion（wild_pendant 配方使用）
+        StrengthPotionIngredient.register(bus);
     }
 }

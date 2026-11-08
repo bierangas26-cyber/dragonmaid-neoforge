@@ -22,7 +22,17 @@
     {
       "type": "patchouli:text",
       "title": "随身装备与储物",
-      "text": "饰品戴在龙身上，换形、休息或进入号角时都会留下。第一次准备装备，可以从$(l:dragonmaid:accessories/guardian_tag)守护铭牌$(/l)开始。$(br2)目前龙没有额外储物空间，旅途上的补给还得放在你的背包里。"
+      "text": "知识每升一级，行囊就多出一排，最多三排。打开“龙的装备”，自己的背包和伙伴的行囊会一同展开，方便互相传递物资。$(br2)出门前可以让它什么都捡、什么都不捡，或只捡包里已经有的东西。遇敌时，它会先应战。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "一手持剑，一手举盾",
+      "text": "知识二级后，可以给人形伙伴的主手装上近战武器，副手配盾。兵刃添在龙力之上，也能触及远一些的敌人。$(br2)敌人靠近时，它会举盾护身，再放下盾还击。休息或睡觉时，双手的装备会收起；起身后重新拿好。战后记得检查兵刃和盾牌的磨损。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "给路上留一餐",
+      "text": "饥饿掉到八成以下，或身上的伤还没好时，龙会从行囊前格开始找肉或普通龙食。最想让它先吃的，就放在最前面。战斗中它吃得快些。创造龙食和萎靡龙食会留下。$(br2)重伤的伙伴得靠你亲手喂。成熟后换下的龙鳞会先收进行囊，多余的落到脚边。"
     },
     {
       "type": "patchouli:text",
@@ -43,6 +53,31 @@
       "type": "patchouli:text",
       "title": "组合饰品与叠加规则",
       "text": "$(l:dragonmaid:accessories/ultimate_dragon_breath_device)究极龙息强化装置$(/l)将四件吐息饰品的效果汇入一格，三种龙都能佩戴。$(br2)护甲加成可以叠加；其他相同增益的饰品不能同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "龙啸与棘羽",
+      "text": "$(l:dragonmaid:accessories/majesty_eye_pendant)威仪眼坠$(/l)增强龙啸的威势；$(l:dragonmaid:accessories/thornfeather_charm)棘羽护符$(/l)则在伙伴受伤时，将一部分伤痛还给来敌。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "毒焰与寒潮",
+      "text": "火龙可佩戴$(l:dragonmaid:accessories/venomfang_pendant)毒焰之心$(/l)，借毒焰与近战恢复迎敌；冰龙的$(l:dragonmaid:accessories/frosty_tail_fin)寒潮尾桨$(/l)则让甩尾更沉，并令来敌迟缓。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "近身狩猎",
+      "text": "想让人形伙伴更善于近身，可选$(l:dragonmaid:accessories/wild_pendant)狂野吊坠$(/l)或$(l:dragonmaid:accessories/rending_claw)裂阵爪饰$(/l)：前者让近战更连贯，后者让普通爪击扫得更远。两件都能增强龙形与人形的近战伤害，但不能同时佩戴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "合成一件信物",
+      "text": "$(l:dragonmaid:accessories/guardian_thornfeather_emblem)护佑棘羽纹章$(/l)将护甲与反伤合在一格；$(l:dragonmaid:accessories/hunter_king_pendant)猎王吊坠$(/l)则汇合狂野与裂阵。组合能省下栏位，同类效果的佩戴限制仍然保留。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "收拾行囊再出发",
+      "text": "允许拾取的近处物品会收入行囊；空闲时，伙伴也会主动走去拾取。战斗结束后，它可以先收好附近的掉落物，再回到你身边。$(br2)收进号角或借召回台归来时，行囊、双手装备和知识都会保留。"
     }
   ]
 }

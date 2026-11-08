@@ -17,19 +17,59 @@ import com.example.dragonmaid.compat.net.NetworkEvent.Context;
 import com.example.dragonmaid.compat.net.SimpleChannel;
 
 public final class DragonNetwork {
-    private static final String VERSION = "15";
+    private static final String VERSION = "21";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-        ResourceLocation.fromNamespaceAndPath("dragonmaid", "main"), () -> "15", "15"::equals, "15"::equals
+        ResourceLocation.fromNamespaceAndPath("dragonmaid", "main"), () -> "21", "21"::equals, "21"::equals
     );
 
     private DragonNetwork() {
     }
 
     public static String protocolVersion() {
-        return "15";
+        return "21";
     }
 
     public static void register() {
+        CHANNEL.registerMessage(
+            16,
+            GemModeMessage.class,
+            GemModeMessage::encode,
+            GemModeMessage::decode,
+            GemModeMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_SERVER)
+        );
+        CHANNEL.registerMessage(
+            15,
+            PerchFlightInputMessage.class,
+            PerchFlightInputMessage::encode,
+            PerchFlightInputMessage::decode,
+            PerchFlightInputMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_SERVER)
+        );
+        CHANNEL.registerMessage(
+            14,
+            MiniatureAimMessage.class,
+            MiniatureAimMessage::encode,
+            MiniatureAimMessage::decode,
+            MiniatureAimMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
+        CHANNEL.registerMessage(
+            13,
+            MiniatureSizeMessage.class,
+            MiniatureSizeMessage::encode,
+            MiniatureSizeMessage::decode,
+            MiniatureSizeMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
+        CHANNEL.registerMessage(
+            12,
+            DragonHandsMessage.class,
+            DragonHandsMessage::encode,
+            DragonHandsMessage::decode,
+            DragonHandsMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
         RecallContent.network();
         CHANNEL.registerMessage(
             9,
@@ -147,7 +187,6 @@ public final class DragonNetwork {
             }
         }
     }
-
 
     /** NeoForge: register the single adapter payload that carries all legacy channel messages. */
     public static void registerPayloads(net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) {

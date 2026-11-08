@@ -2,6 +2,7 @@ package com.example.dragonmaid.learning;
 
 import com.example.dragonmaid.data.DragonForms;
 import com.example.dragonmaid.data.DragonState;
+import com.example.dragonmaid.recall.RecallTracking;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,6 +31,7 @@ public final class KnowledgeUpgrades {
     private static final Map<Integer, KnowledgeUpgrades.Requirement> REQUIREMENTS = new ConcurrentHashMap<>();
     private static final Map<Item, Function<ItemStack, ListTag>> BOOK_CARRIERS = new ConcurrentHashMap<>();
     private static final KnowledgeUpgrades.Requirement FIRST_LEVEL = new KnowledgeUpgrades.Requirement(300, 0, 0, 0, stack -> false);
+    private static final KnowledgeUpgrades.Progress NO_PROGRESS = new KnowledgeUpgrades.Progress(0, 0);
 
     private KnowledgeUpgrades() {
     }
@@ -305,59 +307,120 @@ public final class KnowledgeUpgrades {
         return bookKind(stack) == KnowledgeUpgrades.BookKind.CURSE;
     }
 
-    public static boolean canUpgrade(DragonBaseEntity dragon, ItemStack regularA, ItemStack regularB, ItemStack curse) {
-        if (dragon != null && !dragon.level().isClientSide && dragon.isAlive() && !dragon.isModelDead() && !dragon.isRemoved()) {
-            if (DragonForms.state(dragon).dragonmaid$getKnowledgeLevel() < 1) {
-                return false;
+    public static KnowledgeUpgrades.Progress progress(DragonBaseEntity dragon) {
+        KnowledgeUpgrades.Requirement requirement = nextRequirement(dragon);
+        if (dragon != null && requirement != null) {
+            DragonState state = DragonForms.state(dragon);
+            String key = Integer.toString(state.dragonmaid$getKnowledgeLevel() + 1);
+            CompoundTag all = state.dragonmaid$getKnowledgeProgress();
+            if (!all.contains(key, 10)) {
+                return NO_PROGRESS;
             } else {
-                KnowledgeUpgrades.Requirement knowledgeupgrades$requirement = nextRequirement(dragon);
-                if (knowledgeupgrades$requirement == null
-                    || DragonForms.state(dragon).dragonmaid$getKnowledge() < knowledgeupgrades$requirement.minimumKnowledge()) {
-                    return false;
-                } else if (knowledgeupgrades$requirement.bookCount() > 0 && !matchesPrimary(knowledgeupgrades$requirement, regularA)) {
-                    return false;
-                } else {
-                    return knowledgeupgrades$requirement.bookCount() <= 1 || regularA != regularB && matchesPrimary(knowledgeupgrades$requirement, regularB)
-                        ? knowledgeupgrades$requirement.cursedBookCount() <= 0
-                            || isCursedBook(curse)
-                                && (knowledgeupgrades$requirement.bookCount() <= 0 || curse != regularA)
-                                && (knowledgeupgrades$requirement.bookCount() <= 1 || curse != regularB)
-                        : false;
-                }
+                CompoundTag saved = all.getCompound(key);
+                return new KnowledgeUpgrades.Progress(
+                    Math.max(0, Math.min(requirement.bookCount(), saved.getInt("Regular"))),
+                    Math.max(0, Math.min(requirement.cursedBookCount(), saved.getInt("Curse")))
+                );
             }
         } else {
-            return false;
+            return NO_PROGRESS;
         }
+    }
+
+    private static boolean mayAdvance(DragonBaseEntity dragon) {
+        return dragon != null
+            && !dragon.level().isClientSide
+            && dragon.isAlive()
+            && !dragon.isModelDead()
+            && !dragon.isRemoved()
+            && DragonForms.state(dragon).dragonmaid$getKnowledgeLevel() >= 1
+            && nextRequirement(dragon) != null;
+    }
+
+    /** 1.2: 本次投入能贡献的普通书/诅咒书数量（不修改物品）。 */
+    public static KnowledgeUpgrades.Contribution contribution(DragonBaseEntity dragon, ItemStack regularA, ItemStack regularB, ItemStack curse) {
+        KnowledgeUpgrades.Requirement requirement = nextRequirement(dragon);
+        if (requirement != null && DragonForms.state(dragon).dragonmaid$getKnowledgeLevel() >= 1) {
+            KnowledgeUpgrades.Progress paid = progress(dragon);
+            int missing = requirement.bookCount() - paid.regular();
+            int a = missing > 0 && matchesPrimary(requirement, regularA) ? 1 : 0;
+            int b = missing > a && regularB != regularA && matchesPrimary(requirement, regularB) ? 1 : 0;
+            int c = requirement.cursedBookCount() <= paid.curse() || !isCursedBook(curse) || a != 0 && curse == regularA || b != 0 && curse == regularB ? 0 : 1;
+            return new KnowledgeUpgrades.Contribution(a, b, c);
+        } else {
+            return new KnowledgeUpgrades.Contribution(0, 0, 0);
+        }
+    }
+
+    public static boolean canLearnBooks(DragonBaseEntity dragon, ItemStack regularA, ItemStack regularB, ItemStack curse) {
+        return mayAdvance(dragon) && !contribution(dragon, regularA, regularB, curse).empty();
+    }
+
+    public static boolean canUpgradeAt(DragonBaseEntity dragon, int knowledge, ItemStack regularA, ItemStack regularB, ItemStack curse) {
+        if (!mayAdvance(dragon)) {
+            return false;
+        } else {
+            KnowledgeUpgrades.Requirement requirement = nextRequirement(dragon);
+            KnowledgeUpgrades.Progress paid = progress(dragon);
+            KnowledgeUpgrades.Contribution incoming = contribution(dragon, regularA, regularB, curse);
+            return knowledge >= requirement.minimumKnowledge()
+                && paid.regular() + incoming.regular() >= requirement.bookCount()
+                && paid.curse() + incoming.curse() >= requirement.cursedBookCount();
+        }
+    }
+
+    public static boolean canUpgrade(DragonBaseEntity dragon, ItemStack regularA, ItemStack regularB, ItemStack curse) {
+        return dragon != null && canUpgradeAt(dragon, DragonForms.state(dragon).dragonmaid$getKnowledge(), regularA, regularB, curse);
     }
 
     private static boolean matchesPrimary(KnowledgeUpgrades.Requirement requirement, ItemStack stack) {
         return acceptsBook(stack) && requirement.bookPredicate().test(stack);
     }
 
+    private static void consumeAndRecord(
+        DragonBaseEntity dragon, KnowledgeUpgrades.Contribution incoming, ItemStack regularA, ItemStack regularB, ItemStack curse
+    ) {
+        KnowledgeUpgrades.Progress paid = progress(dragon);
+        regularA.shrink(incoming.regularA());
+        regularB.shrink(incoming.regularB());
+        curse.shrink(incoming.curse());
+        CompoundTag saved = new CompoundTag();
+        saved.putInt("Regular", paid.regular() + incoming.regular());
+        saved.putInt("Curse", paid.curse() + incoming.curse());
+        DragonState state = DragonForms.state(dragon);
+        state.dragonmaid$getKnowledgeProgress().put(Integer.toString(state.dragonmaid$getKnowledgeLevel() + 1), saved);
+        RecallTracking.changed(dragon);
+    }
+
+    /** 1.2: 分次学习：把书交进去记账，攒够后再升级（不一次吃满）。 */
+    public static boolean learnBooks(DragonBaseEntity dragon, ItemStack regularA, ItemStack regularB, ItemStack curse) {
+        if (!canLearnBooks(dragon, regularA, regularB, curse)) {
+            return false;
+        } else {
+            consumeAndRecord(dragon, contribution(dragon, regularA, regularB, curse), regularA, regularB, curse);
+            tryUpgrade(dragon, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY);
+            return true;
+        }
+    }
+
     public static boolean tryUpgrade(DragonBaseEntity dragon, ItemStack regularA, ItemStack regularB, ItemStack curse) {
         if (!canUpgrade(dragon, regularA, regularB, curse)) {
             return false;
         } else {
-            DragonState dragonstate = DragonForms.state(dragon);
-            int i = dragonstate.dragonmaid$getKnowledgeLevel() + 1;
-            KnowledgeUpgrades.Requirement knowledgeupgrades$requirement = REQUIREMENTS.get(i);
-            if (knowledgeupgrades$requirement.bookCount() > 0) {
-                regularA.shrink(1);
+            DragonState state = DragonForms.state(dragon);
+            int nextLevel = state.dragonmaid$getKnowledgeLevel() + 1;
+            KnowledgeUpgrades.Requirement requirement = REQUIREMENTS.get(nextLevel);
+            KnowledgeUpgrades.Contribution incoming = contribution(dragon, regularA, regularB, curse);
+            if (!incoming.empty()) {
+                consumeAndRecord(dragon, incoming, regularA, regularB, curse);
             }
 
-            if (knowledgeupgrades$requirement.bookCount() > 1) {
-                regularB.shrink(1);
+            if (requirement.knowledgeCost() > 0) {
+                state.dragonmaid$setKnowledge(state.dragonmaid$getKnowledge() - requirement.knowledgeCost());
             }
 
-            if (knowledgeupgrades$requirement.cursedBookCount() > 0) {
-                curse.shrink(1);
-            }
-
-            if (knowledgeupgrades$requirement.knowledgeCost() > 0) {
-                dragonstate.dragonmaid$setKnowledge(dragonstate.dragonmaid$getKnowledge() - knowledgeupgrades$requirement.knowledgeCost());
-            }
-
-            dragonstate.dragonmaid$setKnowledgeLevel(i);
+            state.dragonmaid$setKnowledgeLevel(nextLevel);
+            state.dragonmaid$getKnowledgeProgress().remove(Integer.toString(nextLevel));
             return true;
         }
     }
@@ -375,6 +438,19 @@ public final class KnowledgeUpgrades {
 
         private BookKind() {
         }
+    }
+
+    public static record Contribution(int regularA, int regularB, int curse) {
+        public int regular() {
+            return this.regularA + this.regularB;
+        }
+
+        public boolean empty() {
+            return this.regular() + this.curse == 0;
+        }
+    }
+
+    public static record Progress(int regular, int curse) {
     }
 
     public static record Requirement(int minimumKnowledge, int knowledgeCost, int bookCount, int cursedBookCount, Predicate<ItemStack> bookPredicate) {

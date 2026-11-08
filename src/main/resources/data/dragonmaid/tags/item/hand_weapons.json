@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "#forge:tools/swords", "required": false},
+    {"id": "#forge:tools/axes", "required": false},
+    {"id": "#forge:tools/tridents", "required": false}
+  ]
+}

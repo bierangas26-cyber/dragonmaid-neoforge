@@ -1,6 +1,7 @@
 package com.example.dragonmaid.client;
 
 import com.example.dragonmaid.accessory.DragonAccessories;
+import com.example.dragonmaid.accessory.MiniatureForm;
 import com.example.dragonmaid.data.DragonForms;
 import com.example.dragonmaid.menu.DragonDetailsMenu;
 import com.example.dragonmaid.mixin.client.RendererAccessor;
@@ -175,7 +176,8 @@ public final class ClientEvents {
             && !ClientRegistration.dragonRenderers.isEmpty()) {
             event.setCanceled(true);
             ((RendererAccessor)event.getRenderer()).dragonmaid$setShadowRadius(0.4F);
-            int i = FemaleDragonAssets.stageIndex(entitydragonbase.getDragonStage());
+            // 1.2: 迷你形态使用压缩后的模型 stage，渲染尺寸/动画都要跟随。
+            int i = FemaleDragonAssets.stageIndex(MiniatureForm.humanoidModelStage(entitydragonbase));
             IceFemaleRenderer icefemalerenderer = ClientRegistration.dragonRenderers.get(FemaleDragonAssets.of(entitydragonbase))[i];
             icefemalerenderer.render(
                 entitydragonbase,

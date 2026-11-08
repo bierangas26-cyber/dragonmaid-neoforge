@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PNP",
+    "DHD",
+    "SDS"
+  ],
+  "key": {
+    "P": {
+      "type": "dragonmaid:strength_potion"
+    },
+    "D": {
+      "item": "iceandfire:dragonbone"
+    },
+    "H": {
+      "tag": "iceandfire:dragon_hearts"
+    },
+    "S": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "N": {
+      "item": "minecraft:name_tag"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:wild_pendant",
+    "count": 1
+  }
+}

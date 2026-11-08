@@ -21,9 +21,6 @@
     }
   },
   "rewards": {
-    "loot": [
-      "dragonmaid:rewards/first_join"
-    ],
     "recipes": [
       "dragonmaid:dragon_maid_guide"
     ]

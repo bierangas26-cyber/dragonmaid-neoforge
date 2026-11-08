@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FCF",
+    "FIF",
+    "FNF"
+  ],
+  "key": {
+    "F": {
+      "item": "iceandfire:stymphalian_bird_feather"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "N": {
+      "item": "minecraft:name_tag"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:thornfeather_charm",
+    "count": 1
+  }
+}

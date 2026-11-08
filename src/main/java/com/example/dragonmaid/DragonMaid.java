@@ -2,6 +2,7 @@ package com.example.dragonmaid;
 
 import com.example.dragonmaid.compat.RO;
 import com.example.dragonmaid.compat.Reg;
+import com.example.dragonmaid.config.GlobalBalanceConfig;
 import com.example.dragonmaid.entity.ModEntities;
 import com.example.dragonmaid.item.ModItems;
 import com.example.dragonmaid.learning.KnowledgeUpgrades;
@@ -66,6 +67,15 @@ public class DragonMaid {
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_NECK.get());
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_BODY.get());
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_TAIL.get());
+                    output.accept((ItemLike)ModItems.MAJESTY_EYE_PENDANT.get());
+                    output.accept((ItemLike)ModItems.THORNFEATHER_CHARM.get());
+                    output.accept((ItemLike)ModItems.VENOMFANG_PENDANT.get());
+                    output.accept((ItemLike)ModItems.FROSTY_TAIL_FIN.get());
+                    output.accept((ItemLike)ModItems.WILD_PENDANT.get());
+                    output.accept((ItemLike)ModItems.RENDING_CLAW.get());
+                    output.accept((ItemLike)ModItems.GUARDIAN_THORNFEATHER_EMBLEM.get());
+                    output.accept((ItemLike)ModItems.HUNTER_KING_PENDANT.get());
+                    output.accept((ItemLike)ModItems.MINIATURE_CHARM.get());
                 })
                 .build()
     );
@@ -81,9 +91,9 @@ public class DragonMaid {
         DragonNetwork.register();
         modEventBus.addListener(DragonNetwork::registerPayloads);
         modEventBus.addListener(this::commonSetup);
-        modContainer.registerConfig(ModConfig.Type.SERVER, DragonMaidConfig.SPEC);
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, DragonMaidConfig.SPEC, "dragonmaid-sync-server.toml");
         RecallContent.setup(modContainer);
+        GlobalBalanceConfig.register();
         NeoForge.EVENT_BUS.register(this);
     }
 

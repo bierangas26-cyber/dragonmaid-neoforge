@@ -426,6 +426,7 @@ public final class RecallService {
                     RecallLedger recallledger = RecallLedger.get(recallservice$pending.source());
                     RecallService.RequestResult recallservice$requestresult = null;
 
+
                     try {
                         if (serverplayer != null && serverlevel != null && serverplayer.serverLevel() == serverlevel) {
                             recallservice$requestresult = checkAltar(serverplayer, serverlevel, recallservice$pending.altar());

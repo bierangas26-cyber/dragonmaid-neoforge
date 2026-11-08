@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SPS",
+    "PBP",
+    " N "
+  ],
+  "key": {
+    "S": { "item": "iceandfire:silver_ingot" },
+    "P": { "item": "iceandfire:pixie_dust" },
+    "B": { "item": "iceandfire:dragonbone" },
+    "N": { "item": "minecraft:name_tag" }
+  },
+  "result": {
+    "id": "dragonmaid:miniaturization_charm",
+    "count": 1
+  }
+}

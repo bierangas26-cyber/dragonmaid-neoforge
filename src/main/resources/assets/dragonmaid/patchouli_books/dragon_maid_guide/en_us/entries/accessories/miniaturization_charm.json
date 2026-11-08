@@ -1,0 +1,54 @@
+{
+  "name": "Faerie's Wish",
+  "icon": "dragonmaid:miniaturization_charm",
+  "category": "dragonmaid:accessories",
+  "sortnum": 30,
+  "advancement": "dragonmaid:book/miniaturization_charm",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "dragonmaid:miniaturization_charm",
+      "title": "A Familiar Shape",
+      "link_recipe": false,
+      "text": "When a dragon takes human form, its years and hard-earned skills remain its own. This charm binds pixie dust to dragon bone to work a similar change of shape, giving a dragon the look of a wyrmling without turning back its years."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A companion who has long outgrown your shoulder can perch there once more. It still remembers every road you have travelled together."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting Faerie's Wish",
+      "recipe": "dragonmaid:miniaturization_charm",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Back on Your Shoulder",
+      "text": "The charm preserves true age, knowledge and growth. By default, dragon form resembles a ten-day-old wyrmling. Right-click your own dragon with an empty hand to carry it.$(br2)After removal, it returns to its usual size when there is enough room."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Little Dragons Still Bite",
+      "text": "Mature companions still use wing strikes, bites, tail lashes and pounces, with reach, movement and knockback suited to their small bodies."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "From true growth stage three, they also fight from your shoulder. Fire and ice dragons focus their breath into narrow streams; lightning dragons fire small bolts."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Take to the Wind",
+      "text": "One dragon on your shoulder slows your fall; two carry you farther in a glide. Three beating their wings together can lift you into the air and hold you there."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Jump or step into a fall with three dragons aboard. Hold Jump to rise, or release it to hover. Hold Sneak in midair to descend. Once on the ground, release Sneak and press it again to set down all the little dragons on your shoulder."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Little Guardians",
+      "text": "Little dragons wearing Faerie's Wish do not damage the terrain.$(br2)While guarding, a companion that strays beyond its combat range breaks off the fight and returns to your side."
+    }
+  ]
+}
