@@ -32,6 +32,17 @@ public final class ModEntities {
                 .build("dragonmaid:mini_lightning")
     );
 
+    /** 1.2.7: 龙血三叉戟的飞行投射物（ThrownTrident 子类，服务端权威，port-combat 提供实体类）。 */
+    public static final RO<EntityType<DragonTridentFlight>> DRAGON_TRIDENT = TYPES.register(
+        "dragon_trident_flight",
+        () -> Builder.of(DragonTridentFlight::new, MobCategory.MISC)
+                .sized(0.5F, 0.5F)
+                .noSummon()
+                .clientTrackingRange(8)
+                .updateInterval(1)
+                .build("dragonmaid:dragon_trident_flight")
+    );
+
     private ModEntities() {
     }
 

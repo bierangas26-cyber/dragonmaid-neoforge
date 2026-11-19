@@ -1,3 +1,9 @@
 {
-  "parent": "dragonmaid:block/dragon_recall_altar"
+  "parent": "minecraft:block/block",
+  "loader": "forge:composite",
+  "textures": { "particle": "dragonmaid:block/recall_altar_stone" },
+  "children": {
+    "base": { "parent": "dragonmaid:block/dragon_recall_altar_base" },
+    "gem": { "parent": "dragonmaid:block/dragon_recall_altar_gem" }
+  }
 }

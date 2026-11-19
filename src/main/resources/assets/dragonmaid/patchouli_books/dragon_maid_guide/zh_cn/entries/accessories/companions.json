@@ -7,12 +7,12 @@
     {
       "type": "dragonmaid:first_page_title",
       "title": "查看装备",
-      "text": "双手空着，潜行右键龙，就能查看它的状态。铠甲与饰品收在“龙的装备”里；想让它学习，可以打开“知识等级”。"
+      "text": "潜行右键自己的龙，就能查看它的状态；手里拿着普通物品也可以。铠甲与饰品收在“龙的装备”里；想让它学习，可以打开“知识等级”。"
     },
     {
       "type": "patchouli:text",
       "title": "解锁饰品栏",
-      "text": "龙的装备中留有三格饰品位。知识达到一级、二级、三级时，栏位由上而下依次解锁。$(br2)还没解开第一格，就先翻开$(l:dragonmaid:learning/books)龙的学识$(/l)。"
+      "text": "年幼的龙也能戴上一件小饰品。成长到三阶，再添一格；知识每升一级，也会多出一格，最多五格。$(br2)长大与读书各有收获，翻开$(l:dragonmaid:learning/books)龙的学识$(/l)，陪它慢慢学。"
     },
     {
       "type": "dragonmaid:illustration_scene",
@@ -47,7 +47,7 @@
     {
       "type": "patchouli:text",
       "title": "龙种专属饰品",
-      "text": "为电龙准备$(l:dragonmaid:accessories/lightning_discharge_device)尖端放电装置$(/l)，为火龙准备$(l:dragonmaid:accessories/steaming_drink)热腾腾的饮品$(/l)，为冰龙准备$(l:dragonmaid:accessories/icy_drink)冰凉凉的饮品$(/l)。$(br2)它们只能给对应龙种使用，增强人形战斗吐息的直接伤害。"
+      "text": "为电龙准备$(l:dragonmaid:accessories/lightning_discharge_device)尖端放电装置$(/l)，为火龙准备$(l:dragonmaid:accessories/steaming_drink)热腾腾的饮品$(/l)，为冰龙准备$(l:dragonmaid:accessories/icy_drink)冰凉凉的饮品$(/l)。$(br2)它们只能给对应龙种使用，增强人形伙伴和仙灵小龙的吐息与龙息弹。"
     },
     {
       "type": "patchouli:text",

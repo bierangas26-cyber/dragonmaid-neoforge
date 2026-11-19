@@ -1,16 +1,22 @@
 package com.example.dragonmaid.mixin.client;
 
 import com.example.dragonmaid.client.ConfigEntryLanguage;
+import com.example.dragonmaid.config.GlobalBalanceConfig;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /*
@@ -29,6 +35,37 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Pseudo
 @Mixin(remap = false, targets = {"fuzs.forgeconfigscreens.client.gui.screens.ConfigScreen"})
 public abstract class ForgeConfigScreenLanguageMixin {
+    @Shadow(remap = false)
+    @Final
+    private Map<Object, ?> valueToData;
+    @Shadow(remap = false)
+    @Final
+    @Mutable
+    private List<?> screenEntries;
+    @Shadow(remap = false)
+    @Final
+    @Mutable
+    private List<?> searchEntries;
+
+    /**
+     * 1.2.7: 把「useWorldSettings 的初始化标记」这个内部条目从界面/搜索列表里摘掉
+     * （它只是给 world 镜像做初始值记录用的，不该让玩家看见）。
+     */
+    @Inject(remap = false, method = {"<init>"}, at = {@At("RETURN")})
+    private void dragonmaid$hideInitializationFlag(CallbackInfo ci) {
+        Entry<Object, ?> internal = this.valueToData
+            .entrySet()
+            .stream()
+            .filter(entry -> GlobalBalanceConfig.internalEntry(entry.getKey()))
+            .findFirst()
+            .orElse(null);
+        if (internal != null) {
+            Object row = internal.getValue();
+            this.screenEntries = this.screenEntries.stream().filter(entry -> entry != row).toList();
+            this.searchEntries = this.searchEntries.stream().filter(entry -> entry != row).toList();
+        }
+    }
+
     @Inject(remap = false, method = {"create"}, at = {@At("HEAD")})
     private static void dragonmaid$localize(
         Screen parent,

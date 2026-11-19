@@ -24,7 +24,7 @@
     {
       "type": "patchouli:text",
       "title": "Knowledge Level Two",
-      "text": "Level two needs 1,000 knowledge and one non-cursed enchanted task book. Read the book in a lower slot whenever you are ready; its progress is saved.$(br2)When both are ready, advance to open the second accessory slot. Knowledge is not spent."
+      "text": "Level two needs 1,000 knowledge and one non-cursed enchanted task book. Read the book in a lower slot whenever you are ready; its progress is saved.$(br2)When both are ready, advance to open another accessory slot. Knowledge is not spent."
     },
     {
       "type": "patchouli:text",
@@ -39,7 +39,7 @@
     {
       "type": "patchouli:text",
       "title": "Knowledge Level Three",
-      "text": "After level two, reach 2,500 knowledge and read two non-cursed task books and one cursed task book. Read them together or one at a time.$(br2)Advancing to level three opens the third accessory slot; knowledge is retained."
+      "text": "After level two, reach 2,500 knowledge and read two non-cursed task books and one cursed task book. Read them together or one at a time.$(br2)Advancing to level three opens another accessory slot; knowledge is retained."
     },
     {
       "type": "patchouli:text",

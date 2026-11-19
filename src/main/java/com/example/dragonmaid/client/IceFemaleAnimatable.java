@@ -57,7 +57,11 @@ final class IceFemaleAnimatable implements GeoReplacedEntity {
     }
 
     void rememberSeatedPose(DragonBaseEntity dragon, boolean seated, int generation) {
-        this.seatedPoses.put(dragon, new IceFemaleAnimatable.SeatedPose(seated, dragon.tickCount, generation));
+        // 1.2.7: 同一 tick/状态不重复 put，避免 WeakHashMap 上每帧写放大。
+        IceFemaleAnimatable.SeatedPose previous = this.seatedPoses.get(dragon);
+        if (previous == null || previous.tick != dragon.tickCount || previous.seated != seated || previous.generation != generation) {
+            this.seatedPoses.put(dragon, new IceFemaleAnimatable.SeatedPose(seated, dragon.tickCount, generation));
+        }
     }
 
     private boolean wasSeated(DragonBaseEntity dragon, int generation) {

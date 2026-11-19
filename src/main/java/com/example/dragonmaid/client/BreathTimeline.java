@@ -72,7 +72,7 @@ final class BreathTimeline {
             return BreathTimeline.EyeFrame.OPEN;
         } else {
             if (!Double.isFinite(this.cancelledAt) && this.state.phase() != 4) {
-                if (!this.state.lightning()) {
+                if (!this.state.lightning() && !this.state.melee()) {
                     if (this.state.firstAt() < 0L && this.state.running()) {
                         return new BreathTimeline.EyeFrame(true, this.frame(now).firstTick(), 1.0F);
                     }
@@ -149,7 +149,7 @@ final class BreathTimeline {
                 f *= 1.0F - smooth((now - d5) / 5.0);
             }
 
-            return new BreathTimeline.Frame(this.state.round(), this.state.sequence(), this.state.lightning(), f, d2, d4, d3);
+            return new BreathTimeline.Frame(this.state.round(), this.state.sequence(), this.state.lightning(), f, d2, d4, d3, this.state.melee());
         }
     }
 
@@ -162,6 +162,10 @@ final class BreathTimeline {
         static final BreathTimeline.EyeFrame OPEN = new BreathTimeline.EyeFrame(false, 2.0, 0.0F);
     }
 
-    static record Frame(long round, int sequence, boolean lightning, float weight, double firstTick, double followTick, double shotAge) {
+    static record Frame(long round, int sequence, boolean lightning, float weight, double firstTick, double followTick, double shotAge, boolean melee) {
+        /** 1.2.7 兼容旧 7 参构造（melee=false）。 */
+        Frame(long round, int sequence, boolean lightning, float weight, double firstTick, double followTick, double shotAge) {
+            this(round, sequence, lightning, weight, firstTick, followTick, shotAge, false);
+        }
     }
 }

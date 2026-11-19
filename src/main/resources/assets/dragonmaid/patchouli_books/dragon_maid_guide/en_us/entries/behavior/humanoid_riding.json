@@ -1,0 +1,28 @@
+{
+  "name": "Riding a Humanoid Dragon",
+  "icon": "minecraft:saddle",
+  "category": "dragonmaid:behavior",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Using a Saddle",
+      "text": "Hold a saddle and use it on your own stage III to V humanoid dragon to mount. Sneak to dismount once you land."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Flight",
+      "text": "Stages IV and V can fly with you. With room overhead, hold Jump for about a second to take off. Steer as in dragon form.$(br2)Hold Jump to climb or Ice and Fire's dragon descent key to land. Release both to hold altitude while steering."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "A Humanoid Mech?",
+      "text": "Use the dragon melee and breath keys. In flight, aim to direct breath. The melee key throws an ice dragon's throwable trident.$(br2)With empty hands, hold Use to raise your dragon's shield. Lightning dragons trained to guard can parry with a longsword."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Who Carries Whom?",
+      "text": "Carry your dragon, let it carry you, or ride piggyback. Set each sex and stage in the config. Faerie's Wish uses the stage III pose for that sex.$(br2)Taking off while carrying your dragon puts you on its back. Attacks switch to piggyback until the move ends."
+    }
+  ]
+}

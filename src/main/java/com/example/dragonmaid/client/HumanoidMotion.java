@@ -1,6 +1,9 @@
 package com.example.dragonmaid.client;
 
 import com.example.dragonmaid.data.DragonForms;
+import com.example.dragonmaid.data.HumanoidGroundMount;
+import com.example.dragonmaid.data.HumanoidLife;
+import com.example.dragonmaid.movement.HumanoidFlight;
 import com.example.dragonmaid.data.HumanoidWater;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import java.util.Iterator;
@@ -49,7 +52,22 @@ final class HumanoidMotion {
 
     private static void update(DragonBaseEntity dragon, LocomotionMotion motion) {
         boolean flag = ClientTailSweepAnimations.ownsPose(dragon);
-        boolean flag1 = groundMotion(dragon);
+        // 1.2.7: 飞行时不走地面步态；掉落时间线只在「可能下落」时推进。
+        boolean flying = HumanoidFlight.airborne(dragon);
+        boolean flag1 = !flying && groundMotion(dragon);
+        boolean canFall = !flying
+            && !flag
+            && !dragon.isPassenger()
+            && !HumanoidGroundMount.active(dragon)
+            && !dragon.isSleeping()
+            && !dragon.isModelDead()
+            && !HumanoidLife.isInjured(dragon)
+            && !dragon.isInWaterOrBubble()
+            && !dragon.isInLava()
+            && !dragon.onClimbable()
+            && !dragon.isNoGravity()
+            && !dragon.isFlying()
+            && !dragon.isHovering();
         motion.update(
             dragon.tickCount,
             dragon.getX(),
@@ -59,6 +77,7 @@ final class HumanoidMotion {
             !flag && flag1,
             !flag && (flag1 || HumanoidWater.active(dragon))
         );
+        motion.falling().update(dragon, motion.generation(), canFall);
         if (flag) {
             motion.restartGaitAfterAction();
         }

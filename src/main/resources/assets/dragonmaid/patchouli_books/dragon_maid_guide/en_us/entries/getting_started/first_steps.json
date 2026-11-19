@@ -17,7 +17,7 @@
     {
       "type": "patchouli:text",
       "title": "Preparing to Transform",
-      "text": "Name your dragon, reach stage three and 300 knowledge, then try human form.$(br2)Stand close, empty both hands, Shift-right-click, and add materials under Knowledge Level. Keep $(l:dragonmaid:learning/books)reading and advancing$(/l) to unlock more accessory slots."
+      "text": "Name your dragon, reach stage three and 300 knowledge, then try human form.$(br2)Stand close, Shift-right-click, and add materials under Knowledge Level. Keep $(l:dragonmaid:learning/books)reading and advancing$(/l) to unlock more accessory slots."
     },
     {
       "type": "patchouli:text",

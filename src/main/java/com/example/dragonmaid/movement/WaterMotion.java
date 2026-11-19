@@ -11,9 +11,19 @@ public final class WaterMotion {
         return depth - Math.max(0.2, eyeHeight - 0.25);
     }
 
+    /** 1.2.7: client-visible bob so a dragon treading water does not look frozen. */
+    public static double surfaceBob(int tick, int entityId) {
+        return Math.sin(((double) tick + (double) entityId * 7.0) * 0.1) * 0.06;
+    }
+
     public static double verticalSpeed(double previous, double heightError, boolean leavingWater) {
-        double d0 = leavingWater ? 0.18 : 0.09;
-        double d1 = previous * 0.5 + heightError * 0.1;
-        return Math.max(-d0, Math.min(d0, d1));
+        double limit = leavingWater ? SHORE_SPEED : MAX_VERTICAL_SPEED;
+        double velocity = previous * 0.5 + heightError * 0.1;
+        if (leavingWater && heightError > 0.0) {
+            // 1.2.7: guarantee enough lift to break the surface when climbing ashore.
+            velocity = Math.max(0.16, velocity);
+        }
+
+        return Math.max(-limit, Math.min(limit, velocity));
     }
 }

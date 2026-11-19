@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "dragonmaid:wooden_katana",
+    "dragonmaid:stone_katana",
+    "dragonmaid:copper_katana",
+    "dragonmaid:iron_katana",
+    "dragonmaid:golden_katana",
+    "dragonmaid:diamond_katana",
+    "dragonmaid:netherite_katana",
+    "dragonmaid:dragonbone_katana",
+    "dragonmaid:silver_katana",
+    "dragonmaid:dragonbone_katana_fire",
+    "dragonmaid:dragonbone_katana_ice",
+    "dragonmaid:dragonbone_katana_lightning"
+  ]
+}

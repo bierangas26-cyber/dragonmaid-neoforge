@@ -1,0 +1,21 @@
+{
+  "description": {
+    "translate": "enchantment.dragonmaid.second_chance"
+  },
+  "supported_items": "#dragonmaid:longswords",
+  "weight": 5,
+  "max_level": 3,
+  "min_cost": {
+    "base": 15,
+    "per_level_above_first": 9
+  },
+  "max_cost": {
+    "base": 45,
+    "per_level_above_first": 9
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "mainhand"
+  ],
+  "effects": {}
+}

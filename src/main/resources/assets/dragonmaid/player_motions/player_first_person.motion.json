@@ -1,0 +1,1655 @@
+{
+  "event": "A-20261111-WAIST-IAI-FORWARD-PARRY",
+  "executor": "ART-TAIL-01",
+  "status": "V5 art candidate; fixed hip sheath, straight-arm forehand arc, forward parry; not in game",
+  "coordinates": {
+    "origin": "camera/RenderHandEvent origin before item transforms",
+    "x": "right",
+    "y": "up",
+    "z": "back; viewing forward -Z",
+    "unitsPerBlock": 16,
+    "positionUnits": "blocks",
+    "rotationOrder": "ZYX",
+    "angles": "degrees",
+    "previewFovVertical": 70,
+    "previewAspect": 1.7777777777777777
+  },
+  "interpolation": "linear unwrapped Euler ZYX; sparse deliberate poses",
+  "legacyGuard": {
+    "source": "LongswordGuardRender.java",
+    "equipProgress": 0,
+    "itemCenterMatrixColumnMajor": [
+      -0.26447745196326045,
+      1.2722980874073935,
+      -0.401134957567288,
+      0,
+      -1.3041140170863283,
+      -0.3327069333421826,
+      -0.19542959587790068,
+      0,
+      -0.140479809796622,
+      0.17332316152604155,
+      0.6423585484121174,
+      0,
+      0.33885399439578445,
+      -0.39801498840800176,
+      -0.6447695727858102,
+      1
+    ],
+    "canonicalGrip": {
+      "p": [
+        0.7555111033620815,
+        -0.6475938887065734,
+        -0.4863071132769319
+      ],
+      "q": [
+        -0.1638382069127033,
+        -0.028889096349605868,
+        0.47843029085970196,
+        0.8622220820969702
+      ]
+    }
+  },
+  "itemBinding": {
+    "origin": "grip; source image center offset is already baked into reference geometry",
+    "canonicalBladeAxis": [
+      0,
+      1,
+      0
+    ],
+    "canonicalCuttingEdge": [
+      1,
+      0,
+      0
+    ],
+    "jianGripSourceItem": [
+      -0.265625,
+      -0.265625,
+      0
+    ],
+    "jianScale": [
+      1.36,
+      1.36,
+      0.68
+    ],
+    "sourceImageToCanonicalRotationZDegrees": 45,
+    "renderDisplayContext": "NONE; do not apply handheld display transform again",
+    "katanaGripSourceItem": [
+      -0.3,
+      -0.3,
+      0
+    ],
+    "katanaScale": [
+      0.68,
+      0.68,
+      0.68
+    ]
+  },
+  "scabbardBinding": {
+    "source": "武士刀刀鞘/V7四五像素双厚",
+    "canonicalTransform": [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      -1,
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "scale": 0.68,
+    "origin": "mouth",
+    "mouthOffsetFromKatanaGrip": 0.13823937572197004,
+    "neutralCameraPose": {
+      "p": [
+        -0.30625,
+        -0.895,
+        0
+      ],
+      "e": [
+        -150,
+        180,
+        0
+      ]
+    },
+    "visualOverlapAllowed": true,
+    "chargeCameraPose": {
+      "position": [
+        -0.7,
+        -0.5,
+        -0.75
+      ],
+      "rotationZYXDegrees": [
+        -108,
+        120,
+        0
+      ]
+    },
+    "note": "First-person mouth is fixed at the low left waist presentation offset for ALL clips; third-person attachment remains unchanged. Left hand rests at mouth, no lifting/presenting sheath."
+  },
+  "armBinding": {
+    "RightForearm": {
+      "parent": "RightGrip",
+      "geometryRotation": [
+        0,
+        0,
+        0
+      ],
+      "localPosition": [
+        0,
+        0,
+        0
+      ],
+      "note": "Forearm long axis and blade axis are collinear in main slash. Local wrist fixed; grip travels on shoulder-centered arc."
+    },
+    "LeftForearm": {
+      "parent": "Scabbard",
+      "geometryRotation": [
+        0,
+        0,
+        0
+      ],
+      "localPosition": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "clips": {
+    "longsword_riposte": {
+      "reviewDurationSeconds": 0.44,
+      "loop": false,
+      "keyframes": [
+        {
+          "phase": 0,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.755511103375,
+                -0.6475938886875,
+                -0.48630711325
+              ],
+              "rotationZYXDegrees": [
+                -18.177513012,
+                6.139680989,
+                57.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.06818181818181818,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.760511103375,
+                -0.6625938886875,
+                -0.43130711325
+              ],
+              "rotationZYXDegrees": [
+                -18.177513012,
+                6.139680989,
+                57.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.17045454545454544,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.6955111033750001,
+                -0.5925938886875,
+                -0.96630711325
+              ],
+              "rotationZYXDegrees": [
+                -22.177513012,
+                3.1396809890000004,
+                54.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.23863636363636362,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.6805111033750001,
+                -0.5825938886875,
+                -1.0463071132500001
+              ],
+              "rotationZYXDegrees": [
+                -22.177513012,
+                3.1396809890000004,
+                54.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.3409090909090909,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.6855111033750001,
+                -0.5925938886875,
+                -1.00630711325
+              ],
+              "rotationZYXDegrees": [
+                -21.177513012,
+                4.139680989,
+                55.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.5909090909090909,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.725511103375,
+                -0.6325938886875,
+                -0.70630711325
+              ],
+              "rotationZYXDegrees": [
+                -19.177513012,
+                5.139680989,
+                56.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.8409090909090909,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.755511103375,
+                -0.6475938886875,
+                -0.52630711325
+              ],
+              "rotationZYXDegrees": [
+                -18.177513012,
+                6.139680989,
+                57.066988378
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.755511103375,
+                -0.6475938886875,
+                -0.48630711325
+              ],
+              "rotationZYXDegrees": [
+                -18.177513012,
+                6.139680989,
+                57.066988378
+              ]
+            }
+          }
+        }
+      ],
+      "visibleObjects": [
+        "Jian"
+      ]
+    },
+    "katana_charge": {
+      "reviewDurationSeconds": 3,
+      "loop": false,
+      "keyframes": [
+        {
+          "phase": 0,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.630625,
+                -0.5911009139375,
+                -0.7480476631875
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                109.99999999999997,
+                -90
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                40.87399870436623,
+                -64.4180597546022,
+                -159.12600129563376
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.05333333333333334,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.08,
+                -0.52,
+                -0.28
+              ],
+              "rotationZYXDegrees": [
+                -107.99999999999997,
+                119.99999999999994,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                4.237694721802405,
+                -21.350029777378367,
+                -83.13909188567679
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.12666666666666668,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.8833333333333333,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.9666666666666667,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        }
+      ],
+      "visibleObjects": [
+        "Katana",
+        "Scabbard",
+        "RightForearm",
+        "LeftForearm"
+      ]
+    },
+    "katana_ready": {
+      "reviewDurationSeconds": 0.8,
+      "loop": true,
+      "keyframes": [
+        {
+          "phase": 0,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        }
+      ],
+      "visibleObjects": [
+        "Katana",
+        "Scabbard",
+        "RightForearm",
+        "LeftForearm"
+      ]
+    },
+    "katana_release": {
+      "reviewDurationSeconds": 0.36,
+      "loop": false,
+      "keyframes": [
+        {
+          "phase": 0,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.125,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.2566850030870191,
+                -0.3336748858601487,
+                -1.0059480328035075
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.2638888888888889,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.07277063833151376,
+                -0.2100680881101697,
+                -1.196159336062538
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                119.99999999999997,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.37500000000000006,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.1499192642332049,
+                -0.29,
+                -0.9480480961564259
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                32,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.513888888888889,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.38,
+                -0.3,
+                -1.12
+              ],
+              "rotationZYXDegrees": [
+                -89.99999999999999,
+                0,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.6527777777777778,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                1.0079747048321714,
+                -0.31,
+                -0.9037709686788563
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                -38.00000000000001,
+                4.036181824811567e-15
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.8055555555555556,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                1.28630778703665,
+                -0.32,
+                -0.5226182617406995
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                -65.00000000000001,
+                -7.525833522582068e-15
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                1.3066082040873304,
+                -0.34,
+                -0.41905679136801366
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                -71.00000000000003,
+                -9.769243821671339e-15
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        }
+      ],
+      "visibleObjects": [
+        "Katana",
+        "Scabbard",
+        "RightForearm",
+        "LeftForearm"
+      ]
+    },
+    "katana_recover": {
+      "reviewDurationSeconds": 0.54,
+      "loop": false,
+      "keyframes": [
+        {
+          "phase": 0,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                1.3066082040873304,
+                -0.34,
+                -0.41905679136801366
+              ],
+              "rotationZYXDegrees": [
+                -89.99999999999996,
+                -71.00000000000001,
+                -2.9307731465014036e-14
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.16666666666666666,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                1.3066082040873304,
+                -0.34,
+                -0.41905679136801366
+              ],
+              "rotationZYXDegrees": [
+                -89.99999999999996,
+                -71.00000000000001,
+                -2.9307731465014036e-14
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.48148148148148145,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.76,
+                -0.64,
+                -0.38
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                -30.000000000000004,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -21.59531044896769,
+                30.984820901459933,
+                -14.373714213694306
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.8148148148148148,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.630625,
+                -0.5911009139375,
+                -0.7480476631875
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                109.99999999999997,
+                -90
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                40.87399870436623,
+                -64.4180597546022,
+                -159.12600129563376
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.630625,
+                -0.5911009139375,
+                -0.7480476631875
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                109.99999999999997,
+                -90
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                40.87399870436623,
+                -64.4180597546022,
+                -159.12600129563376
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        }
+      ],
+      "visibleObjects": [
+        "Katana",
+        "Scabbard",
+        "RightForearm",
+        "LeftForearm"
+      ]
+    },
+    "katana_cancel": {
+      "reviewDurationSeconds": 0.32,
+      "loop": false,
+      "keyframes": [
+        {
+          "phase": 0,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                -0.5861406445055519,
+                -0.4572816836101277,
+                -0.8157367295444768
+              ],
+              "rotationZYXDegrees": [
+                -107.99999999999997,
+                119.99999999999994,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                0,
+                0,
+                0
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.3125,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.08,
+                -0.52,
+                -0.28
+              ],
+              "rotationZYXDegrees": [
+                -107.99999999999997,
+                119.99999999999994,
+                0
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                4.237694721802405,
+                -21.350029777378367,
+                -83.13909188567679
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "objects": {
+            "RightGrip": {
+              "position": [
+                0.630625,
+                -0.5911009139375,
+                -0.7480476631875
+              ],
+              "rotationZYXDegrees": [
+                -90,
+                109.99999999999997,
+                -90
+              ]
+            },
+            "Scabbard": {
+              "position": [
+                -0.7,
+                -0.5,
+                -0.75
+              ],
+              "rotationZYXDegrees": [
+                -108,
+                120,
+                0
+              ]
+            },
+            "RightForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                40.87399870436623,
+                -64.4180597546022,
+                -159.12600129563376
+              ]
+            },
+            "LeftForearm": {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rotationZYXDegrees": [
+                -6.9170605732134085,
+                1.1818983761546278,
+                -102.20307428344718
+              ]
+            }
+          }
+        }
+      ],
+      "visibleObjects": [
+        "Katana",
+        "Scabbard",
+        "RightForearm",
+        "LeftForearm"
+      ]
+    }
+  },
+  "activationContract": {
+    "longsword": "retain live LongswordGuardRender; only successful auto-counter triggers riposte; no ordinary impact animation",
+    "katana": "3-second charge, release on either input up; damage is immediate in current BladeCombat, do not add delayed/duplicate hit",
+    "releaseRecoverySeconds": 0.9,
+    "shortCharge": "Use 工具/短蓄力动作取样.js: current charge pose; before 0.32s bypass insertion and continue directly to slash entry; later extract from actual partial insertion. No full-ready reset.",
+    "cancel": "True interruption only; use sampled current pose. Ordinary input release must use release; visibility on death/equipment removal follows game lifecycle."
+  },
+  "leftDominantHand": "mirror whole camera rig: X position negative; Euler Y/Z negative; correct left-hand player skin; runtime validation pending",
+  "sourceSkin": "Steve review proxy only"
+}

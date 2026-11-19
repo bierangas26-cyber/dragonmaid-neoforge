@@ -3,7 +3,9 @@ package com.example.dragonmaid;
 import com.example.dragonmaid.compat.RO;
 import com.example.dragonmaid.compat.Reg;
 import com.example.dragonmaid.config.GlobalBalanceConfig;
+import com.example.dragonmaid.config.HumanoidRidingConfig;
 import com.example.dragonmaid.entity.ModEntities;
+import com.example.dragonmaid.item.BladeEnchantments;
 import com.example.dragonmaid.item.ModItems;
 import com.example.dragonmaid.learning.KnowledgeUpgrades;
 import com.example.dragonmaid.menu.ModMenus;
@@ -47,41 +49,47 @@ public class DragonMaid {
                 .icon(() -> ModItems.DRAGON_MAID_GUIDE.get().getDefaultInstance())
                 .title(Component.translatable("creativetab.dragonmaid.dragon_maid_tab"))
                 .displayItems((parameters, output) -> {
+                    // 顺序对齐上游 1.2.7 DragonMaid.DRAGON_MAID_TAB
                     output.accept((ItemLike)ModItems.DRAGON_MAID_GUIDE.get());
-                    output.accept((ItemLike)ModItems.KAISHAKU_BLADE.get());
-                    output.accept((ItemLike)ModItems.PETRIFICATION_REMEDY.get());
                     output.accept((ItemLike)ModItems.TRINITY_DRAGON_GEM.get());
                     output.accept((ItemLike)ModItems.REINFORCED_DRAGON_HORN.get());
                     output.accept((ItemLike)ModItems.DRAGON_RECALL_ALTAR.get());
+                    output.accept((ItemLike)ModItems.PETRIFICATION_REMEDY.get());
+                    output.accept((ItemLike)ModItems.KAISHAKU_BLADE.get());
+                    output.accept((ItemLike)ModItems.MINIATURE_CHARM.get());
                     output.accept((ItemLike)ModItems.GUARDIAN_TAG.get());
                     output.accept((ItemLike)ModItems.WARDING_EMBLEM.get());
                     output.accept((ItemLike)ModItems.GUARDIAN_PENDANT.get());
+                    output.accept((ItemLike)ModItems.THORNFEATHER_CHARM.get());
+                    output.accept((ItemLike)ModItems.GUARDIAN_THORNFEATHER_EMBLEM.get());
                     output.accept((ItemLike)ModItems.NATURAL_DRAGON_HEART_NECKLACE.get());
                     output.accept((ItemLike)ModItems.DRAGON_HEART_EMBLEM_NECKLACE.get());
+                    output.accept((ItemLike)ModItems.MAJESTY_EYE_PENDANT.get());
+                    output.accept((ItemLike)ModItems.WILD_PENDANT.get());
+                    output.accept((ItemLike)ModItems.RENDING_CLAW.get());
+                    output.accept((ItemLike)ModItems.HUNTER_KING_PENDANT.get());
+                    output.accept((ItemLike)ModItems.VENOMFANG_PENDANT.get());
+                    output.accept((ItemLike)ModItems.FROSTY_TAIL_FIN.get());
+                    // 1.2.7
+                    output.accept((ItemLike)ModItems.WING_GUARD_LEGEND.get());
                     output.accept((ItemLike)ModItems.DRAGON_BREATH_EMBLEM.get());
-                    output.accept((ItemLike)ModItems.LIGHTNING_DISCHARGE_DEVICE.get());
                     output.accept((ItemLike)ModItems.STEAMING_DRINK.get());
                     output.accept((ItemLike)ModItems.ICY_DRINK.get());
+                    output.accept((ItemLike)ModItems.LIGHTNING_DISCHARGE_DEVICE.get());
                     output.accept((ItemLike)ModItems.ULTIMATE_DRAGON_BREATH_DEVICE.get());
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_HEAD.get());
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_NECK.get());
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_BODY.get());
                     output.accept((ItemLike)ModItems.SERVICE_DRAGON_ARMOR_TAIL.get());
-                    output.accept((ItemLike)ModItems.MAJESTY_EYE_PENDANT.get());
-                    output.accept((ItemLike)ModItems.THORNFEATHER_CHARM.get());
-                    output.accept((ItemLike)ModItems.VENOMFANG_PENDANT.get());
-                    output.accept((ItemLike)ModItems.FROSTY_TAIL_FIN.get());
-                    output.accept((ItemLike)ModItems.WILD_PENDANT.get());
-                    output.accept((ItemLike)ModItems.RENDING_CLAW.get());
-                    output.accept((ItemLike)ModItems.GUARDIAN_THORNFEATHER_EMBLEM.get());
-                    output.accept((ItemLike)ModItems.HUNTER_KING_PENDANT.get());
-                    output.accept((ItemLike)ModItems.MINIATURE_CHARM.get());
+                    ModItems.addDragonAttireToTab(output);
+                    ModItems.addBladesToTab(output);
                 })
                 .build()
     );
 
     public DragonMaid(IEventBus modEventBus, ModContainer modContainer) {
         ModItems.register(modEventBus);
+        BladeEnchantments.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModEntities.register(modEventBus);
         ModParticles.TYPES.register(modEventBus);
@@ -92,6 +100,8 @@ public class DragonMaid {
         modEventBus.addListener(DragonNetwork::registerPayloads);
         modEventBus.addListener(this::commonSetup);
         modContainer.registerConfig(ModConfig.Type.SERVER, DragonMaidConfig.SPEC, "dragonmaid-sync-server.toml");
+        // 1.2.7: 新增 client 配置（骑乘坐姿按成长阶段/性别选择）
+        modContainer.registerConfig(ModConfig.Type.CLIENT, HumanoidRidingConfig.SPEC, "dragonmaid-client.toml");
         RecallContent.setup(modContainer);
         GlobalBalanceConfig.register();
         NeoForge.EVENT_BUS.register(this);

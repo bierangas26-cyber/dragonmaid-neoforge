@@ -55,11 +55,10 @@ enum FemaleDragonAssets {
     final String breathPrefix;
     final String species;
     final boolean male;
-    private final ResourceLocation[] textures;
-    private final ResourceLocation[] highTextures;
+    /** 1.2.7: 贴图按成长阶段（3/4/5）各一套，替代原先「3 阶 + 4/5 共用」的 high 数组。 */
+    private final ResourceLocation[][] textures;
     /** 1.2: 冰龙「霜尾」状态的贴图（frosty_ 前缀变体）。 */
-    private final ResourceLocation[] frostyTextures;
-    private final ResourceLocation[] highFrostyTextures;
+    private final ResourceLocation[][] frostyTextures;
     private final ResourceLocation[] models;
 
     private FemaleDragonAssets(String model, String species, String[] textures) {
@@ -91,21 +90,28 @@ enum FemaleDragonAssets {
         String s1 = !male && !species.equals("lightning") ? "fire_ice" : species;
         this.sleepPrefix = "animation.dragon_" + s1 + "_" + s;
         this.sleepResource = asset("animations/sleep/" + s1 + "/" + s + "/dragon_" + s1 + "_" + s + ".sleep.animation.json");
-        this.textures = Arrays.stream(textures).map(name -> asset("textures/entity/" + name)).toArray(ResourceLocation[]::new);
-        this.highTextures = Arrays.stream(textures)
-            .map(name -> asset("textures/entity/" + name.replace("_3_128", "_4_5_128")))
-            .toArray(ResourceLocation[]::new);
-        // 1.2: frosty 变体（assets 已随 1.2 资源就位：frosty_ice_dragon_{female,male}_<color>_{3,4_5}_128.png）
-        this.frostyTextures = Arrays.stream(textures)
-            .map(name -> asset("textures/entity/frosty_" + name))
-            .toArray(ResourceLocation[]::new);
-        this.highFrostyTextures = Arrays.stream(textures)
-            .map(name -> asset("textures/entity/frosty_" + name.replace("_3_128", "_4_5_128")))
-            .toArray(ResourceLocation[]::new);
+        this.textures = stagePalettes(textures, "");
+        this.frostyTextures = stagePalettes(textures, "frosty_");
+    }
+
+    /** 1.2.7: 每个成长阶段一份调色板（_3_128 / _4_128 / _5_128）。 */
+    private static ResourceLocation[][] stagePalettes(String[] names, String prefix) {
+        ResourceLocation[][] palettes = new ResourceLocation[3][names.length];
+
+        for (int stage = 3; stage <= 5; stage++) {
+            String stageSuffix = "_" + stage + "_128";
+            ResourceLocation[] palette = palettes[stageIndex(stage)];
+
+            for (int variant = 0; variant < names.length; variant++) {
+                palette[variant] = asset("textures/entity/" + prefix + names[variant].replace("_3_128", stageSuffix));
+            }
+        }
+
+        return palettes;
     }
 
     ResourceLocation frostyTexture(int stage, int variant) {
-        ResourceLocation[] palette = stageIndex(stage) == 0 ? this.frostyTextures : this.highFrostyTextures;
+        ResourceLocation[] palette = this.frostyTextures[stageIndex(stage)];
         return palette[variant >= 0 && variant < palette.length ? variant : 0];
     }
 
@@ -118,12 +124,12 @@ enum FemaleDragonAssets {
     }
 
     ResourceLocation texture(int stage, int variant) {
-        ResourceLocation[] aresourcelocation = stageIndex(stage) == 0 ? this.textures : this.highTextures;
+        ResourceLocation[] aresourcelocation = this.textures[stageIndex(stage)];
         return aresourcelocation[variant >= 0 && variant < aresourcelocation.length ? variant : 0];
     }
 
     ResourceLocation texture(int variant) {
-        return this.textures[variant >= 0 && variant < this.textures.length ? variant : 0];
+        return this.texture(3, variant);
     }
 
     /**
@@ -140,7 +146,7 @@ enum FemaleDragonAssets {
         }
 
         String needle = "_" + name.toLowerCase(Locale.ROOT) + "_";
-        ResourceLocation[] candidates = stageIndex(stage) == 0 ? this.textures : this.highTextures;
+        ResourceLocation[] candidates = this.textures[stageIndex(stage)];
 
         for (int i = 0; i < candidates.length; i++) {
             String path = candidates[i].getPath();
@@ -165,7 +171,7 @@ enum FemaleDragonAssets {
         }
 
         String needle = "_" + name.toLowerCase(Locale.ROOT) + "_";
-        ResourceLocation[] candidates = stageIndex(stage) == 0 ? this.frostyTextures : this.highFrostyTextures;
+        ResourceLocation[] candidates = this.frostyTextures[stageIndex(stage)];
 
         for (int i = 0; i < candidates.length; i++) {
             String path = candidates[i].getPath();

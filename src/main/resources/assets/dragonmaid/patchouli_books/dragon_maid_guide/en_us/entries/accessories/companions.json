@@ -7,12 +7,12 @@
     {
       "type": "dragonmaid:first_page_title",
       "title": "The Dragon Panel",
-      "text": "With empty hands, Shift-right-click your dragon to check its condition. Armor and accessories are under Dragon Equipment; open Knowledge Level to help it learn."
+      "text": "Shift-right-click your dragon to check its condition, even while holding ordinary items. Armor and accessories are under Dragon Equipment; open Knowledge Level to help it learn."
     },
     {
       "type": "patchouli:text",
       "title": "Accessory Slots",
-      "text": "Dragon Equipment has three accessory slots. Knowledge levels one, two, and three unlock them from top to bottom.$(br2)Before the first slot opens, turn to $(l:dragonmaid:learning/books)Lessons and Lore$(/l)."
+      "text": "Even a young dragon has room for one charm. Stage three brings another slot; each knowledge level adds one more, up to five.$(br2)Growing and learning each have their rewards. Turn to $(l:dragonmaid:learning/books)Lessons and Lore$(/l) to begin."
     },
     {
       "type": "dragonmaid:illustration_scene",
@@ -51,7 +51,7 @@
     {
       "type": "patchouli:text",
       "title": "Type-Specific Gear",
-      "text": "Prepare a $(l:dragonmaid:accessories/lightning_discharge_device)Lightning Discharge Device$(/l) for a lightning dragon, a $(l:dragonmaid:accessories/steaming_drink)Steaming Drink$(/l) for a fire dragon, or an $(l:dragonmaid:accessories/icy_drink)Icy Drink$(/l) for an ice dragon.$(br2)Each fits only its matching type and strengthens the direct damage of human-form combat breath."
+      "text": "Prepare a $(l:dragonmaid:accessories/lightning_discharge_device)Lightning Discharge Device$(/l) for a lightning dragon, a $(l:dragonmaid:accessories/steaming_drink)Steaming Drink$(/l) for a fire dragon, or an $(l:dragonmaid:accessories/icy_drink)Icy Drink$(/l) for an ice dragon.$(br2)Each fits only its matching type and strengthens breath and charges in humanoid and miniature form."
     },
     {
       "type": "patchouli:text",

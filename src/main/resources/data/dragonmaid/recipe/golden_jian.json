@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " B ",
+    "GBG",
+    " H "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:ingots/gold"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    },
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:golden_jian"
+  }
+}

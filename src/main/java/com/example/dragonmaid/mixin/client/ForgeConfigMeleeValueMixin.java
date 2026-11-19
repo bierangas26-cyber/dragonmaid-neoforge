@@ -1,6 +1,7 @@
 package com.example.dragonmaid.mixin.client;
 
 import com.example.dragonmaid.combat.HumanoidMeleeMode;
+import com.example.dragonmaid.config.HumanoidRidingConfig;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -23,6 +24,8 @@ public abstract class ForgeConfigMeleeValueMixin {
     private void dragonmaid$translatedValue(Enum<?> value, CallbackInfoReturnable<String> cir) {
         if (value instanceof HumanoidMeleeMode mode) {
             cir.setReturnValue(Component.translatable(mode.translationKey()).getString());
+        } else if (value instanceof HumanoidRidingConfig.Appearance appearance) {
+            cir.setReturnValue(Component.translatable(appearance.translationKey()).getString());
         }
     }
 }

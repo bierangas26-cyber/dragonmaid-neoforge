@@ -1,0 +1,51 @@
+{
+  "schema": "dragonmaid.service-armor.v1",
+  "binding": "existing_bone_final_space",
+  "tail_mode": "existing_dynamic_overlay",
+  "human": {
+    "male": {
+      "model": "dragonmaid:geo/frostsilver_male_armor.geo.json",
+      "texture": "dragonmaid:textures/armor/frostsilver/frostsilver_male_armor_128.png"
+    },
+    "female": {
+      "model": "dragonmaid:geo/frostsilver_female_armor.geo.json",
+      "texture": "dragonmaid:textures/armor/frostsilver/frostsilver_female_armor_128.png"
+    }
+  },
+  "slots": {
+    "1": [
+      "Head"
+    ],
+    "2": [
+      "Right Arm",
+      "Left Arm",
+      "arm_lower_right",
+      "arm_lower_left",
+      "hand_right",
+      "hand_left"
+    ],
+    "3": [
+      "Body"
+    ],
+    "4": [
+      "Right Leg",
+      "Left Leg",
+      "leg_lower_right",
+      "leg_lower_left",
+      "foot_right",
+      "foot_left"
+    ]
+  },
+  "dragon": {
+    "ice": {
+      "head": "dragonmaid:textures/armor/frostsilver/ice/frostsilver_ice_head_512.png",
+      "neck": "dragonmaid:textures/armor/frostsilver/ice/frostsilver_ice_neck_512.png",
+      "body": "dragonmaid:textures/armor/frostsilver/ice/frostsilver_ice_body_512.png",
+      "tail": "dragonmaid:textures/armor/frostsilver/ice/frostsilver_ice_tail_512.png",
+      "ornaments": {
+        "model": "dragonmaid:geo/frostsilver_ice_ornaments.geo.json",
+        "texture": "dragonmaid:textures/armor/frostsilver/ice/frostsilver_ice_ornaments_128.png"
+      }
+    }
+  }
+}

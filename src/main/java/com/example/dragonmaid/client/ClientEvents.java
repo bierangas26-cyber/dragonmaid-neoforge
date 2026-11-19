@@ -132,11 +132,20 @@ public final class ClientEvents {
         }
     }
 
+    /** 1.2.7 饰品槽位（与 menu.DragonDetailsMenu#accessoryX/Y 同式；对方尚未移植，这里先本地实现）。 */
+    private static int accessoryX(int slot) {
+        return slot < 3 ? 153 : 8;
+    }
+
+    private static int accessoryY(int slot) {
+        return slot < 3 ? 54 + slot * 18 : 72 + (slot - 3) * 18;
+    }
+
     public static void renderDetailsSlots(GuiGraphics graphics, DragonScreen screen, int left, int top) {
         if (screen.getMenu() instanceof DragonDetailsMenu dragondetailsmenu) {
-            for (int k = 0; k < 3; k++) {
-                int i = left + 153;
-                int j = top + 54 + k * 18;
+            for (int k = 0; k < 5; k++) {
+                int i = left + accessoryX(k);
+                int j = top + accessoryY(k);
                 if (k < dragondetailsmenu.dragonmaid$unlockedSlots()) {
                     DragonPanel.slot(graphics, i, j);
                 } else {
@@ -152,8 +161,8 @@ public final class ClientEvents {
             int k = (guidragon.width - 176) / 2;
             int top = (guidragon.height - 214) / 2;
 
-            for (int slot = dragondetailsmenu.dragonmaid$unlockedSlots(); slot < 3; slot++) {
-                if (DragonPanel.hovering(event.getMouseX(), event.getMouseY(), k + 153, top + 54 + slot * 18)) {
+            for (int slot = dragondetailsmenu.dragonmaid$unlockedSlots(); slot < 5; slot++) {
+                if (DragonPanel.hovering(event.getMouseX(), event.getMouseY(), k + accessoryX(slot), top + accessoryY(slot))) {
                     event.getGuiGraphics()
                         .renderTooltip(
                             Minecraft.getInstance().font,

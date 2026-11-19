@@ -4,6 +4,7 @@ import com.example.dragonmaid.DragonMaidConfig;
 import com.example.dragonmaid.compat.CompanionRelations;
 import com.example.dragonmaid.data.DragonForms;
 import com.example.dragonmaid.data.HumanoidLife;
+import com.example.dragonmaid.movement.HumanoidFlight;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.GorgonEntity;
 import java.util.Comparator;
@@ -128,7 +129,11 @@ public final class HumanoidTargetGoal extends Goal {
          } else if (this.dragon.tickCount % 10 == 0) {
             if (this.progress
                .shouldAbandon(
-                  target.getUUID(), this.dragon.tickCount, this.dragon.position(), this.attackOpportunity(target), !this.dragon.getNavigation().isDone()
+                  target.getUUID(),
+                  this.dragon.tickCount,
+                  this.dragon.position(),
+                  this.attackOpportunity(target),
+                  HumanoidFlight.autonomousInAir(this.dragon) || !this.dragon.getNavigation().isDone()
                )) {
                this.progress.defer(target.getUUID(), this.dragon.tickCount, this.threats(target));
                this.dragon.setTarget(null);
@@ -236,6 +241,7 @@ public final class HumanoidTargetGoal extends Goal {
          && this.dragon.isAlive()
          && !HumanoidLife.isInjured(this.dragon)
          && !DragonForms.state(this.dragon).dragonmaid$isRecoveryRest()
+         && !BladeCompat.isReturningToRest(DragonForms.state(this.dragon))
          && !GorgonEntity.isStoneMob(this.dragon)) {
          LivingEntity owner = GuardEscort.owner(this.dragon);
          if (this.dragon.getCommand() == 2 && owner == null) {

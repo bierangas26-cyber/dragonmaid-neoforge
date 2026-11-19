@@ -21,6 +21,7 @@ final class SharedAnimationPose {
     private final GeoBone[] bones;
     private final Map<String, Integer> offsets = new HashMap<>();
     private final float[] bind;
+    private final Quaternionf aimedRotation = new Quaternionf();
 
     SharedAnimationPose(Collection<? extends GeoBone> registered) {
         this.bones = registered.toArray(GeoBone[]::new);
@@ -96,6 +97,43 @@ final class SharedAnimationPose {
         Integer integer = this.offsets.get(name);
         if (integer != null) {
             pose[integer + channel] += value;
+        }
+    }
+
+    /** 1.2.7: 以父骨骼当前欧拉角为基础，绕局部 X 追加 pitch（骑乘/俯冲姿态）。 */
+    void rotateParentX(float[] pose, String bone, float pitch) {
+        Integer integer = this.offsets.get(bone);
+        if (integer != null && pitch != 0.0F) {
+            this.aimedRotation.rotationZYX(pose[integer + 2], pose[integer + 1], pose[integer]).rotateLocalX(pitch);
+            writeRotation(this.aimedRotation, pose, integer);
+        }
+    }
+
+    /** 1.2.7: 把 source 骨骼相对 bind 的旋转按权重叠加到 target 骨骼（吐息/近战共用骨架）。 */
+    void addRotationFrom(String sourceBone, String targetBone, float[] layer, float weight, float[] target) {
+        Integer from = this.offsets.get(sourceBone);
+        Integer to = this.offsets.get(targetBone);
+        if (from != null && to != null) {
+            for (int axis = 0; axis < 3; axis++) {
+                target[to + axis] += (layer[from + axis] - this.bind[from + axis]) * weight;
+            }
+        }
+    }
+
+    private static void writeRotation(Quaternionf rotation, float[] target, int o) {
+        double d0 = (double)rotation.x;
+        double d1 = (double)rotation.y;
+        double d2 = (double)rotation.z;
+        double d3 = (double)rotation.w;
+        double d4 = Math.max(-1.0, Math.min(1.0, 2.0 * (d3 * d1 - d2 * d0)));
+        if (Math.abs(d4) > 0.999999) {
+            target[o] = 0.0F;
+            target[o + 1] = (float)Math.copySign(Math.PI / 2, d4);
+            target[o + 2] = (float)Math.atan2(2.0 * (d3 * d2 - d0 * d1), 1.0 - 2.0 * (d0 * d0 + d2 * d2));
+        } else {
+            target[o] = (float)Math.atan2(2.0 * (d3 * d0 + d1 * d2), 1.0 - 2.0 * (d0 * d0 + d1 * d1));
+            target[o + 1] = (float)Math.asin(d4);
+            target[o + 2] = (float)Math.atan2(2.0 * (d3 * d2 + d0 * d1), 1.0 - 2.0 * (d1 * d1 + d2 * d2));
         }
     }
 
@@ -306,6 +344,10 @@ final class SharedAnimationPose {
         Transition(int size) {
             this.previous = new float[size];
             this.source = new float[size];
+        }
+
+        int mode() {
+            return this.mode;
         }
 
         void apply(float[] target, int nextMode, double time, int nextGeneration) {

@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "dragonmaid:wooden_jian",
+    "dragonmaid:stone_jian",
+    "dragonmaid:copper_jian",
+    "dragonmaid:iron_jian",
+    "dragonmaid:golden_jian",
+    "dragonmaid:diamond_jian",
+    "dragonmaid:netherite_jian",
+    "dragonmaid:dragonbone_jian",
+    "dragonmaid:silver_jian",
+    "dragonmaid:dragonbone_jian_fire",
+    "dragonmaid:dragonbone_jian_ice",
+    "dragonmaid:dragonbone_jian_lightning"
+  ]
+}

@@ -1,5 +1,6 @@
 package com.example.dragonmaid.combat;
 
+import com.example.dragonmaid.accessory.DragonAccessories;
 import com.example.dragonmaid.accessory.MiniatureForm;
 import com.example.dragonmaid.data.CompanionGrowth;
 import com.example.dragonmaid.network.BreathImpactMessage;
@@ -182,7 +183,7 @@ public final class MiniatureCombat {
             EntityDataCompat.setFrozen(hit, stage * 50);
             hit.setTicksFrozen(Math.max(hit.getTicksFrozen(), hit.getTicksRequiredToFreeze() + stage * 20));
          } else {
-            hit.igniteForSeconds((float)(5 + 5 * stage));
+            hit.igniteForSeconds(5 + 5 * stage);
             if (DragonCombatAccessories.fireFang(dragon)) {
                DragonCombatAccessories.poison(hit, dragon);
             }
@@ -192,11 +193,13 @@ public final class MiniatureCombat {
 
    public static float damage(DragonBaseEntity dragon) {
       double growth = CompanionGrowth.growthFraction(dragon);
+      float bonus = DragonAccessories.breathDamageMultiplier(dragon);
       if (dragon instanceof LightningDragonEntity) {
          return (float)(
             ((Double)IafCommonConfig.INSTANCE.dragon.attackDamageLightning.getValue()).doubleValue()
                * 5.0
                * Math.min(0.95, (Double)MiniatureBalance.lightningBase.get() + (Double)MiniatureBalance.lightningGrowth.get() * growth)
+               * (double)bonus
          );
       } else {
          double nativeDamage = dragon instanceof IceDragonEntity ? ((Double)IafCommonConfig.INSTANCE.dragon.attackDamageIce.getValue()).doubleValue() : ((Double)IafCommonConfig.INSTANCE.dragon.attackDamageFire.getValue()).doubleValue();
@@ -204,6 +207,7 @@ public final class MiniatureCombat {
             nativeDamage
                * (double)dragon.getDragonStage()
                * ((Double)MiniatureBalance.breathMultiplier.get() + (Double)MiniatureBalance.breathGrowth.get() * growth)
+               * (double)bonus
          );
       }
    }

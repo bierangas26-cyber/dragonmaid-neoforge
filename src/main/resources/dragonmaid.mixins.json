@@ -51,13 +51,20 @@
     "RecallEntityMixin",
     "RecallServerLevelAccessor",
     "RecallTameMixin",
-    "StoneStatueItemMixin"
+    "StoneStatueItemMixin",
+    "DragonFlightRestReturnMixin",
+    "DragonMountRelogMixin",
+    "LongswordExplosionMixin",
+    "LongswordUseSequenceMixin",
+    "PlayerDragonPanelMixin",
+    "PlayerHumanoidFlightMixin",
+    "PlayerLongswordSweepMixin",
+    "RiderJumpAccessor"
   ],
   "client": [
     "client.DragonPreviewScaleMixin",
     "client.DragonDetailsScreenMixin",
     "client.HumanoidStatueMixin",
-    "client.JadeDragonArmorMixin",
     "client.LightningMouthMixin",
     "client.PatchouliBookTitleMixin",
     "client.PatchouliEntryTitleMixin",
@@ -75,7 +82,23 @@
     "client.ForgeConfigMeleeLabelMixin",
     "client.ForgeConfigMeleeValueMixin",
     "client.ForgeConfigScreenLanguageMixin",
-    "client.ForgeConfigSelectionMixin"
+    "client.ForgeConfigSelectionMixin",
+    "client.ClientPredictionAccessor",
+    "client.HumanoidDragonCullingMixin",
+    "client.HumanoidMountClientMixin",
+    "client.HumanoidRiderModelMixin",
+    "client.HumanoidRidingCameraMixin",
+    "client.KatanaMovementMixin",
+    "client.PlayerHumanoidRidingRendererMixin",
+    "client.PlayerKatanaModelMixin",
+    "client.StarterGridAccessor",
+    "client.StarterGridCellInvoker",
+    "client.StarterPreviewLivingRenderMixin",
+    "client.StarterPreviewNameMixin",
+    "client.StarterTabAccessor",
+    "client.WingRenderTypeAccessor",
+    "client.StarterCreateWorldMixin",
+    "client.ForgeConfigWorldLoadMixin"
   ],
   "injectors": {
     "defaultRequire": 1

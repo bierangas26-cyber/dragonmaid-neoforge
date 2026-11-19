@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "旅程与远方",
-      "text": "知识一至三级都能扩大行囊，二级还可以持武器与盾。进阶条件见$(l:dragonmaid:learning/books)龙的学识$(/l)。$(br2)更高知识等级、人形骑乘与新的相处本领，留待今后的旅程。"
+      "text": "知识一至三级都能扩大行囊，二级还可以持武器与盾。进阶条件见$(l:dragonmaid:learning/books)龙的学识$(/l)。$(br2)想和伙伴一起飞过下一座山，翻到$(l:dragonmaid:behavior/humanoid_riding)人形龙骑乘$(/l)。"
     },
     {
       "type": "patchouli:text",

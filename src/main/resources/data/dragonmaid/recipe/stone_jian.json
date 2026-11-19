@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " B ",
+    "GBG",
+    " H "
+  ],
+  "key": {
+    "B": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "G": {
+      "item": "minecraft:iron_nugget"
+    },
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:stone_jian"
+  }
+}

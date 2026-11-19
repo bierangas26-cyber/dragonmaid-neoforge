@@ -29,6 +29,7 @@ public final class MiniatureLightningRenderer extends LightningDragonChargeEntit
     @SubscribeEvent
     public static void register(RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.MINI_LIGHTNING.get(), MiniatureLightningRenderer::new);
+        event.registerEntityRenderer(ModEntities.DRAGON_TRIDENT.get(), DragonTridentRenderer::new);
     }
 
     @Override

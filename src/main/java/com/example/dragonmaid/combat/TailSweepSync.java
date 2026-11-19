@@ -38,7 +38,15 @@ public final class TailSweepSync {
    }
 
    public static TailSweepState begin(DragonBaseEntity dragon, float yaw) {
-      TailSweepState state = new TailSweepState(++nextRound, DragonCombatAccessories.wild(dragon) ? 3 : 1, dragon.level().getGameTime(), yaw, -1L);
+      return begin(dragon, yaw, false);
+   }
+
+   public static TailSweepState begin(DragonBaseEntity dragon, float yaw, boolean armed) {
+      return begin(dragon, yaw, armed ? 5 : (DragonCombatAccessories.wild(dragon) ? 3 : 1));
+   }
+
+   static TailSweepState begin(DragonBaseEntity dragon, float yaw, int motion) {
+      TailSweepState state = new TailSweepState(++nextRound, motion, dragon.level().getGameTime(), yaw, -1L);
       STATES.put(dragon, state);
       send(dragon, state);
       return state;

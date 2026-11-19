@@ -60,13 +60,12 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
         );
         this.pickup = (Button)this.addRenderableWidget(
             DragonScreenTabs.button(
-                this.leftPos + 136,
+                this.leftPos + 176,
                 this.topPos + 40,
                 "button.dragonmaid.pickup.off",
                 b -> this.minecraft.gameMode.handleInventoryButtonClick(((AccessoryMenu)this.menu).containerId, 4)
             )
         );
-        this.pickup.setWidth(106);
         this.updateButtons();
     }
 
@@ -114,25 +113,25 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
         }
 
         g.drawManaged(() -> {
-            for (int k = 5; k < 35; k++) {
+            for (int k = 5; k < 37; k++) {
                 Slot slot = ((AccessoryMenu)this.menu).getSlot(k);
                 int l = this.leftPos + slot.x;
                 int i1 = this.topPos + slot.y;
                 if (!slot.isActive()) {
                     DragonPanel.lockedSlot(g, l, i1);
-                } else if (k < 8) {
+                } else if (k < 10) {
                     DragonPanel.accessorySlot(g, l, i1, !slot.hasItem());
                 } else {
                     DragonPanel.slot(g, l, i1);
                 }
             }
 
-            for (int k = 35; k < 71; k++) {
+            for (int k = 37; k < 73; k++) {
                 Slot slot = ((AccessoryMenu)this.menu).getSlot(k);
                 DragonPanel.slot(g, this.leftPos + slot.x, this.topPos + slot.y);
             }
 
-            for (int k = 71; k < 73; k++) {
+            for (int k = 73; k < 75; k++) {
                 Slot slot = ((AccessoryMenu)this.menu).getSlot(k);
                 int l = this.leftPos + slot.x;
                 int i1 = this.topPos + slot.y;
@@ -141,7 +140,7 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
                 } else {
                     DragonPanel.slot(g, l, i1);
                     if (!slot.hasItem()) {
-                        drawHandOutline(g, l, i1, k == 71);
+                        drawHandOutline(g, l, i1, k == 73);
                     }
                 }
             }
@@ -189,24 +188,24 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
         super.render(g, mouseX, mouseY, partial);
         this.renderTooltip(g, mouseX, mouseY);
 
-        for (int i = ((AccessoryMenu)this.menu).unlockedSlots(); i < 3; i++) {
+        for (int i = ((AccessoryMenu)this.menu).unlockedSlots(); i < 5; i++) {
             Slot slot = ((AccessoryMenu)this.menu).getSlot(5 + i);
             if (DragonPanel.hovering(mouseX, mouseY, this.leftPos + slot.x, this.topPos + slot.y)) {
-                g.renderTooltip(this.font, Component.translatable("label.dragonmaid.accessory_locked", new Object[]{i + 1}), mouseX, mouseY);
+                g.renderTooltip(this.font, Component.translatable("label.dragonmaid.accessory_locked"), mouseX, mouseY);
             }
         }
 
         for (int j = ((AccessoryMenu)this.menu).storageSlots(); j < 27; j++) {
-            Slot slot = ((AccessoryMenu)this.menu).getSlot(8 + j);
+            Slot slot = ((AccessoryMenu)this.menu).getSlot(10 + j);
             if (DragonPanel.hovering(mouseX, mouseY, this.leftPos + slot.x, this.topPos + slot.y)) {
                 g.renderTooltip(this.font, Component.translatable("label.dragonmaid.storage_locked"), mouseX, mouseY);
             }
         }
 
-        for (int k = 71; k < 73; k++) {
+        for (int k = 73; k < 75; k++) {
             Slot slot = ((AccessoryMenu)this.menu).getSlot(k);
             if (!slot.hasItem() && DragonPanel.hovering(mouseX, mouseY, this.leftPos + slot.x, this.topPos + slot.y)) {
-                MutableComponent mutablecomponent = Component.translatable(k == 71 ? "label.dragonmaid.hand_weapon" : "label.dragonmaid.hand_shield");
+                MutableComponent mutablecomponent = Component.translatable(k == 73 ? "label.dragonmaid.hand_weapon" : "label.dragonmaid.hand_shield");
                 if (!slot.isActive()) {
                     mutablecomponent.append(" \u00b7 ").append(Component.translatable("label.dragonmaid.hands_locked"));
                 }

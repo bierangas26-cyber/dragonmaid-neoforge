@@ -1,0 +1,6 @@
+{
+  "parent": "dragonmaid:item/companion_katana_handheld",
+  "textures": {
+    "layer0": "dragonmaid:item/dragonbone_katana_ice"
+  }
+}

@@ -6,7 +6,9 @@ import com.example.dragonmaid.network.FeedingEffectMessage;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.IceDragonEntity;
 import com.iafenvoy.iceandfire.entity.LightningDragonEntity;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexSorting;
 import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -52,7 +54,16 @@ public final class ClientMouthEffects {
         }
     }
 
+    /** 1.2.7: GUI（槽位预览）里不做嘴部特效，避免预览渲染残留。 */
+    public static boolean isGuiPreview() {
+        return RenderSystem.getVertexSorting() == VertexSorting.ORTHOGRAPHIC_Z;
+    }
+
     static Matrix4f begin(DragonBaseEntity dragon, PoseStack pose) {
+        if (isGuiPreview()) {
+            return null;
+        }
+
         LIGHTNING.remove(dragon);
         WATER_MOUTHS.remove(dragon);
         ArrayDeque<ClientMouthEffects.Meal> arraydeque = MEALS.get(dragon);

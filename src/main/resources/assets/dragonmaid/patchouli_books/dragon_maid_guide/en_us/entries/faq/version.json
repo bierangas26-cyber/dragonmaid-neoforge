@@ -12,7 +12,7 @@
     {
       "type": "patchouli:text",
       "title": "Further Along",
-      "text": "The first three knowledge levels expand your dragon’s pack. At level two, it can carry a weapon and shield. Find the requirements in $(l:dragonmaid:learning/books)Lessons and Lore$(/l).$(br2)Higher knowledge levels, humanoid riding, and new ways to spend time together await a future update."
+      "text": "The first three knowledge levels expand your dragon’s pack. At level two, it can carry a weapon and shield. See $(l:dragonmaid:learning/books)Lessons and Lore$(/l) for the requirements.$(br2)To fly over the next ridge together, see $(l:dragonmaid:behavior/humanoid_riding)Riding a Humanoid Dragon$(/l)."
     },
     {
       "type": "patchouli:text",

@@ -23,6 +23,12 @@ public abstract class DragonHandsMixin implements DragonHands.Holder {
         return this.dragonmaid$hands;
     }
 
+    /** 1.2.7: 每 tick 让手里拿着的东西跟飞行/骑乘姿态同步（腾空时收起武器）。 */
+    @Inject(remap = false, method = {"tick"}, at = {@At("HEAD")})
+    private void dragonmaid$tickFlight(CallbackInfo ci) {
+        this.dragonmaid$hands.tickFlight();
+    }
+
     @Inject(remap = false, method = {"addAdditionalSaveData"}, at = {@At("TAIL")})
     private void dragonmaid$writeHands(CompoundTag tag, CallbackInfo ci) {
         if (this.dragonmaid$hands.isEmpty()) {

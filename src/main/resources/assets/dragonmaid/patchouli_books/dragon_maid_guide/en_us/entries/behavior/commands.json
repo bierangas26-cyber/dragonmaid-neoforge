@@ -7,7 +7,7 @@
     {
       "type": "dragonmaid:first_page_title",
       "title": "Giving Commands",
-      "text": "With empty hands, right-click your human-form dragon unless severely injured. This cycles Wander, Rest and Guard. The mode appears on screen; no staff is needed."
+      "text": "Right-click your human-form dragon unless severely injured. This cycles Wander, Rest and Guard. The mode appears on screen; no staff is needed."
     },
     {
       "type": "dragonmaid:illustration_scene",
@@ -22,7 +22,7 @@
     {
       "type": "patchouli:text",
       "title": "Interaction Controls",
-      "text": "With both hands empty, Shift-right-click to open your companion's panel. A normal right-click cycles Wander, Rest, and Guard.$(br2)Hold the appropriate item to feed it or use a horn or staff. Dragon form retains the original staff and riding controls."
+      "text": "Right-click to change behavior or Shift-right-click to open your companion's panel. Both work with ordinary items in hand.$(br2)Food, horns, crystals, staffs, and other items with right-click actions keep their own uses. Dragon form retains the original staff and riding controls."
     },
     {
       "type": "patchouli:text",
@@ -42,7 +42,7 @@
     {
       "type": "patchouli:text",
       "title": "After Recovery",
-      "text": "If your companion sits after reaching full health, it is waiting for your next command.$(br2)In human form, right-click with empty hands; in dragon form, use a dragon staff. Set out together when ready."
+      "text": "If your companion sits after reaching full health, it is waiting for your next command.$(br2)In human form, right-click; in dragon form, use a dragon staff. Set out together when ready."
     },
     {
       "type": "patchouli:text",

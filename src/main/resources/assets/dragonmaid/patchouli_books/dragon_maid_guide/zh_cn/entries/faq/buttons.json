@@ -7,7 +7,7 @@
     {
       "type": "dragonmaid:first_page_title",
       "title": "切换面板",
-      "text": "伙伴面板有“详细信息”“龙的装备”和“$(l:dragonmaid:learning/books)知识等级$(/l)”三个页签；当前页签会暗下来，点击其他页签即可切换。$(br2)饰品栏随知识一级、二级、三级依次解锁，进阶方法见知识等级。"
+      "text": "伙伴面板有“详细信息”“龙的装备”和“$(l:dragonmaid:learning/books)知识等级$(/l)”三个页签；当前页签会暗下来，点击其他页签即可切换。$(br2)龙一阶自带一格饰品栏，三阶再添一格；知识一级、二级、三级各添一格，最多五格。"
     },
     {
       "type": "patchouli:text",
@@ -17,7 +17,7 @@
     {
       "type": "patchouli:text",
       "title": "查找相关说明",
-      "text": "伙伴重伤、恢复后仍坐着，或被困在石像中，可以查阅$(l:dragonmaid:care/injury)重伤与石化$(/l)；$(l:dragonmaid:care/injury#petrification)解石药剂的用法$(/l)也在那一章。炉边停工，看看$(l:dragonmaid:care/forge)龙息与炉火$(/l)。$(br2)水中同行可读$(l:dragonmaid:forms/water)涉水与潜游$(/l)。空双手Shift右键打开面板，普通右键切换人形伙伴的行为。"
+      "text": "伙伴重伤、恢复后仍坐着，或被困在石像中，可以查阅$(l:dragonmaid:care/injury)重伤与石化$(/l)；$(l:dragonmaid:care/injury#petrification)解石药剂的用法$(/l)也在那一章。炉边停工，看看$(l:dragonmaid:care/forge)龙息与炉火$(/l)。$(br2)水中同行可读$(l:dragonmaid:forms/water)涉水与潜游$(/l)。Shift右键打开面板，普通右键切换人形伙伴的行为。手持普通物品也可以。"
     }
   ]
 }

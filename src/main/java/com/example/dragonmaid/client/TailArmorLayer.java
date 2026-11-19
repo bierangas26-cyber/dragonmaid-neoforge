@@ -40,29 +40,45 @@ final class TailArmorLayer extends GeoRenderLayer<IceFemaleAnimatable> {
         int i = TailArmorMesh.segment(bone.getName());
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)this.parent.getCurrentEntity();
         if (i >= 0 && !entitydragonbase.isInvisible() && entitydragonbase.dragonInventory != null && !bone.isHidden() && !bone.getCubes().isEmpty()) {
-            // IAF CE 2.0: the old EnumDragonTextures.Armor enum (which carried three
-            // per-dragon-type textures ICE/LIGHTNING/FIRE) is gone. CE keeps a single
-            // texture per material+part (textures/entity/dragon_armor/armor_<part>_<material>.png)
-            // and exposes DragonArmorFeatureRenderer.getArmorTexture(stack, slot).
-            ResourceLocation resourcelocation;
-            if (ServiceDragonArmorItem.isService(entitydragonbase.dragonInventory.getItem(4))) {
-                resourcelocation = ServiceArmorResources.INSTANCE.dragonTexture(entitydragonbase, 4);
-            } else {
-                ItemStack tailStack = entitydragonbase.getItemBySlot(EquipmentSlot.FEET);
-                resourcelocation = tailStack.isEmpty()
-                    ? null
-                    : DragonArmorFeatureRenderer.getArmorTexture(tailStack, EquipmentSlot.FEET);
-            }
-
-            if (resourcelocation != null) {
-                GeoCube geocube = this.shells.computeIfAbsent((GeoCube)bone.getCubes().get(0), key -> TailArmorMesh.bake(key, i));
-                pose.pushPose();
-                // 4.9.2: renderCube takes one packed colour int (was r,g,b,a floats)
-                this.parent
-                    .renderCube(pose, geocube, buffers.getBuffer(RenderType.armorCutoutNoCull(resourcelocation)), light, OverlayTexture.NO_OVERLAY, -1);
-                pose.popPose();
-                buffers.getBuffer(renderType);
+            // 1.2.7: 优先交给渲染器的装备队列（龙铠饰品与尾甲共用一套批处理）。
+            if (!this.parent.queueArmor(pose, bone, true)) {
+                this.drawArmor(pose, bone, buffers, light);
             }
         }
+    }
+
+    void drawArmor(PoseStack pose, GeoBone bone, MultiBufferSource buffers, int light) {
+        int i = TailArmorMesh.segment(bone.getName());
+        DragonBaseEntity entitydragonbase = (DragonBaseEntity)this.parent.getCurrentEntity();
+        // IAF CE 2.0: the old EnumDragonTextures.Armor enum (which carried three
+        // per-dragon-type textures ICE/LIGHTNING/FIRE) is gone. CE keeps a single
+        // texture per material+part (textures/entity/dragon_armor/armor_<part>_<material>.png)
+        // and exposes DragonArmorFeatureRenderer.getArmorTexture(stack, slot).
+        ResourceLocation resourcelocation = this.textureFor(entitydragonbase);
+        if (resourcelocation == null) {
+            return;
+        }
+
+        GeoCube geocube = this.shells.computeIfAbsent((GeoCube)bone.getCubes().get(0), key -> TailArmorMesh.bake(key, i));
+        pose.pushPose();
+        // 4.9.2: renderCube takes one packed colour int (was r,g,b,a floats)
+        this.parent.renderCube(
+            pose, geocube, buffers.getBuffer(RenderType.armorCutoutNoCull(resourcelocation)), light, OverlayTexture.NO_OVERLAY, -1
+        );
+        pose.popPose();
+    }
+
+    /** 1.2.7: 四套龙铠按 Style 分实例；非龙铠仍走 CE 的材质贴图。 */
+    private ResourceLocation textureFor(DragonBaseEntity dragon) {
+        ServiceDragonArmorItem.Style style = ServiceDragonArmorItem.styleOf(dragon.dragonInventory.getItem(4), dragon);
+        if (style != null) {
+            ResourceLocation styled = ServiceArmorResources.of(style).humanoidTailTexture(dragon);
+            if (styled != null) {
+                return styled;
+            }
+        }
+
+        ItemStack tailStack = dragon.getItemBySlot(EquipmentSlot.FEET);
+        return tailStack.isEmpty() ? null : DragonArmorFeatureRenderer.getArmorTexture(tailStack, EquipmentSlot.FEET);
     }
 }

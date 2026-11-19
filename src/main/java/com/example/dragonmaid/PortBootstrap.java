@@ -1,21 +1,21 @@
 package com.example.dragonmaid;
 
 import com.mojang.logging.LogUtils;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
 /**
- * Minimal NeoForge entry point used for the load / asset-fidelity validation build.
- * The full ported content entry point (DragonMaid) is kept in the source tree but is
- * excluded from this build stage while the Ice and Fire CE integration is still being ported.
+ * Legacy "asset-stage" marker from the early 1.1.0 NeoForge port.
+ *
+ * <p>It used to be a second {@code @Mod} entry point with the same mod id as {@link DragonMaid},
+ * which made FML construct two mod containers for {@code dragonmaid} (see docs/PORT-GAP-AUDIT.md #11).
+ * Since the 1.2.7 port restores the full {@link DragonMaid} entry point, this class is intentionally
+ * <b>no longer a {@code @Mod}</b>: {@link DragonMaid} is the only entry point. The class is kept as a
+ * harmless marker so older tooling/scripts that mention it still resolve.</p>
  */
-@Mod(PortBootstrap.MODID)
-public class PortBootstrap {
-    public static final String MODID = "dragonmaid";
+public final class PortBootstrap {
+    public static final String MODID = DragonMaid.MODID;
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public PortBootstrap(IEventBus modEventBus) {
-        LOGGER.info("[dragonmaid] Dragon Maid 1.1.0-beta.2 - NeoForge 1.21.1 port bootstrap (assets stage)");
+    private PortBootstrap() {
     }
 }

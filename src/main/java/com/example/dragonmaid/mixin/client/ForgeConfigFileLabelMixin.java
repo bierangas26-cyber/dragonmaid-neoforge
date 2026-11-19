@@ -1,6 +1,7 @@
 package com.example.dragonmaid.mixin.client;
 
 import com.example.dragonmaid.config.GlobalBalanceConfig;
+import com.example.dragonmaid.config.HumanoidRidingConfig;
 import net.minecraft.network.chat.Component;
 import net.neoforged.fml.config.ModConfig;
 import org.spongepowered.asm.mixin.Final;
@@ -39,6 +40,17 @@ public abstract class ForgeConfigFileLabelMixin {
                     : "config.dragonmaid.file.recall"
             );
             this.typeComponent = Component.translatable("config.dragonmaid.scope.global");
+        } else if (GlobalBalanceConfig.worldOverride(this.config)) {
+            // 1.2.7: 每个存档覆盖用的 world 级配置单独起名/作用域
+            this.nameComponent = Component.translatable(
+                this.config.getSpec() == GlobalBalanceConfig.WORLD_GAMEPLAY
+                    ? "config.dragonmaid.file.worldGameplay"
+                    : "config.dragonmaid.file.worldRecall"
+            );
+            this.typeComponent = Component.translatable("config.dragonmaid.scope.world");
+        } else if (this.config.getSpec() == HumanoidRidingConfig.SPEC) {
+            this.nameComponent = Component.translatable("config.dragonmaid.file.client");
+            this.typeComponent = Component.translatable("config.dragonmaid.scope.client");
         }
     }
 }

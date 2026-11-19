@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FG ",
+    "SBS",
+    " GR"
+  ],
+  "key": {
+    "F": { "item": "iceandfire:amphithere_feather" },
+    "G": { "item": "minecraft:gold_ingot" },
+    "S": { "tag": "forge:ingots/silver" },
+    "B": { "item": "iceandfire:dragonbone" },
+    "R": { "tag": "iceandfire:scales/dragon" }
+  },
+  "result": {
+    "id": "dragonmaid:wing_guard_legend",
+    "count": 1
+  }
+}

@@ -23,6 +23,8 @@ public final class CompanionBalanceConfig {
     public static IntValue VISUAL_AGE;
     public static IntValue MOVEMENT_AGE;
     public static DoubleValue MAX_HEALTH;
+    /** 1.2.7: human-form health relative to dragon form. */
+    public static DoubleValue HUMANOID_HEALTH_MULTIPLIER;
     public static DoubleValue MAX_ATTACK;
     public static DoubleValue MELEE_MULTIPLIER;
     public static DoubleValue FIRE_DAMAGE;
@@ -33,7 +35,7 @@ public final class CompanionBalanceConfig {
     public static DoubleValue KNOCKBACK_CAP;
     public static BooleanValue LIMIT_ARMOR_GROWTH;
     private static final CompanionBalanceConfig.Values DEFAULTS = new CompanionBalanceConfig.Values(
-        125, 0.0, 0.0, 1.0, true, 1.0, 1.0, 1.0, 1.0, 10, 10, 1.1, 0.66
+        125, 0.0, 0.0, 1.0, true, 1.0, 1.0, 1.0, 1.0, 10, 10, 1.1, 0.66, 1.0
     );
     private static volatile CompanionBalanceConfig.Values active = DEFAULTS;
     private static volatile boolean captured;
@@ -68,6 +70,15 @@ public final class CompanionBalanceConfig {
             .translation("config.dragonmaid.maximumHealth")
             .worldRestart()
             .defineInRange("maximumHealth", 0.0, 0.0, 1000000.0);
+        HUMANOID_HEALTH_MULTIPLIER = b.comment(
+                new String[]{
+                    "Human-form health relative to dragon form. Both current and maximum health scale together when changing form.",
+                    "1 keeps the same health; 0.1 gives one tenth; 2 doubles it. Existing attribute limits still apply."
+                }
+            )
+            .translation("config.dragonmaid.humanoidHealthMultiplier")
+            .worldRestart()
+            .defineInRange("humanoidHealthMultiplier", 1.0, 0.01, 100.0);
         MAX_ATTACK = b.comment(
                 new String[]{
                     "Base melee endpoint before companionDamage.meleeMultiplier, weapons and accessories.",
@@ -162,7 +173,8 @@ public final class CompanionBalanceConfig {
             VISUAL_AGE.get(),
             MOVEMENT_AGE.get(),
             MOVEMENT_MULTIPLIER.get(),
-            KNOCKBACK_CAP.get()
+            KNOCKBACK_CAP.get(),
+            HUMANOID_HEALTH_MULTIPLIER.get()
         );
         captured = true;
     }
@@ -192,7 +204,8 @@ public final class CompanionBalanceConfig {
         int visualAge,
         int movementAge,
         double movementMultiplier,
-        double knockbackCap
+        double knockbackCap,
+        double humanoidHealthMultiplier
     ) {
     }
 }

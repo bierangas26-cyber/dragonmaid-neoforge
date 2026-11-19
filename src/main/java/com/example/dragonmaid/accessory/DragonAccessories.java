@@ -29,7 +29,8 @@ public final class DragonAccessories {
     private static final CopyOnWriteArrayList<DragonAccessories.AdapterEntry> ADAPTERS = new CopyOnWriteArrayList<>();
     private static final ResourceLocation ARMOR_ID = ResourceLocation.fromNamespaceAndPath("dragonmaid", "accessory_armor");
     public static final int REGENERATION_INTERVAL = 50;
-    public static final int MAX_SLOTS = 3;
+    /** 1.2.7: five accessory slots (growth stage 1-2 + knowledge 0-3). */
+    public static final int MAX_SLOTS = 5;
 
     private DragonAccessories() {
     }
@@ -114,8 +115,14 @@ public final class DragonAccessories {
         return DragonForms.state(dragon).dragonmaid$getKnowledgeLevel();
     }
 
+    /** 1.2.7: growth stage grants 1-2 slots, knowledge adds up to 3 more (hard cap {@link #MAX_SLOTS}). */
     public static int unlockedSlots(DragonBaseEntity dragon) {
-        return Math.max(0, Math.min(3, knowledgeLevel(dragon)));
+        return unlockedSlots(dragon.getDragonStage(), knowledgeLevel(dragon));
+    }
+
+    public static int unlockedSlots(int growthStage, int knowledgeLevel) {
+        int growthSlots = growthStage >= 3 ? 2 : 1;
+        return Math.min(MAX_SLOTS, growthSlots + Math.max(0, Math.min(3, knowledgeLevel)));
     }
 
     // 1.2: 背包额外槽位由饰品（effects.storageSlots）提供

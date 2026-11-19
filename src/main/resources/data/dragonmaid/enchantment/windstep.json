@@ -1,0 +1,21 @@
+{
+  "description": {
+    "translate": "enchantment.dragonmaid.windstep"
+  },
+  "supported_items": "#dragonmaid:katanas",
+  "weight": 5,
+  "max_level": 3,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 8
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 8
+  },
+  "anvil_cost": 2,
+  "slots": [
+    "mainhand"
+  ],
+  "effects": {}
+}

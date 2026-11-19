@@ -64,6 +64,30 @@ final class IceFemaleRenderer extends GeoReplacedEntityRenderer<DragonBaseEntity
         }
     }
 
+    /**
+     * 1.2.7: 装备/尾甲的批处理队列钩子。
+     *
+     * <p>上游在收集阶段（collectingArmor）把骨骼矩阵记下来，之后再统一绘制；
+     * 本移植暂未接入收集阶段，恒返回 false，调用方（TailArmorLayer 等）会走即时绘制分支。</p>
+     */
+    boolean queueArmor(PoseStack pose, GeoBone bone, boolean tail) {
+        return false;
+    }
+
+    /** 1.2.7: 面纱层队列钩子（同 queueArmor，暂不收集）。 */
+    void queueVeil(PoseStack pose, GeoBone bone) {
+    }
+
+    /**
+     * 1.2.7: 新建世界/界面里的 3D 预览入口。
+     *
+     * <p><b>降级：</b>上游这里跑一套独立的 SharedAnimationPose 采样 + 递归绘制；本移植直接复用
+     * 标准渲染路径，姿态细节少于上游，但能保证预览可用。</p>
+     */
+    void renderMenuPreview(DragonBaseEntity dragon, float yaw, PoseStack pose, MultiBufferSource buffers, int light, float partial) {
+        this.render(dragon, yaw, partial, pose, buffers, light);
+    }
+
     boolean clearWorldState() {
         this.currentEntity = null;
         this.mouthRenderInverse = null;

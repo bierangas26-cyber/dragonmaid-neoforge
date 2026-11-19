@@ -28,12 +28,12 @@
     {
       "type": "patchouli:text",
       "title": "Protecting the Injured",
-      "text": "Clear nearby threats first. With empty hands, Shift-right-click to inspect your companion's health and condition. Enemies can take away newly restored health, so protect it from attacks.$(br2)Until fully healed, it remains severely injured. Keep feeding it and give it time."
+      "text": "Clear nearby threats first. Shift-right-click to inspect your companion's health and condition, even while holding ordinary items. Enemies can take away newly restored health, so protect it from attacks.$(br2)Until fully healed, it remains severely injured. Keep feeding it and give it time."
     },
     {
       "type": "patchouli:text",
       "title": "After Recovery",
-      "text": "At full health, your companion sits up and waits for you to decide what comes next.$(br2)In human form, right-click with empty hands; in dragon form, use a dragon staff.$(br2)Recovery does not require $(l:dragonmaid:care/execution)mercy killing$(/l), an irreversible farewell."
+      "text": "At full health, your companion sits up and waits for you to decide what comes next.$(br2)In human form, right-click; in dragon form, use a dragon staff.$(br2)Recovery does not require $(l:dragonmaid:care/execution)mercy killing$(/l), an irreversible farewell."
     },
     {
       "type": "patchouli:spotlight",

@@ -36,6 +36,7 @@ public final class HumanoidTailSweep {
    private int previousElapsed = -1;
    private boolean swung;
    private TailSweepState timeline;
+   private LivingEntity primaryTarget;
 
    public HumanoidTailSweep(DragonBaseEntity dragon) {
       this.dragon = dragon;
@@ -48,6 +49,7 @@ public final class HumanoidTailSweep {
    public static boolean canAct(DragonBaseEntity dragon) {
       return !dragon.level().isClientSide
          && DragonForms.isHumanoid(dragon)
+         && !BladeCompat.flightAirborne(dragon)
          && dragon.getDragonStage() >= 3
          && dragon.isAlive()
          && !dragon.isRemoved()
@@ -83,7 +85,7 @@ public final class HumanoidTailSweep {
          boolean hasEnemy = false;
 
          for (LivingEntity enemy : level.getEntitiesOfClass(LivingEntity.class, bounds(frames), e -> HumanoidTargetGoal.isEnemy(this.dragon, e))) {
-            if (this.dragon.hasLineOfSight(enemy) && this.contact(level, enemy, frames, 0, frames.size() - 1) != null) {
+            if (this.dragon.hasLineOfSight(enemy) && contact(level, this.dragon, enemy, frames, 0, frames.size() - 1) != null) {
                hasEnemy = true;
                break;
             }
@@ -92,6 +94,7 @@ public final class HumanoidTailSweep {
          if (!hasEnemy) {
             return false;
          } else {
+            this.primaryTarget = target;
             this.yaw = candidateYaw;
             this.startedAt = level.getGameTime();
             this.previousElapsed = -1;
@@ -129,7 +132,7 @@ public final class HumanoidTailSweep {
                List<TailSweepGeometry.Frame> frames = TailSweepGeometry.attackFrames(this.dragon, this.yaw);
                int from = this.timeline.hitFrameAt(elapsed - 1);
                int to = this.timeline.hitFrameAt(elapsed);
-               this.wind(level, frames, from, to);
+               wind(level, frames, from, to);
                FrostyTailParticles.humanoid(level, this.dragon, frames, from, to);
                this.hit(level, frames, from, to);
             }
@@ -148,6 +151,7 @@ public final class HumanoidTailSweep {
          TailSweepSync.cancel(this.dragon);
          this.startedAt = -1L;
          this.timeline = null;
+         this.primaryTarget = null;
          this.previousElapsed = -1;
          this.attempted.clear();
          if (DragonForms.state(this.dragon).dragonmaid$getAction() == 6) {
@@ -179,10 +183,12 @@ public final class HumanoidTailSweep {
    private void hit(ServerLevel level, List<TailSweepGeometry.Frame> frames, int from, int to) {
       for (LivingEntity enemy : level.getEntitiesOfClass(LivingEntity.class, bounds(frames.subList(from, to + 1)), e -> HumanoidTargetGoal.isEnemy(this.dragon, e))) {
          if (!this.attempted.contains(enemy.getUUID()) && HumanoidTargetGoal.isEnemy(this.dragon, enemy) && this.dragon.hasLineOfSight(enemy)) {
-            Vec3 contact = this.contact(level, enemy, frames, from, to);
+            Vec3 contact = contact(level, this.dragon, enemy, frames, from, to);
             if (contact != null) {
                this.attempted.add(enemy.getUUID());
-               if (DragonCombatAccessories.humanoidTail(this.dragon, enemy, level.damageSources().mobAttack(this.dragon), this.damage)) {
+               if (DragonCombatAccessories.humanoidTail(
+                  this.dragon, enemy, level.damageSources().mobAttack(this.dragon), this.damage, enemy == this.primaryTarget, false
+               )) {
                   level.sendParticles(ParticleTypes.CRIT, contact.x, contact.y, contact.z, 8, 0.12, 0.12, 0.12, 0.14);
                   level.playSound(null, enemy.getX(), enemy.getY(), enemy.getZ(), SoundEvents.PLAYER_ATTACK_STRONG, SoundSource.NEUTRAL, 0.65F, 0.85F);
                }
@@ -191,7 +197,7 @@ public final class HumanoidTailSweep {
       }
    }
 
-   private void wind(ServerLevel level, List<TailSweepGeometry.Frame> frames, int from, int to) {
+   static void wind(ServerLevel level, List<TailSweepGeometry.Frame> frames, int from, int to) {
       int first = from == 0 ? 0 : from + 1;
 
       for (int index = first; index <= to; index++) {
@@ -204,7 +210,7 @@ public final class HumanoidTailSweep {
       level.sendParticles(ParticleTypes.SWEEP_ATTACK, point.x, point.y, point.z, 0, 1.1, 0.0, 0.0, 1.0);
    }
 
-   private Vec3 contact(ServerLevel level, LivingEntity enemy, List<TailSweepGeometry.Frame> frames, int from, int to) {
+   static Vec3 contact(ServerLevel level, DragonBaseEntity dragon, LivingEntity enemy, List<TailSweepGeometry.Frame> frames, int from, int to) {
       for (int frame = from; frame <= to; frame++) {
          List<TailSweepGeometry.Sphere> current = frames.get(frame).spheres();
          List<TailSweepGeometry.Sphere> previous = frames.get(Math.max(from, frame - 1)).spheres();
@@ -214,8 +220,8 @@ public final class HumanoidTailSweep {
             TailSweepGeometry.Sphere b = current.get(part);
             Vec3 contact = TailSweepCollision.contact(a.center(), b.center(), enemy.getBoundingBox(), Math.max(a.radius(), b.radius()));
             if (contact != null) {
-               Vec3 root = new Vec3(this.dragon.getX(), contact.y, this.dragon.getZ());
-               if (level.clip(new ClipContext(root, contact, Block.COLLIDER, Fluid.NONE, this.dragon)).getType() == Type.MISS) {
+               Vec3 root = new Vec3(dragon.getX(), contact.y, dragon.getZ());
+               if (level.clip(new ClipContext(root, contact, Block.COLLIDER, Fluid.NONE, dragon)).getType() == Type.MISS) {
                   return contact;
                }
             }
@@ -225,7 +231,7 @@ public final class HumanoidTailSweep {
       return null;
    }
 
-   private static AABB bounds(List<TailSweepGeometry.Frame> frames) {
+   static AABB bounds(List<TailSweepGeometry.Frame> frames) {
       AABB result = null;
 
       for (int frame = 0; frame < frames.size(); frame++) {

@@ -1,0 +1,71 @@
+{
+  "schema": "dragonmaid.service-armor.v1",
+  "binding": "existing_bone_final_space",
+  "tail_mode": "existing_dynamic_overlay",
+  "human": {
+    "female": {
+      "model": "dragonmaid:geo/kimono_female_armor.geo.json",
+      "texture": "dragonmaid:textures/armor/kimono/kimono_female_armor_128.png"
+    },
+    "male": {
+      "model": "dragonmaid:geo/kimono_male_armor.geo.json",
+      "texture": "dragonmaid:textures/armor/kimono/kimono_male_armor_128.png"
+    }
+  },
+  "slots": {
+    "1": [
+      "Head"
+    ],
+    "2": [
+      "Right Arm",
+      "Left Arm",
+      "arm_lower_right",
+      "arm_lower_left",
+      "hand_right",
+      "hand_left"
+    ],
+    "3": [
+      "Body"
+    ],
+    "4": [
+      "Right Leg",
+      "Left Leg",
+      "leg_lower_right",
+      "leg_lower_left",
+      "foot_right",
+      "foot_left"
+    ]
+  },
+  "dragon": {
+    "fire": {
+      "head": "dragonmaid:textures/armor/kimono/fire/kimono_fire_head_512.png",
+      "neck": "dragonmaid:textures/armor/kimono/fire/kimono_fire_neck_512.png",
+      "body": "dragonmaid:textures/armor/kimono/fire/kimono_fire_body_512.png",
+      "tail": "dragonmaid:textures/armor/kimono/fire/kimono_fire_tail_512.png",
+      "ornaments": {
+        "model": "dragonmaid:geo/kimono_fire_ornaments.geo.json",
+        "texture": "dragonmaid:textures/armor/kimono/fire/kimono_fire_ornaments_128.png"
+      }
+    },
+    "ice": {
+      "head": "dragonmaid:textures/armor/kimono/ice/kimono_ice_head_512.png",
+      "neck": "dragonmaid:textures/armor/kimono/ice/kimono_ice_neck_512.png",
+      "body": "dragonmaid:textures/armor/kimono/ice/kimono_ice_body_512.png",
+      "tail": "dragonmaid:textures/armor/kimono/ice/kimono_ice_tail_512.png",
+      "ornaments": {
+        "model": "dragonmaid:geo/kimono_ice_ornaments.geo.json",
+        "texture": "dragonmaid:textures/armor/kimono/ice/kimono_ice_ornaments_128.png"
+      }
+    },
+    "lightning": {
+      "head": "dragonmaid:textures/armor/kimono/lightning/kimono_lightning_head_512.png",
+      "neck": "dragonmaid:textures/armor/kimono/lightning/kimono_lightning_neck_512.png",
+      "body": "dragonmaid:textures/armor/kimono/lightning/kimono_lightning_body_512.png",
+      "tail": "dragonmaid:textures/armor/kimono/lightning/kimono_lightning_tail_512.png",
+      "ornaments": {
+        "model": "dragonmaid:geo/kimono_lightning_ornaments.geo.json",
+        "texture": "dragonmaid:textures/armor/kimono/lightning/kimono_lightning_ornaments_128.png"
+      }
+    }
+  }
+}

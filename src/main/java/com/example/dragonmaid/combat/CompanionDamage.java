@@ -2,6 +2,7 @@ package com.example.dragonmaid.combat;
 
 import com.example.dragonmaid.config.CompanionBalanceConfig;
 import com.example.dragonmaid.data.CompanionGrowth;
+import com.example.dragonmaid.entity.DragonTridentFlight;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.registry.IafDamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,11 +45,11 @@ public final class CompanionDamage {
             return config.lightningDamage();
          }
 
-         if (source.is(DamageTypes.MOB_ATTACK)) {
-            return config.meleeMultiplier();
+         if (!source.is(DamageTypes.MOB_ATTACK) && (!source.is(DamageTypes.TRIDENT) || !(source.getDirectEntity() instanceof DragonTridentFlight))) {
+            return 1.0;
          }
 
-         return 1.0;
+         return config.meleeMultiplier();
       }
 
       return 1.0;

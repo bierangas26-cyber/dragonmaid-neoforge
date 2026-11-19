@@ -1,5 +1,6 @@
 package com.example.dragonmaid.combat;
 
+import com.example.dragonmaid.item.ServiceDragonArmorItem;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -7,47 +8,71 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 
 public final class DragonArmor {
-    private static final float MAX_EFFECTIVE_ARMOR = 22.5F;
+   private static final int MAX_TOTAL_ARMOR = 40;
+   private static final float MAX_EFFECTIVE_ARMOR = 22.5F;
+   private static final double SPECIALTY_BONUS = 0.5;
 
-    private DragonArmor() {
-    }
+   private DragonArmor() {
+   }
 
-    public static double rawArmor(DragonBaseEntity dragon) {
-        AttributeInstance attributeinstance = dragon.getAttribute(Attributes.ARMOR);
-        if (attributeinstance == null) {
-            return 0.0;
-        } else {
-            double d0 = attributeinstance.getBaseValue();
+   public static int totalArmor(DragonBaseEntity dragon) {
+      return (int)Math.min(40.0, rawArmor(dragon));
+   }
 
-            // 1.21.1: AttributeModifier 是 record（amount()/operation()）；getModifiers(Operation) 是包内私有，
-            // 只能遍历公开的 getModifiers() 再按 operation 过滤（旧 Forge 的 getAmount()/getOperation() 已删）。
-            for (AttributeModifier attributemodifier : attributeinstance.getModifiers()) {
-                if (attributemodifier.operation() == Operation.ADD_VALUE) {
-                    d0 += attributemodifier.amount();
-                }
+   public static float armorForDamage(DragonBaseEntity dragon) {
+      return specialtyBonus(dragon) > 0.0 ? (float)Math.min(40.0, rawArmor(dragon)) : (float)totalArmor(dragon);
+   }
+
+   public static double specialtyBonus(DragonBaseEntity dragon) {
+      if (dragon.dragonInventory == null) {
+         return 0.0;
+      } else {
+         int pieces = 0;
+
+         for (int slot = 1; slot <= 4; slot++) {
+            if (ServiceDragonArmorItem.isSpecialtyArmor(dragon.dragonInventory.getItem(slot))) {
+               pieces++;
             }
+         }
 
-            double d1 = d0;
+         return (double)pieces * 0.5;
+      }
+   }
 
-            for (AttributeModifier attributemodifier1 : attributeinstance.getModifiers()) {
-                if (attributemodifier1.operation() == Operation.ADD_MULTIPLIED_BASE) {
-                    d1 += d0 * attributemodifier1.amount();
-                }
+   public static double rawArmor(DragonBaseEntity dragon) {
+      AttributeInstance armor = dragon.getAttribute(Attributes.ARMOR);
+      if (armor == null) {
+         return 0.0;
+      } else {
+         double base = armor.getBaseValue();
+         // 1.21.1: AttributeInstance#getModifiers(Operation) 不再是公开 API，改为遍历全部再按 operation() 过滤
+         for (AttributeModifier modifier : armor.getModifiers()) {
+            if (modifier.operation() == Operation.ADD_VALUE) {
+               base += modifier.amount();
             }
+         }
 
-            for (AttributeModifier attributemodifier2 : attributeinstance.getModifiers()) {
-                if (attributemodifier2.operation() == Operation.ADD_MULTIPLIED_TOTAL) {
-                    d1 *= 1.0 + attributemodifier2.amount();
-                }
+         double value = base;
+
+         for (AttributeModifier modifier : armor.getModifiers()) {
+            if (modifier.operation() == Operation.ADD_MULTIPLIED_BASE) {
+               value += base * modifier.amount();
             }
+         }
 
-            return !Double.isFinite(d1) ? attributeinstance.getValue() : Math.max(0.0, d1);
-        }
-    }
+         for (AttributeModifier modifier : armor.getModifiers()) {
+            if (modifier.operation() == Operation.ADD_MULTIPLIED_TOTAL) {
+               value *= 1.0 + modifier.amount();
+            }
+         }
 
-    public static float afterArmor(float damage, float armor, float toughness) {
-        float f = 2.0F + toughness / 4.0F;
-        float f1 = Math.min(22.5F, Math.max(armor * 0.2F, armor - damage / f));
-        return damage * (1.0F - f1 / 25.0F);
-    }
+         return !Double.isFinite(value) ? armor.getValue() : Math.max(0.0, value);
+      }
+   }
+
+   public static float afterArmor(float damage, float armor, float toughness) {
+      float divisor = 2.0F + toughness / 4.0F;
+      float effective = Math.min(22.5F, Math.max(armor * 0.2F, armor - damage / divisor));
+      return damage * (1.0F - effective / 25.0F);
+   }
 }

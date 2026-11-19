@@ -40,44 +40,45 @@ public final class MovingBreaths {
    }
 
    public static void emit(DragonBaseEntity dragon, LivingEntity target, BreathProfile profile) {
-      if (dragon.level() instanceof ServerLevel level && profile.canHit(dragon, target)) {
+      if (profile.canHit(dragon, target)) {
+         emit(dragon, target.getBoundingBox().getCenter(), profile);
+      }
+   }
+
+   static void emit(DragonBaseEntity dragon, Vec3 aim, BreathProfile profile) {
+      if (dragon.level() instanceof ServerLevel level) {
          List<MovingBreaths.Wave> waves = ACTIVE.computeIfAbsent(level, ignored -> new ArrayList<>());
-         if (waves.stream().filter(w -> w.owner.equals(dragon.getUUID())).count() >= 4L) {
-            return;
+         if (waves.stream().filter(w -> w.owner.equals(dragon.getUUID())).count() < 4L) {
+            Vec3 origin = HumanoidWater.breathOrigin(dragon);
+            Vec3 direction = aim.subtract(origin).normalize();
+            if (!(direction.lengthSqr() < 0.5)) {
+               BreathFan fan = new BreathFan(origin, direction, profile.range(), profile.halfAngle(), profile.speed());
+               waves.add(
+                  new MovingBreaths.Wave(
+                     ++nextWaveId,
+                     dragon.getUUID(),
+                     profile.stage(),
+                     fan,
+                     HumanoidCombat.breathDamageAmount(dragon, profile.stage()),
+                     DragonCombatAccessories.fireFang(dragon)
+                  )
+               );
+               BreathAnimationSync.shot(dragon, 1);
+               DragonNetwork.CHANNEL
+                  .send(
+                     PacketDistributor.TRACKING_ENTITY.with(() -> dragon),
+                     new BreathWaveMessage(
+                        level.dimension().location(), fan, dragon instanceof IceDragonEntity, level.getGameTime(), dragon.getId(), dragon.getUUID()
+                     )
+                  );
+            }
          }
-
-         Vec3 origin = HumanoidWater.breathOrigin(dragon);
-         Vec3 direction = target.getBoundingBox().getCenter().subtract(origin).normalize();
-         if (direction.lengthSqr() < 0.5) {
-            return;
-         }
-
-         BreathFan fan = new BreathFan(origin, direction, profile.range(), profile.halfAngle(), profile.speed());
-         waves.add(
-            new MovingBreaths.Wave(
-               ++nextWaveId,
-               dragon.getUUID(),
-               profile.stage(),
-               fan,
-               HumanoidCombat.breathDamageAmount(dragon, profile.stage()),
-               DragonCombatAccessories.fireFang(dragon)
-            )
-         );
-         BreathAnimationSync.shot(dragon, 1);
-         DragonNetwork.CHANNEL
-            .send(
-               PacketDistributor.TRACKING_ENTITY.with(() -> dragon),
-               new BreathWaveMessage(
-                  level.dimension().location(), fan, dragon instanceof IceDragonEntity, level.getGameTime(), dragon.getId(), dragon.getUUID()
-               )
-            );
-         return;
       }
    }
 
    @SubscribeEvent
    public static void tick(LevelTickEvent.Post event) {
-      if (event.getLevel() instanceof ServerLevel level) {
+      if (event.hasTime() && event.getLevel() instanceof ServerLevel level) {
          advance(level);
       }
    }

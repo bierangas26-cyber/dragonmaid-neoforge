@@ -1,0 +1,18 @@
+{
+  "name": "武士刀",
+  "icon": "dragonmaid:iron_katana",
+  "category": "dragonmaid:behavior",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "一刀出鞘",
+      "text": "主手持刀，按住右键蓄势，松开便朝当时面对的方向横斩。蓄得越久，斩得越远，威力也越大。火花依次呈蓝、紫、橙色，约 3 秒时会额外闪一下，表示已经蓄满。$(br2)人形电龙，也能以居合打出近身交锋的第一刀。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "踏风",
+      "text": "踏风让你在蓄势时更快换位。未附魔时，玩家的蓄力移速为平时的 40%。踏风 I、II、III 分别提高到 60%、90%、120%。"
+    }
+  ]
+}

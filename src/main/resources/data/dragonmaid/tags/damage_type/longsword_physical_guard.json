@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cactus",
+    "minecraft:cramming",
+    "minecraft:falling_anvil",
+    "minecraft:falling_block",
+    "minecraft:falling_stalactite",
+    "minecraft:fly_into_wall",
+    "minecraft:sweet_berry_bush",
+    "minecraft:thorns"
+  ]
+}

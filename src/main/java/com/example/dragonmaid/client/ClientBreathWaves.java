@@ -124,7 +124,9 @@ public final class ClientBreathWaves {
                     Collections.rotate(ACTIVE, 1);
                 }
 
-                ACTIVE.removeIf(front -> !front.tick(currentLevel));
+                // 1.2.7: 并发波数 >=6 时降级装饰粒子密度。
+                boolean crowded = ACTIVE.size() >= 6;
+                ACTIVE.removeIf(front -> !front.tick(currentLevel, crowded));
             }
         }
     }
@@ -181,19 +183,23 @@ public final class ClientBreathWaves {
             }
         }
 
-        boolean tick(ClientLevel level) {
+        boolean tick(ClientLevel level, boolean crowded) {
             double d0 = Math.min(this.fan.range(), this.distance + this.fan.speed());
-            if (!BreathVisuals.near(this.fan.center((this.distance + d0) * 0.5), 64.0 + this.fan.width(d0))) {
+            Vec3 wingCenter = this.fan.center((this.distance + d0) * 0.5);
+            double wingWidth = this.fan.width(d0);
+            if (!BreathVisuals.near(wingCenter, 64.0 + wingWidth)) {
                 this.age++;
                 this.distance = d0;
                 return this.distance < this.fan.range();
             } else {
                 Vec3 vec3 = null;
                 int i = BreathScatter.count(BreathVisuals.quality());
+                boolean trimAccents = !BreathVisuals.near(wingCenter, (double)(crowded ? 14 : 24) + wingWidth);
 
                 for (int j = 0; j < i; j++) {
                     BreathFxTuning.Role breathfxtuning$role = this.ice ? BreathFxTuning.role(j, this.age) : BreathFxTuning.fireRole(j, this.age, i);
-                    if (breathfxtuning$role != BreathFxTuning.Role.SKIP) {
+                    if (breathfxtuning$role != BreathFxTuning.Role.SKIP
+                        && (!trimAccents || breathfxtuning$role == BreathFxTuning.Role.CORE || this.age <= 0 || (j + this.age) % (crowded ? 3 : 2) == 0)) {
                         BreathScatter.Sample breathscatter$sample = this.ice
                             ? BreathScatter.sample(this.seed, this.age, j)
                             : BreathScatter.fireSample(this.seed, this.age, j);

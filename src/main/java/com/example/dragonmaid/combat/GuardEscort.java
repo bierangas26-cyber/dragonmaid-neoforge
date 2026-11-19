@@ -5,9 +5,9 @@ import com.example.dragonmaid.accessory.MiniatureForm;
 import com.example.dragonmaid.command.CompanionTeleport;
 import com.example.dragonmaid.data.HumanoidWater;
 import com.example.dragonmaid.inventory.DragonBagPickupGoal;
+import com.example.dragonmaid.movement.HumanoidFlight;
 import com.example.dragonmaid.movement.HumanoidHazards;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
-import iafcompat.EntityDataCompat;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -21,13 +21,13 @@ import net.minecraft.world.level.ClipContext.Block;
 import net.minecraft.world.level.ClipContext.Fluid;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.PathfindingContext;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult.Type;
-import net.minecraft.world.level.pathfinder.PathfindingContext;
 
 public final class GuardEscort {
    private static final double FOLLOW_DISTANCE = 3.0;
@@ -56,6 +56,11 @@ public final class GuardEscort {
 
    public GuardEscort(DragonBaseEntity dragon) {
       this.dragon = dragon;
+   }
+
+   boolean canAdvanceForAttack(LivingEntity owner) {
+      double radius = (Double)DragonMaidConfig.GUARD_COMBAT_RADIUS.get();
+      return !this.combatReturning && this.dragon.distanceToSqr(owner) <= radius * radius;
    }
 
    public static LivingEntity owner(DragonBaseEntity dragon) {
@@ -117,92 +122,94 @@ public final class GuardEscort {
    }
 
    public void tryTeleport(LivingEntity owner) {
-      if (CompanionTeleport.allowed(this.dragon)) {
-         if (this.teleportCooldown > 0) {
-            this.teleportCooldown--;
-         } else {
-            double threshold = Math.max((Double)DragonMaidConfig.GUARD_TELEPORT_DISTANCE.get(), (Double)DragonMaidConfig.GUARD_COMBAT_RADIUS.get() + 1.0);
-            if (this.dragon.level() instanceof ServerLevel level
-               && !(this.dragon.distanceToSqr(owner) <= threshold * threshold)
-               && !this.dragon.isLeashed()
-               && !hasChain(this.dragon)
-               && !this.dragon.isPassenger()
-               && !this.dragon.isVehicle()) {
-               if (owner.isInWaterOrBubble()
-                  && !HumanoidWater.canDive(this.dragon)
-                  && owner.getY() < this.dragon.getY()
-                  && this.dragon.position().subtract(owner.position()).horizontalDistanceSqr() <= 64.0
-                  && (this.dragon.isInWaterOrBubble() || level.getFluidState(this.dragon.blockPosition().below()).is(FluidTags.WATER))
-                  && level.getFluidState(BlockPos.containing(this.dragon.getX(), this.dragon.getBoundingBox().maxY, this.dragon.getZ())).isEmpty()) {
-                  this.teleportCooldown = 10;
-                  AABB surfaceSpace = this.dragon.getBoundingBox().inflate(0.5, 0.0, 0.5).expandTowards(0.0, 1.0, 0.0);
-                  if (this.loadedAndSafe(level, surfaceSpace) && level.noCollision(this.dragon, surfaceSpace)) {
-                     return;
-                  }
-               }
-
-               this.teleportCooldown = 10;
-               BlockPos anchor = owner.blockPosition();
-
-               for (int attempt = 0; attempt < 10; attempt++) {
-                  BlockPos feet = anchor.offset(
-                     this.dragon.getRandom().nextInt(7) - 3, this.dragon.getRandom().nextInt(3) - 1, this.dragon.getRandom().nextInt(7) - 3
-                  );
-                  if ((!(Math.abs((double)feet.getX() - owner.getX()) < 2.0) || !(Math.abs((double)feet.getZ() - owner.getZ()) < 2.0))
-                     && level.hasChunkAt(feet)
-                     && !level.isOutsideBuildHeight(feet)
-                     && !(level.getBlockState(feet.below()).getBlock() instanceof LeavesBlock)) {
-                     Vec3 destination = new Vec3((double)feet.getX() + 0.5, (double)feet.getY(), (double)feet.getZ() + 0.5);
-                     AABB box = this.dragon.getBoundingBox().move(destination.subtract(this.dragon.position()));
-                     if (!(box.maxY > (double)level.getMaxBuildHeight())
-                        && this.loadedAndSafe(level, box)
-                        && HumanoidHazards.pathType(
-                              this.dragon, level, feet.getX(), feet.getY(), feet.getZ(), WalkNodeEvaluator.getPathTypeStatic(new PathfindingContext(level, this.dragon), feet.mutable())
-                           )
-                           == PathType.WALKABLE
-                        && level.getWorldBorder().isWithinBounds(box)
-                        && level.noCollision(this.dragon, box)
-                        && !level.containsAnyLiquid(box)) {
-                        this.finishTeleport(destination);
+      if (!HumanoidFlight.airborne(this.dragon)) {
+         if (CompanionTeleport.allowed(this.dragon)) {
+            if (this.teleportCooldown > 0) {
+               this.teleportCooldown--;
+            } else {
+               double threshold = Math.max((Double)DragonMaidConfig.GUARD_TELEPORT_DISTANCE.get(), (Double)DragonMaidConfig.GUARD_COMBAT_RADIUS.get() + 1.0);
+               if (this.dragon.level() instanceof ServerLevel level
+                  && !(this.dragon.distanceToSqr(owner) <= threshold * threshold)
+                  && !this.dragon.isLeashed()
+                  && !hasChain(this.dragon)
+                  && !this.dragon.isPassenger()
+                  && !this.dragon.isVehicle()) {
+                  if (owner.isInWaterOrBubble()
+                     && !HumanoidWater.canDive(this.dragon)
+                     && owner.getY() < this.dragon.getY()
+                     && this.dragon.position().subtract(owner.position()).horizontalDistanceSqr() <= 64.0
+                     && (this.dragon.isInWaterOrBubble() || level.getFluidState(this.dragon.blockPosition().below()).is(FluidTags.WATER))
+                     && level.getFluidState(BlockPos.containing(this.dragon.getX(), this.dragon.getBoundingBox().maxY, this.dragon.getZ())).isEmpty()) {
+                     this.teleportCooldown = 10;
+                     AABB surfaceSpace = this.dragon.getBoundingBox().inflate(0.5, 0.0, 0.5).expandTowards(0.0, 1.0, 0.0);
+                     if (this.loadedAndSafe(level, surfaceSpace) && level.noCollision(this.dragon, surfaceSpace)) {
                         return;
                      }
                   }
-               }
 
-               if (!owner.isInWaterOrBubble()) {
-                  return;
-               }
+                  this.teleportCooldown = 10;
+                  BlockPos anchor = owner.blockPosition();
 
-               boolean canDive = HumanoidWater.canDive(this.dragon);
+                  for (int attempt = 0; attempt < 10; attempt++) {
+                     BlockPos feet = anchor.offset(
+                        this.dragon.getRandom().nextInt(7) - 3, this.dragon.getRandom().nextInt(3) - 1, this.dragon.getRandom().nextInt(7) - 3
+                     );
+                     if ((!(Math.abs((double)feet.getX() - owner.getX()) < 2.0) || !(Math.abs((double)feet.getZ() - owner.getZ()) < 2.0))
+                        && level.hasChunkAt(feet)
+                        && !level.isOutsideBuildHeight(feet)
+                        && !(level.getBlockState(feet.below()).getBlock() instanceof LeavesBlock)) {
+                        Vec3 destination = new Vec3((double)feet.getX() + 0.5, (double)feet.getY(), (double)feet.getZ() + 0.5);
+                        AABB box = this.dragon.getBoundingBox().move(destination.subtract(this.dragon.position()));
+                        if (!(box.maxY > (double)level.getMaxBuildHeight())
+                           && this.loadedAndSafe(level, box)
+                           && HumanoidHazards.pathType(
+                                 this.dragon, level, feet.getX(), feet.getY(), feet.getZ(), pathTypeStatic(level, this.dragon, feet.mutable())
+                              )
+                              == PathType.WALKABLE
+                           && level.getWorldBorder().isWithinBounds(box)
+                           && level.noCollision(this.dragon, box)
+                           && !level.containsAnyLiquid(box)) {
+                           this.finishTeleport(destination);
+                           return;
+                        }
+                     }
+                  }
 
-               for (int attemptx = 0; attemptx < (canDive ? 10 : 4); attemptx++) {
-                  BlockPos column = anchor.offset(this.dragon.getRandom().nextInt(7) - 3, 0, this.dragon.getRandom().nextInt(7) - 3);
-                  if ((!(Math.abs((double)column.getX() - owner.getX()) < 2.0) || !(Math.abs((double)column.getZ() - owner.getZ()) < 2.0))
-                     && level.hasChunkAt(column)) {
-                     int firstY = canDive ? -1 : 0;
-                     int lastY = canDive ? 1 : 64;
+                  if (!owner.isInWaterOrBubble()) {
+                     return;
+                  }
 
-                     for (int dy = firstY; dy <= lastY; dy++) {
-                        BlockPos feet = column.offset(0, dy, 0);
-                        if (!level.isOutsideBuildHeight(feet)
-                           && (canDive ? level.getFluidState(feet).is(FluidTags.WATER) : level.getFluidState(feet.below()).is(FluidTags.WATER))) {
-                           Vec3 destination = new Vec3((double)feet.getX() + 0.5, (double)feet.getY(), (double)feet.getZ() + 0.5);
-                           AABB box = this.dragon.getBoundingBox().move(destination.subtract(this.dragon.position()));
-                           if (!(box.minY < (double)level.getMinBuildHeight())
-                              && !(box.maxY > (double)level.getMaxBuildHeight())
-                              && this.loadedAndSafe(level, box)
-                              && level.getWorldBorder().isWithinBounds(box)
-                              && level.noCollision(this.dragon, box)
-                              && (canDive || !level.containsAnyLiquid(box))) {
-                              this.finishTeleport(destination);
-                              return;
+                  boolean canDive = HumanoidWater.canDive(this.dragon);
+
+                  for (int attemptx = 0; attemptx < (canDive ? 10 : 4); attemptx++) {
+                     BlockPos column = anchor.offset(this.dragon.getRandom().nextInt(7) - 3, 0, this.dragon.getRandom().nextInt(7) - 3);
+                     if ((!(Math.abs((double)column.getX() - owner.getX()) < 2.0) || !(Math.abs((double)column.getZ() - owner.getZ()) < 2.0))
+                        && level.hasChunkAt(column)) {
+                        int firstY = canDive ? -1 : 0;
+                        int lastY = canDive ? 1 : 64;
+
+                        for (int dy = firstY; dy <= lastY; dy++) {
+                           BlockPos feet = column.offset(0, dy, 0);
+                           if (!level.isOutsideBuildHeight(feet)
+                              && (canDive ? level.getFluidState(feet).is(FluidTags.WATER) : level.getFluidState(feet.below()).is(FluidTags.WATER))) {
+                              Vec3 destination = new Vec3((double)feet.getX() + 0.5, (double)feet.getY(), (double)feet.getZ() + 0.5);
+                              AABB box = this.dragon.getBoundingBox().move(destination.subtract(this.dragon.position()));
+                              if (!(box.minY < (double)level.getMinBuildHeight())
+                                 && !(box.maxY > (double)level.getMaxBuildHeight())
+                                 && this.loadedAndSafe(level, box)
+                                 && level.getWorldBorder().isWithinBounds(box)
+                                 && level.noCollision(this.dragon, box)
+                                 && (canDive || !level.containsAnyLiquid(box))) {
+                                 this.finishTeleport(destination);
+                                 return;
+                              }
                            }
                         }
                      }
                   }
-               }
 
-               return;
+                  return;
+               }
             }
          }
       }
@@ -234,7 +241,7 @@ public final class GuardEscort {
          }
 
          PathType type = HumanoidHazards.pathType(
-            this.dragon, level, pos.getX(), pos.getY(), pos.getZ(), WalkNodeEvaluator.getPathTypeStatic(new PathfindingContext(level, this.dragon), pos.mutable())
+            this.dragon, level, pos.getX(), pos.getY(), pos.getZ(), pathTypeStatic(level, this.dragon, pos.mutable())
          );
          if (type == PathType.LAVA || type.name().startsWith("DANGER_") || type.name().startsWith("DAMAGE_")) {
             return false;
@@ -619,5 +626,10 @@ public final class GuardEscort {
 
          return true;
       }
+   }
+
+   /** 1.21.1: WalkNodeEvaluator#getPathTypeStatic 需要 PathfindingContext（1.20.1 传 Level）。 */
+   private static PathType pathTypeStatic(ServerLevel level, DragonBaseEntity dragon, net.minecraft.core.BlockPos.MutableBlockPos pos) {
+      return WalkNodeEvaluator.getPathTypeStatic(new PathfindingContext(level, dragon), pos);
    }
 }

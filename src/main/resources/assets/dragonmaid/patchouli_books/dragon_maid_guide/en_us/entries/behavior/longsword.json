@@ -1,0 +1,28 @@
+{
+  "name": "Longsword",
+  "icon": "dragonmaid:iron_jian",
+  "category": "dragonmaid:behavior",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "Meeting the Blow",
+      "text": "Hold Use to guard against frontal blows, arrows and blasts. Catch a melee hit before the parry bars run out to reduce its damage by 90% and riposte. You'll lower the sword briefly.$(br2)Humanoid lightning dragons can guard from Knowledge II. A usable offhand shield comes first."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Second Chance",
+      "text": "Second Chance can counter a guarded melee hit outside the parry window, once per raise. By default, you keep guarding after the counter. The attacker must be in range and in sight. Levels I, II, and III give chances of 12.5%, 25%, and 35%. Lightning dragons can use it too."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Steady Guard",
+      "text": "Raise your longsword and let your opponent make the first move. Steady Guard gives you more time to answer with a riposte.$(br2)Levels I, II, and III add 0.25, 0.5, and 0.75 seconds respectively."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Deflection",
+      "text": "Raise your longsword, send that stray arrow back at the archer, and save your knees.$(br2)Levels I, II, and III give a 15%, 30%, and 50% chance. Legend of the Wingguard adds 50 percentage points for lightning dragons."
+    }
+  ]
+}

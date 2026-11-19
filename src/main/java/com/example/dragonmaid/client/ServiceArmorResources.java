@@ -1,5 +1,6 @@
 package com.example.dragonmaid.client;
 
+import com.example.dragonmaid.item.ServiceDragonArmorItem;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.entity.IceDragonEntity;
 import com.iafenvoy.iceandfire.entity.LightningDragonEntity;
@@ -33,7 +34,21 @@ import software.bernie.geckolib.util.JsonUtil;
 
 
 public final class ServiceArmorResources extends SimplePreparableReloadListener<ServiceArmorResources.Snapshot> {
-    public static final ServiceArmorResources INSTANCE = new ServiceArmorResources();
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("dragonmaid");
+    private static final List<String> DRAGON_SPECIES = List.of("fire", "ice", "lightning");
+    /**
+     * 1.2.7: 龙铠从单套扩成四套（service/kimono/xia/viking/frostsilver）。
+     * 每套一份 contract（armor/&lt;set&gt;/&lt;set&gt;_armor_contract.json）与各自的物种贴图集合。
+     */
+    private static final Map<ServiceDragonArmorItem.Style, ServiceArmorResources> SETS = Map.of(
+        ServiceDragonArmorItem.Style.SERVICE, new ServiceArmorResources("service", DRAGON_SPECIES),
+        ServiceDragonArmorItem.Style.KIMONO, new ServiceArmorResources("kimono", DRAGON_SPECIES),
+        ServiceDragonArmorItem.Style.XIA, new ServiceArmorResources("xia", DRAGON_SPECIES),
+        ServiceDragonArmorItem.Style.VIKING, new ServiceArmorResources("viking", List.of("fire")),
+        ServiceDragonArmorItem.Style.FROSTSILVER, new ServiceArmorResources("frostsilver", List.of("ice"))
+    );
+    /** 兼容旧注册点（ClientRegistration 仍注册该单例 = service 套）。 */
+    public static final ServiceArmorResources INSTANCE = SETS.get(ServiceDragonArmorItem.Style.SERVICE);
     public static final ResourceLocation CONTRACT = ResourceLocation.fromNamespaceAndPath("dragonmaid", "armor/service/service_armor_contract.json");
     private static final Map<Integer, List<String>> EXPECTED_SLOTS = Map.of(
         1,
@@ -64,18 +79,39 @@ public final class ServiceArmorResources extends SimplePreparableReloadListener<
         Map.entry("foot_left", new ServiceArmorResources.Binding("leg_lower_left", 1.9, 2.0, 0.0))
     );
     private static final List<String> DRAGON_PARTS = List.of("head", "neck", "body", "tail");
+    private final ResourceLocation contractPath;
+    private final List<String> dragonSpecies;
     private volatile ServiceArmorResources.Snapshot current = ServiceArmorResources.Snapshot.EMPTY;
 
-    private ServiceArmorResources() {
+    static ServiceArmorResources of(ServiceDragonArmorItem.Style style) {
+        return SETS.get(style);
+    }
+
+    /**
+     * 可靠快照：若本套 contract 尚未被注册/加载（例如 core 还没把 5 套 reload listener 全注册），
+     * 退回 service 套，避免穿戴新套装时抛异常。
+     */
+    private ServiceArmorResources.Snapshot active() {
+        if (!this.current.human().isEmpty() || INSTANCE == this) {
+            return this.current;
+        }
+
+        ServiceArmorResources.Snapshot fallback = INSTANCE.current;
+        return fallback.human().isEmpty() ? this.current : fallback;
+    }
+
+    private ServiceArmorResources(String set, List<String> dragonSpecies) {
+        this.contractPath = ResourceLocation.fromNamespaceAndPath("dragonmaid", "armor/" + set + "/" + set + "_armor_contract.json");
+        this.dragonSpecies = dragonSpecies;
     }
 
     protected ServiceArmorResources.Snapshot prepare(ResourceManager resources, ProfilerFiller profiler) {
-        if (resources.getResource(CONTRACT).isEmpty()) {
-            require(this.current == ServiceArmorResources.Snapshot.EMPTY, "previously loaded contract was removed: " + CONTRACT);
+        if (resources.getResource(this.contractPath).isEmpty()) {
+            require(this.current == ServiceArmorResources.Snapshot.EMPTY, "previously loaded contract was removed: " + this.contractPath);
             return ServiceArmorResources.Snapshot.EMPTY;
         } else {
             try {
-                JsonObject jsonobject = read(resources, CONTRACT);
+                JsonObject jsonobject = read(resources, this.contractPath);
                 requireString(jsonobject, "schema", "dragonmaid.service-armor.v1");
                 requireString(jsonobject, "binding", "existing_bone_final_space");
                 requireString(jsonobject, "tail_mode", "existing_dynamic_overlay");
@@ -96,7 +132,7 @@ public final class ServiceArmorResources extends SimplePreparableReloadListener<
                 HashMap<String, List<ResourceLocation>> hashmap1 = new HashMap<>();
                 JsonObject jsonobject3 = object(jsonobject, "dragon");
 
-                for (String s1 : List.of("fire", "ice", "lightning")) {
+                for (String s1 : this.dragonSpecies) {
                     JsonObject jsonobject4 = object(jsonobject3, s1);
                     ArrayList<ResourceLocation> arraylist = new ArrayList<>();
 
@@ -111,7 +147,7 @@ public final class ServiceArmorResources extends SimplePreparableReloadListener<
 
                 return new ServiceArmorResources.Snapshot(Map.copyOf(hashmap), Map.copyOf(map), Map.copyOf(hashmap1));
             } catch (RuntimeException | IOException ioexception) {
-                throw new IllegalStateException("Cannot load service armor contract " + CONTRACT + ": " + ioexception.getMessage(), ioexception);
+                throw new IllegalStateException("Cannot load service armor contract " + this.contractPath + ": " + ioexception.getMessage(), ioexception);
             }
         }
     }
@@ -216,7 +252,7 @@ public final class ServiceArmorResources extends SimplePreparableReloadListener<
         }
     }
 
-    private static void validateCube(JsonObject cube, String label) {
+    static void validateCube(JsonObject cube, String label) {
         finiteVector(cube.getAsJsonArray("origin"), 3, label + " cube origin");
         JsonArray jsonarray = cube.getAsJsonArray("size");
         finiteVector(jsonarray, 3, label + " cube size");
@@ -352,18 +388,25 @@ public final class ServiceArmorResources extends SimplePreparableReloadListener<
     }
 
     public List<GeoCube> forBone(boolean male, String bone) {
-        ServiceArmorResources.HumanModel servicearmorresources$humanmodel = this.current.human().get(male);
+        ServiceArmorResources.HumanModel servicearmorresources$humanmodel = this.active().human().get(male);
         return servicearmorresources$humanmodel == null ? List.of() : servicearmorresources$humanmodel.cubes().getOrDefault(bone, List.of());
     }
 
     public int slotForBone(String bone) {
-        return this.current.slots().getOrDefault(bone, 0);
+        return this.active().slots().getOrDefault(bone, 0);
+    }
+
+    /** 1.2.7: 女性龙铠的“面纱”层（上游从 ornaments geo 取；本移植暂未解析，装饰网格整体降级）。 */
+    List<GeoCube> veil() {
+        return List.of();
     }
 
     public ResourceLocation humanTexture(boolean male) {
-        ServiceArmorResources.HumanModel servicearmorresources$humanmodel = this.current.human().get(male);
+        ServiceArmorResources.HumanModel servicearmorresources$humanmodel = this.active().human().get(male);
         if (servicearmorresources$humanmodel == null) {
-            throw new IllegalStateException("Missing service armor resources: " + CONTRACT);
+            // 未注册/未加载时不要抛异常（否则穿戴即崩），返回 service 套的默认贴图路径。
+            LOGGER.warn("Missing dragon armor resources for {}, falling back to the default texture", this.contractPath);
+            return ResourceLocation.fromNamespaceAndPath("dragonmaid", "textures/entity/dragon_armor/service_" + (male ? "male" : "female") + ".png");
         } else {
             return servicearmorresources$humanmodel.texture();
         }
@@ -371,16 +414,43 @@ public final class ServiceArmorResources extends SimplePreparableReloadListener<
 
     public ResourceLocation dragonTexture(DragonBaseEntity dragon, int inventorySlot) {
         if (inventorySlot >= 1 && inventorySlot <= 4) {
-            String s = dragon instanceof IceDragonEntity ? "ice" : (dragon instanceof LightningDragonEntity ? "lightning" : "fire");
-            List<ResourceLocation> list = this.current.dragon().get(s);
+            String s = speciesOf(dragon);
+            List<ResourceLocation> list = this.active().dragon().get(s);
             if (list == null) {
-                throw new IllegalStateException("Missing service armor resources for " + s + ": " + CONTRACT);
+                LOGGER.warn("Missing dragon armor resources for {}: {}", s, this.contractPath);
+                return null;
             } else {
                 return list.get(inventorySlot - 1);
             }
         } else {
             throw new IllegalArgumentException("Service armor inventory slot must be 1..4: " + inventorySlot);
         }
+    }
+
+    /** 1.2.7: 人形尾甲的贴图（单物种套装固定用其物种）。 */
+    ResourceLocation humanoidTailTexture(DragonBaseEntity dragon) {
+        String species = this.dragonSpecies.size() == 1 ? this.dragonSpecies.get(0) : speciesOf(dragon);
+        List<ResourceLocation> textures = this.active().dragon().get(species);
+        if (textures == null) {
+            LOGGER.warn("Missing dragon armor tail texture for {}: {}", species, this.contractPath);
+            return null;
+        }
+
+        return textures.get(3);
+    }
+
+    /**
+     * 1.2.7: 龙铠装饰网格（DragonArmorOrnaments）。
+     *
+     * <p><b>降级：</b>上游在 1.2.7 里把 ornaments geo 一并从 contract 解析进 Snapshot；本移植先把
+     * 装饰网格返回 null（绘制端已有 null 检查），避免在资源/契约尚未就位时抛异常。</p>
+     */
+    DragonArmorOrnaments.Mesh ornaments(DragonBaseEntity dragon) {
+        return null;
+    }
+
+    static String speciesOf(DragonBaseEntity dragon) {
+        return dragon instanceof IceDragonEntity ? "ice" : (dragon instanceof LightningDragonEntity ? "lightning" : "fire");
     }
 
     private static record Binding(String parent, double x, double y, double z) {

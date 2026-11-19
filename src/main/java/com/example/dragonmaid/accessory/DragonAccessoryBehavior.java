@@ -22,6 +22,8 @@ public interface DragonAccessoryBehavior {
     ResourceLocation WILD_RHYTHM = ResourceLocation.fromNamespaceAndPath("dragonmaid", "wild_rhythm");
     ResourceLocation CLAW_SWEEP = ResourceLocation.fromNamespaceAndPath("dragonmaid", "claw_sweep");
     ResourceLocation MINIATURE = ResourceLocation.fromNamespaceAndPath("dragonmaid", "miniature");
+    // 1.2.7: 翼卫（仅雷电龙 + 已驯服，起手一次翼助推；见 combat/SpecialWeapons）
+    ResourceLocation WING_GUARD = ResourceLocation.fromNamespaceAndPath("dragonmaid", "wing_guard");
 
     default boolean canEquip(ItemStack stack, DragonBaseEntity dragon) {
         return true;

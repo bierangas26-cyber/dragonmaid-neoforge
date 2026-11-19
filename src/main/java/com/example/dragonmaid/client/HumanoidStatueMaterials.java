@@ -34,7 +34,9 @@ public final class HumanoidStatueMaterials {
     }
 
     public static MultiBufferSource wrap(MultiBufferSource buffers, ResourceLocation material) {
-        return requested -> buffers.getBuffer(resolve(requested, material));
+        return requested -> buffers.getBuffer(
+            requested instanceof ContinuousWingRenderType wing ? ContinuousWingRenderType.of(resolve(wing.original, material)) : resolve(requested, material)
+        );
     }
 
     public static void beginFrame() {

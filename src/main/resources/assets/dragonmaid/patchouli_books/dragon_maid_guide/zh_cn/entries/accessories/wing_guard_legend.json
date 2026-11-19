@@ -1,0 +1,41 @@
+{
+  "name": "翼守龙裔的传说",
+  "icon": "dragonmaid:wing_guard_legend",
+  "category": "dragonmaid:accessories",
+  "sortnum": 19,
+  "advancement": "dragonmaid:book/wing_guard_legend",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "dragonmaid:wing_guard_legend",
+      "title": "翼守龙裔的传说",
+      "link_recipe": false,
+      "text": "早年的商旅间，流传着一位龙裔剑士的故事。她常与人结伴远行，遇敌便借双翼起落，挥剑如舞。后来旅伴各奔东西，谈起那段同行的日子，仍有人记得她的剑术。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这枚以翼蚺羽毛制成的护符，传承着她的武艺。已学会使用武器的人形电龙，可以从中领会她的招式。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "护符的合成",
+      "recipe": "dragonmaid:wing_guard_legend",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "振翼突刺",
+      "text": "与敌人交锋会面时，伙伴会先沉身蓄势，再振翼向前突刺，将对手挑起。$(br2)换一个敌人，仍能以这一招起手。脱战或吐出龙息后，也可对先前的对手再用一次。$(br2)普通剑类等常规近战武器能使出此招，斧与三叉戟除外。长剑和武士刀则各有自己的用法。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "水鸟",
+      "text": "成长到四阶后，佩戴护符、手持武士刀的电龙，便能跃空接近远处的敌人。身形如水鸟掠过，落下时却会转身甩尾，将面前的敌人扫开。$(br2)这套身法需要舒展双翼的余地，狭窄的洞窟里很难施展。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "迎着箭雨",
+      "text": "面对远处射来的箭矢，伙伴会架起长剑，迎着攻势一步步逼近。被剑挡住的抛射物，有一半机会原路弹回。$(br2)剑上若还有偏转附魔，弹回的机会便能进一步提高。$(br2)副手若有可用的盾，他们仍会优先举盾。"
+    }
+  ]
+}

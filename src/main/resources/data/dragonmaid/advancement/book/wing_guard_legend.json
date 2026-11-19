@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "found_charm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["dragonmaid:wing_guard_legend"] }] }
+    },
+    "found_feather": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["iceandfire:amphithere_feather"] }] }
+    }
+  },
+  "requirements": [["found_charm", "found_feather"]]
+}

@@ -17,19 +17,46 @@ import com.example.dragonmaid.compat.net.NetworkEvent.Context;
 import com.example.dragonmaid.compat.net.SimpleChannel;
 
 public final class DragonNetwork {
-    private static final String VERSION = "21";
+    /** 1.2.7: 协议版本 21 -> 23（+HumanoidFlightInput / PlayerKatanaDraw / PlayerRiposte，DragonHands 加 tridentAway）。 */
+    private static final String VERSION = "23";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-        ResourceLocation.fromNamespaceAndPath("dragonmaid", "main"), () -> "21", "21"::equals, "21"::equals
+        ResourceLocation.fromNamespaceAndPath("dragonmaid", "main"), () -> VERSION, VERSION::equals, VERSION::equals
     );
 
     private DragonNetwork() {
     }
 
     public static String protocolVersion() {
-        return "21";
+        return VERSION;
     }
 
     public static void register() {
+        // 1.2.7 新增 3 个包（上游 id 17 + 两个独立子通道 player_katana_draw / player_riposte，
+        // 本移植统一收敛到主通道：17 / 18 / 19）。
+        CHANNEL.registerMessage(
+            19,
+            PlayerRiposteMessage.class,
+            PlayerRiposteMessage::encode,
+            PlayerRiposteMessage::decode,
+            PlayerRiposteMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
+        CHANNEL.registerMessage(
+            18,
+            PlayerKatanaDrawMessage.class,
+            PlayerKatanaDrawMessage::encode,
+            PlayerKatanaDrawMessage::decode,
+            PlayerKatanaDrawMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_CLIENT)
+        );
+        CHANNEL.registerMessage(
+            17,
+            HumanoidFlightInputMessage.class,
+            HumanoidFlightInputMessage::encode,
+            HumanoidFlightInputMessage::decode,
+            HumanoidFlightInputMessage::handle,
+            Optional.of(NetworkDirection.PLAY_TO_SERVER)
+        );
         CHANNEL.registerMessage(
             16,
             GemModeMessage.class,

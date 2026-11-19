@@ -81,6 +81,19 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
     private boolean heldItemsStowed;
     private BakedGeoModel checkedFinModel;
 
+    /**
+     * 1.2.7: 雷电吐息是否处在收尾段（骑乘/近战姿态层用它决定是否继续占用上半身姿势）。
+     */
+    boolean lightningBreathFinishing(IceFemaleAnimatable animatable, DragonBaseEntity dragon, float partial) {
+        LightningBreathTimeline lightningbreathtimeline = this.lightningBreath.get(dragon);
+        return lightningbreathtimeline != null
+            && lightningbreathtimeline.finishing(
+                (double)((float)dragon.tickCount + partial),
+                HumanoidMotion.get(dragon).generation(),
+                this.getAnimation(animatable, this.assets.breathPrefix + ".breath_end").length()
+            );
+    }
+
     boolean heldItemsStowed() {
         return this.heldItemsStowed;
     }
@@ -108,6 +121,21 @@ final class IceFemaleModel extends GeoModel<IceFemaleAnimatable> {
         }
 
         arraylist.add(asset("animations/water/dragon_" + this.waterIdleSpecies() + ".water_idle.animation.json"));
+        // 1.2.7: 武器战斗动画（火龙斧 / 冰龙三叉戟 + 空中投掷 / 雷龙长剑 + 太刀）。
+        if (assets.species.equals("fire")) {
+            arraylist.add(asset("animations/combat/fire/dragon_axe.combo.animation.json"));
+        }
+
+        if (assets.species.equals("ice")) {
+            arraylist.add(asset("animations/combat/ice/dragon_ice.trident.animation.json"));
+            arraylist.add(asset("animations/combat/ice/dragon_ice.trident.air.animation.json"));
+        }
+
+        if (assets.species.equals("lightning")) {
+            arraylist.add(asset("animations/combat/lightning/dragon_longsword.animation.json"));
+            arraylist.add(asset("animations/combat/lightning/dragon_katana.animation.json"));
+        }
+
         this.animationFallbacks = arraylist.toArray(ResourceLocation[]::new);
         this.vanillaPose = HumanoidDragonRenderer.createPoseModel(context, !assets.male, false);
     }

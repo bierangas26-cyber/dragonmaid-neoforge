@@ -8,50 +8,58 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 @EventBusSubscriber(
-    modid = "dragonmaid"
+   modid = "dragonmaid"
 )
 public final class TailSweepKnockback {
-    public static final float MULTIPLIER = 0.55F;
-    private static final ThreadLocal<TailSweepKnockback.Attempt> ATTEMPT = new ThreadLocal<>();
+   static final float ORDINARY = 1.5F;
+   static final float ARMED = 1.75F;
+   static final float WATERFOWL = 2.0F;
+   private static final ThreadLocal<TailSweepKnockback.Attempt> ATTEMPT = new ThreadLocal<>();
 
-    private TailSweepKnockback() {
-    }
+   private TailSweepKnockback() {
+   }
 
-    public static boolean hurt(LivingEntity victim, DamageSource source, float damage) {
-        TailSweepKnockback.Attempt tailsweepknockback$attempt = ATTEMPT.get();
-        ATTEMPT.set(new TailSweepKnockback.Attempt(victim));
+   public static boolean hurt(LivingEntity victim, DamageSource source, float damage) {
+      return hurt(victim, source, damage, 1.5F);
+   }
 
-        boolean flag;
-        try {
-            flag = victim.hurt(source, damage);
-        } finally {
-            if (tailsweepknockback$attempt == null) {
-                ATTEMPT.remove();
-            } else {
-                ATTEMPT.set(tailsweepknockback$attempt);
-            }
-        }
+   static boolean hurt(LivingEntity victim, DamageSource source, float damage, float multiplier) {
+      TailSweepKnockback.Attempt previous = ATTEMPT.get();
+      ATTEMPT.set(new TailSweepKnockback.Attempt(victim, multiplier));
 
-        return flag;
-    }
+      boolean var5;
+      try {
+         var5 = victim.hurt(source, damage);
+      } finally {
+         if (previous == null) {
+            ATTEMPT.remove();
+         } else {
+            ATTEMPT.set(previous);
+         }
+      }
 
-    @SubscribeEvent(
-        priority = EventPriority.LOWEST
-    )
-    public static void knockback(LivingKnockBackEvent event) {
-        TailSweepKnockback.Attempt tailsweepknockback$attempt = ATTEMPT.get();
-        if (tailsweepknockback$attempt != null && !tailsweepknockback$attempt.adjusted && event.getEntity() == tailsweepknockback$attempt.victim) {
-            tailsweepknockback$attempt.adjusted = true;
-            event.setStrength(event.getStrength() * 0.55F);
-        }
-    }
+      return var5;
+   }
 
-    private static final class Attempt {
-        final LivingEntity victim;
-        boolean adjusted;
+   @SubscribeEvent(
+      priority = EventPriority.LOWEST
+   )
+   public static void knockback(LivingKnockBackEvent event) {
+      TailSweepKnockback.Attempt attempt = ATTEMPT.get();
+      if (attempt != null && !attempt.adjusted && event.getEntity() == attempt.victim) {
+         attempt.adjusted = true;
+         event.setStrength(event.getStrength() * attempt.multiplier);
+      }
+   }
 
-        Attempt(LivingEntity victim) {
-            this.victim = victim;
-        }
-    }
+   private static final class Attempt {
+      final LivingEntity victim;
+      final float multiplier;
+      boolean adjusted;
+
+      Attempt(LivingEntity victim, float multiplier) {
+         this.victim = victim;
+         this.multiplier = multiplier;
+      }
+   }
 }

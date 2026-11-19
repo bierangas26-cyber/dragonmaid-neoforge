@@ -5,29 +5,34 @@ import com.example.dragonmaid.accessory.DragonAccessoryInventory;
 import com.example.dragonmaid.accessory.DragonStorageInventory;
 import com.example.dragonmaid.accessory.MiniatureForm;
 import com.example.dragonmaid.combat.CompanionDefense;
+import com.example.dragonmaid.combat.DragonArmor;
 import com.example.dragonmaid.combat.DragonCombatAccessories;
 import com.example.dragonmaid.inventory.DragonBagPickupGoal;
 import com.example.dragonmaid.combat.GuardEscort;
 import com.example.dragonmaid.combat.HumanoidCombat;
 import com.example.dragonmaid.combat.HumanoidGoal;
 import com.example.dragonmaid.combat.HumanoidIdleLook;
-import com.example.dragonmaid.combat.HumanoidRoar;
 import com.example.dragonmaid.combat.HumanoidTailSweep;
 import com.example.dragonmaid.combat.HumanoidTargetGoal;
 import com.example.dragonmaid.combat.NativeCompanionTargetGoal;
+import com.example.dragonmaid.combat.RestReturnGoal;
 import com.example.dragonmaid.combat.TailSweepSync;
 import com.example.dragonmaid.combat.WildDragonCombat;
 import com.example.dragonmaid.combat.WildDragonTargetGoal;
 import com.example.dragonmaid.compat.HumanoidForge;
 import com.example.dragonmaid.data.DragonForms;
 import com.example.dragonmaid.data.DragonState;
+import com.example.dragonmaid.data.HumanoidGroundMount;
+import com.example.dragonmaid.data.HumanoidHealth;
 import com.example.dragonmaid.data.HumanoidLife;
 import com.example.dragonmaid.data.HumanoidWater;
 import com.example.dragonmaid.data.InjuryRecovery;
 import com.example.dragonmaid.data.LifeStateMigration;
 import com.example.dragonmaid.item.ModItems;
 import com.example.dragonmaid.learning.Knowledge;
+import com.example.dragonmaid.menu.DragonPanelInteraction;
 import com.example.dragonmaid.movement.HumanoidAmphibiousNavigation;
+import com.example.dragonmaid.movement.HumanoidFlight;
 import com.example.dragonmaid.movement.HumanoidGroundNavigation;
 import com.example.dragonmaid.movement.HumanoidHazards;
 import com.example.dragonmaid.movement.HumanoidMoveControl;
@@ -49,6 +54,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -58,12 +65,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.Entity.MoveFunction;
 import net.minecraft.world.entity.Entity.RemovalReason;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
@@ -79,13 +89,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(remap = false, value = {DragonBaseEntity.class})
-public abstract class DragonMixin extends TamableAnimal implements DragonState, MiniatureForm.Holder, DragonBagPickupGoal.Holder {
+public abstract class DragonMixin extends TamableAnimal implements DragonState, MiniatureForm.Holder, HumanoidFlight.Access, DragonBagPickupGoal.Holder {
     @Unique
     private static final EntityDataAccessor<Integer> DRAGONMAID_KNOWLEDGE = SynchedEntityData.defineId(DragonBaseEntity.class, EntityDataSerializers.INT);
     @Unique
     private static final EntityDataAccessor<Boolean> DRAGONMAID_HUMANOID = SynchedEntityData.defineId(DragonBaseEntity.class, EntityDataSerializers.BOOLEAN);
     @Unique
     private static final EntityDataAccessor<Integer> DRAGONMAID_ACTION = SynchedEntityData.defineId(DragonBaseEntity.class, EntityDataSerializers.INT);
+    /** 1.2.7: knowledge 只占低 14 位，高 18 位让给 {@link HumanoidFlight} 的同步状态。 */
+    @Unique
+    private static final int DRAGONMAID_KNOWLEDGE_MASK = 16383;
     @Unique
     private static final int DRAGONMAID_IDLE_LOOK_BIT = 256;
     @Unique
@@ -103,6 +116,10 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     @Unique
     private boolean dragonmaid$lastForm;
     @Unique
+    private boolean dragonmaid$mountJumpHeld;
+    @Unique
+    private HumanoidFlight dragonmaid$flight;
+    @Unique
     private long dragonmaid$awakeUntil;
     @Unique
     private long dragonmaid$lastOwnerDamage = Long.MIN_VALUE;
@@ -112,6 +129,8 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     private boolean dragonmaid$recoveryRest;
     @Unique
     private boolean dragonmaid$combatInterruptedRest;
+    @Unique
+    private RestReturnGoal dragonmaid$restReturn;
     @Unique
     private int dragonmaid$recoveryTicks;
     @Unique
@@ -130,7 +149,22 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     private boolean dragonmaid$miniWorn;
     @Unique
     private DragonBagPickupGoal dragonmaid$pickupGoal;
-            @Inject(remap = false, method = {"spawnItemCrackParticles"},
+    /** 1.2.7: 人形龙吃东西的声音从嘴的位置发（原版从脚下发），1.21.1 的 {@code playSound} 签名未变。 */
+    @Inject(remap = false, method = {"playSound"},
+        at = {@At("HEAD")},
+        cancellable = true)
+    private void dragonmaid$humanoidEatingSound(SoundEvent sound, float volume, float pitch, CallbackInfo ci) {
+        if (this.dragonmaid$isHumanoid() && sound == SoundEvents.GENERIC_EAT) {
+            if (!this.level().isClientSide && !this.isSilent()) {
+                Vec3 mouth = this.getEyePosition();
+                this.level().playSound(null, mouth.x, mouth.y, mouth.z, sound, this.getSoundSource(), volume, pitch);
+            }
+
+            ci.cancel();
+        }
+    }
+
+    @Inject(remap = false, method = {"spawnItemCrackParticles"},
         at = {@At("HEAD")},
         cancellable = true)
     private void dragonmaid$feedingAtMouth(Item item, CallbackInfo ci) {
@@ -163,8 +197,11 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     @Inject(remap = false, method = {"hurt"},
         at = {@At("HEAD")},
         cancellable = true)
-    private void dragonmaid$preventOwnerDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (DragonAccessories.blocksOwnerDamage((DragonBaseEntity)(Object)this, source)) {
+    private void dragonmaid$guardDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        DragonBaseEntity dragon = (DragonBaseEntity)(Object)this;
+        // 1.2.7: 人形龙睡着时客户端侧的伤害也不该走原版处理（否则会先播受击动画再被服务端纠正）。
+        if (this.level().isClientSide && this.dragonmaid$isHumanoid() && dragon.isSleeping()
+            || DragonAccessories.blocksOwnerDamage(dragon, source)) {
             cir.setReturnValue(false);
         }
     }
@@ -227,8 +264,11 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
                 && HumanoidTargetGoal.isEnemy(entitydragonbase, attacker)
                 && (!this.dragonmaid$isHumanoid() || GuardEscort.reachableTarget(entitydragonbase, attacker))) {
                 if (entitydragonbase.getCommand() == 1) {
+                    RestReturnGoal.Spot spot = RestReturnGoal.Spot.at(entitydragonbase);
                     entitydragonbase.setCommand(0);
-                    this.dragonmaid$combatInterruptedRest = true;
+                    this.dragonmaid$setCombatInterruptedRest(true, spot);
+                } else if (this.dragonmaid$isReturningToRest()) {
+                    this.dragonmaid$restReturn.interrupt(this.dragonmaid$restReturn.spot());
                 }
 
                 entitydragonbase.setTarget(attacker);
@@ -241,19 +281,23 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         cancellable = true)
     private void dragonmaid$stayAwakeInCombat(boolean sleeping, CallbackInfo ci) {
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)(Object)this;
-        if (sleeping && this.dragonmaid$recoveryRest) {
-            ci.cancel();
-        } else {
-            if (sleeping
-                && !this.level().isClientSide
-                && (DragonForms.unlocked(entitydragonbase) || entitydragonbase.isTame() && this.level().getGameTime() < this.dragonmaid$awakeUntil)
-                && !entitydragonbase.isModelDead()
-                && (
-                    this.level().getGameTime() < this.dragonmaid$awakeUntil
-                        || entitydragonbase.getTarget() != null && HumanoidTargetGoal.isEnemy(entitydragonbase, entitydragonbase.getTarget())
-                )) {
+        if (!sleeping || !this.dragonmaid$recoveryRest && !HumanoidGroundMount.active(entitydragonbase)) {
+            if (sleeping && !this.level().isClientSide && this.dragonmaid$isReturningToRest()) {
                 ci.cancel();
+            } else {
+                if (sleeping
+                    && !this.level().isClientSide
+                    && (DragonForms.unlocked(entitydragonbase) || entitydragonbase.isTame() && this.level().getGameTime() < this.dragonmaid$awakeUntil)
+                    && !entitydragonbase.isModelDead()
+                    && (
+                        this.level().getGameTime() < this.dragonmaid$awakeUntil
+                            || entitydragonbase.getTarget() != null && HumanoidTargetGoal.isEnemy(entitydragonbase, entitydragonbase.getTarget())
+                    )) {
+                    ci.cancel();
+                }
             }
+        } else {
+            ci.cancel();
         }
     }
 
@@ -275,7 +319,6 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         cancellable = true)
     private void dragonmaid$humanRoar(CallbackInfo ci) {
         if (this.dragonmaid$isHumanoid()) {
-            HumanoidRoar.tryRoar((DragonBaseEntity)(Object)this);
             ci.cancel();
         }
     }
@@ -292,7 +335,27 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
 
     @Override
     public int dragonmaid$getKnowledge() {
-        return (Integer)this.entityData.get(DRAGONMAID_KNOWLEDGE);
+        return (Integer)this.entityData.get(DRAGONMAID_KNOWLEDGE) & DRAGONMAID_KNOWLEDGE_MASK;
+    }
+
+    /** 1.2.7: 复用人形 synched data 的高位同步飞行状态（{@link HumanoidFlight.Access}）。 */
+    @Override
+    public int dragonmaid$flightData() {
+        return (Integer)this.entityData.get(DRAGONMAID_KNOWLEDGE) >>> 14;
+    }
+
+    @Override
+    public void dragonmaid$flightData(int flight) {
+        this.entityData.set(DRAGONMAID_KNOWLEDGE, flight << 14 | this.dragonmaid$getKnowledge());
+    }
+
+    @Override
+    public HumanoidFlight dragonmaid$flightControl() {
+        if (this.dragonmaid$flight == null) {
+            this.dragonmaid$flight = new HumanoidFlight((DragonBaseEntity)(Object)this);
+        }
+
+        return this.dragonmaid$flight;
     }
 
     @Override
@@ -319,7 +382,7 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
 
     @Override
     public void dragonmaid$setKnowledge(int value) {
-        this.entityData.set(DRAGONMAID_KNOWLEDGE, Knowledge.clamp(value));
+        this.entityData.set(DRAGONMAID_KNOWLEDGE, this.dragonmaid$flightData() << 14 | Knowledge.clamp(value));
         this.dragonmaid$knowledgeLevel = Knowledge.normalizeLevel(this.dragonmaid$getKnowledge(), this.dragonmaid$knowledgeLevel);
         if (!this.dragonmaid$loading && this.dragonmaid$accessories != null) {
             DragonAccessories.refresh((DragonBaseEntity)(Object)this);
@@ -349,7 +412,17 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     @Override
     public void dragonmaid$setHumanoid(boolean value) {
         if (this.dragonmaid$isHumanoid() != value) {
+            // 1.2.7: 从人形切回龙形时先把乘客放下，否则会带着人变成龙体尺寸。
+            if (!value && !this.level().isClientSide && this.isVehicle()) {
+                this.ejectPassengers();
+                ((DragonBaseEntity)(Object)this).setControlState((byte)0);
+            }
+
             this.entityData.set(DRAGONMAID_HUMANOID, value);
+            if (!this.dragonmaid$loading) {
+                HumanoidHealth.refresh((DragonBaseEntity)(Object)this);
+            }
+
             this.dragonmaid$refreshForm();
             if (!this.dragonmaid$loading) {
                 RecallTracking.changed((DragonBaseEntity)(Object)this);
@@ -380,8 +453,30 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
 
     @Override
     public void dragonmaid$setMeleeMotion(int motion) {
-        int old = (Integer)this.entityData.get(DRAGONMAID_ACTION);
-        this.entityData.set(DRAGONMAID_ACTION, old & DRAGONMAID_ACTION_FLAGS | 1 | motion << 11);
+        if (!this.dragonmaid$tailOwnsAction()) {
+            int old = (Integer)this.entityData.get(DRAGONMAID_ACTION);
+            this.entityData.set(DRAGONMAID_ACTION, old & DRAGONMAID_ACTION_FLAGS | 1 | motion << 11);
+        }
+    }
+
+    /**
+     * 1.2.7: 长剑/太刀等刀刃架势（动作号 7-15）与近战动作共用 action 通道，起始 tick 放高位。
+     *
+     * <p>注意：{@code data/DragonState} 目前还没声明这个方法（上游 1.2.7 有），
+     * 所以这里先不写 {@code @Override}；等 data 线补上声明后可直接加回。</p>
+     */
+    public void dragonmaid$setBladeMotion(int action, int started) {
+        if (!this.dragonmaid$tailOwnsAction()) {
+            int flags = (Integer)this.entityData.get(DRAGONMAID_ACTION) & DRAGONMAID_ACTION_FLAGS & ~DRAGONMAID_FAST_CLAW_BIT;
+            this.entityData.set(DRAGONMAID_ACTION, flags | action | started << 11);
+        }
+    }
+
+    /** 尾扫进行中时它占用 action 通道，别的动作不能改写，避免尾扫被打断。 */
+    @Unique
+    private boolean dragonmaid$tailOwnsAction() {
+        DragonBaseEntity dragon = (DragonBaseEntity)(Object)this;
+        return !this.level().isClientSide && TailSweepSync.isBusy(dragon) && HumanoidTailSweep.canAct(dragon);
     }
 
     @Override
@@ -417,17 +512,19 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
 
     @Override
     public void dragonmaid$setAction(int value) {
-        int flags = (Integer)this.entityData.get(DRAGONMAID_ACTION) & DRAGONMAID_ACTION_FLAGS;
-        if (!this.level().isClientSide) {
-            if (value == 1 && DragonCombatAccessories.wild((DragonBaseEntity)(Object)this)) {
-                flags |= DRAGONMAID_FAST_CLAW_BIT;
-            } else {
-                flags &= ~DRAGONMAID_FAST_CLAW_BIT;
+        if (value == 6 || !this.dragonmaid$tailOwnsAction()) {
+            int flags = (Integer)this.entityData.get(DRAGONMAID_ACTION) & DRAGONMAID_ACTION_FLAGS;
+            if (!this.level().isClientSide) {
+                if (value == 1 && DragonCombatAccessories.wild((DragonBaseEntity)(Object)this)) {
+                    flags |= DRAGONMAID_FAST_CLAW_BIT;
+                } else {
+                    flags &= ~DRAGONMAID_FAST_CLAW_BIT;
+                }
             }
-        }
 
-        int motion = value == 1 ? this.dragonmaid$getMeleeMotion() << 11 : 0;
-        this.entityData.set(DRAGONMAID_ACTION, motion | flags | value & 0xFF);
+            int motion = value == 1 ? this.dragonmaid$getMeleeMotion() << 11 : 0;
+            this.entityData.set(DRAGONMAID_ACTION, motion | flags | value & 0xFF);
+        }
     }
 
     @Override
@@ -480,7 +577,24 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
 
     @Override
     public void dragonmaid$setCombatInterruptedRest(boolean interrupted) {
+        this.dragonmaid$setCombatInterruptedRest(interrupted, null);
+    }
+
+    /** 1.2.7: 打断休息时记下休息点，战斗结束后自主飞回去。 */
+    public void dragonmaid$setCombatInterruptedRest(boolean interrupted, RestReturnGoal.Spot spot) {
         this.dragonmaid$combatInterruptedRest = interrupted;
+        if (this.dragonmaid$restReturn != null) {
+            this.dragonmaid$restReturn.interrupt(interrupted ? spot : null);
+        }
+    }
+
+    @Override
+    public boolean dragonmaid$isReturningToRest() {
+        return this.dragonmaid$restReturn != null && this.dragonmaid$restReturn.returning();
+    }
+
+    public RestReturnGoal.Spot dragonmaid$getInterruptedRestSpot() {
+        return this.dragonmaid$restReturn == null ? null : this.dragonmaid$restReturn.spot();
     }
 
     @Override
@@ -507,7 +621,11 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         at = @At("HEAD"),
         argsOnly = true)
     private LivingEntity dragonmaid$restWithoutTarget(LivingEntity target) {
-        return !this.dragonmaid$recoveryRest && !HumanoidLife.isInjured((DragonBaseEntity)(Object)this) ? target : null;
+        return !this.dragonmaid$recoveryRest
+                && !this.dragonmaid$isReturningToRest()
+                && !HumanoidLife.isInjured((DragonBaseEntity)(Object)this)
+            ? target
+            : null;
     }
 
     public Component getDisplayName() {
@@ -524,6 +642,10 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         LivingEntity livingentity = !this.level().isClientSide && this.dragonmaid$combatInterruptedRest ? entitydragonbase.getTarget() : null;
         if (!this.level().isClientSide) {
             TailSweepSync.cancel(entitydragonbase);
+        }
+
+        if (!this.level().isClientSide && this.dragonmaid$flight != null) {
+            this.dragonmaid$flight.reset();
         }
 
         this.dragonmaid$lastForm = this.dragonmaid$isHumanoid();
@@ -573,6 +695,11 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         compoundtag.putBoolean("LifeTracked", this.dragonmaid$isLifeTracked());
         compoundtag.putBoolean("RecoveryRest", this.dragonmaid$recoveryRest);
         compoundtag.putBoolean("CombatInterruptedRest", this.dragonmaid$combatInterruptedRest);
+        RestReturnGoal.Spot restSpot = this.dragonmaid$getInterruptedRestSpot();
+        if (this.dragonmaid$combatInterruptedRest && restSpot != null) {
+            compoundtag.put("InterruptedRestSpot", restSpot.save());
+        }
+
         compoundtag.putInt("RecoveryTicks", this.dragonmaid$recoveryTicks);
         compoundtag.put("Accessories", this.dragonmaid$accessories.save());
         compoundtag.put("Storage", this.dragonmaid$storage.save());
@@ -609,7 +736,10 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         boolean flag = LifeStateMigration.trackedOnLoad(compoundtag, ((DragonBaseEntity)(Object)this).getDeathStage());
         this.dragonmaid$setLifeTracked(flag);
         this.dragonmaid$recoveryRest = compoundtag.getBoolean("RecoveryRest") && ((DragonBaseEntity)(Object)this).getCommand() == 1;
-        this.dragonmaid$combatInterruptedRest = compoundtag.getBoolean("CombatInterruptedRest") && ((DragonBaseEntity)(Object)this).getCommand() == 0;
+        this.dragonmaid$setCombatInterruptedRest(
+            compoundtag.getBoolean("CombatInterruptedRest") && ((DragonBaseEntity)(Object)this).getCommand() == 0,
+            RestReturnGoal.Spot.load(compoundtag.getCompound("InterruptedRestSpot"))
+        );
         this.dragonmaid$setRecoveryTicks(compoundtag.getInt("RecoveryTicks"));
         if (this.dragonmaid$combatGoal != null) {
             this.dragonmaid$combatGoal.loadCombatState(compoundtag);
@@ -621,6 +751,7 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         }
 
         this.dragonmaid$loading = false;
+        HumanoidHealth.refresh((DragonBaseEntity)(Object)this);
         this.dragonmaid$accessories.invalidateEffects();
     }
 
@@ -636,7 +767,7 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
                 this.dragonmaid$setLifeTracked(true);
                 this.dragonmaid$setExecuted(false);
                 this.dragonmaid$recoveryRest = false;
-                this.dragonmaid$combatInterruptedRest = false;
+                this.dragonmaid$setCombatInterruptedRest(false, null);
                 this.dragonmaid$recoveryTicks = 0;
             } else if (!this.level().isClientSide
                 && !this.dragonmaid$loading
@@ -681,8 +812,8 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
             this.dragonmaid$recoveryRest = false;
         }
 
-        if (!this.dragonmaid$loading) {
-            this.dragonmaid$combatInterruptedRest = false;
+        if (!this.dragonmaid$loading && this.dragonmaid$combatInterruptedRest) {
+            this.dragonmaid$setCombatInterruptedRest(false, null);
         }
     }
 
@@ -722,10 +853,23 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         }
     }
 
+    /** 1.2.7: 四套龙铠的专属加成（火焰/冰霜/雷电亲和）叠到 IAF 原生的 armor 属性上。 */
+    @Inject(remap = false, method = {"calculateArmorModifier"},
+        at = {@At("RETURN")},
+        cancellable = true)
+    private void dragonmaid$specialtyArmorBonus(CallbackInfoReturnable<Double> cir) {
+        double bonus = DragonArmor.specialtyBonus((DragonBaseEntity)(Object)this);
+        if (bonus > 0.0) {
+            cir.setReturnValue(cir.getReturnValueD() + bonus);
+        }
+    }
+
     @Inject(remap = false, method = {"registerGoals"},
         at = {@At("TAIL")})
     private void dragonmaid$goals(CallbackInfo ci) {
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)(Object)this;
+        this.dragonmaid$restReturn = new RestReturnGoal(entitydragonbase);
+        this.goalSelector.addGoal(-11, this.dragonmaid$restReturn);
         this.dragonmaid$combatGoal = new HumanoidGoal(entitydragonbase);
         this.goalSelector.addGoal(-10, this.dragonmaid$combatGoal);
         this.targetSelector.addGoal(-10, new HumanoidTargetGoal(entitydragonbase));
@@ -743,12 +887,32 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         }
 
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)(Object)this;
+        if (!this.isVehicle()) {
+            this.dragonmaid$mountJumpHeld = false;
+        }
+
+        // 1.2.7: 地面坐骑模式下乘客不再满足条件（睡着/被石化/形态切换）时立刻放下。
+        if (!this.level().isClientSide
+            && this.dragonmaid$isHumanoid()
+            && this.isVehicle()
+            && !HumanoidGroundMount.canRemainMounted(entitydragonbase, this.getFirstPassenger())) {
+            this.ejectPassengers();
+        }
+
+        if (!this.level().isClientSide
+            && this.dragonmaid$isHumanoid()
+            && (this.dragonmaid$flight != null
+                || entitydragonbase.getDragonStage() >= 4 && (this.isVehicle() || entitydragonbase.getCommand() == 2))) {
+            this.dragonmaid$flightControl().tick();
+        }
+
         if (!this.level().isClientSide && this.dragonmaid$isIdleLooking() && !HumanoidIdleLook.eligible(entitydragonbase)) {
             this.dragonmaid$setIdleLooking(false);
         }
 
         if (!this.level().isClientSide
             && this.dragonmaid$combatInterruptedRest
+            && !this.dragonmaid$isReturningToRest()
             && !entitydragonbase.isRemoved()
             && !entitydragonbase.isNoAi()
             && !entitydragonbase.isPassenger()
@@ -756,7 +920,7 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
             && !GorgonEntity.isStoneMob(entitydragonbase)) {
             LivingEntity livingentity = entitydragonbase.getTarget();
             if (entitydragonbase.getCommand() != 0) {
-                this.dragonmaid$combatInterruptedRest = false;
+                this.dragonmaid$setCombatInterruptedRest(false, null);
             } else if (livingentity == null || !HumanoidTargetGoal.isEnemy(entitydragonbase, livingentity)) {
                 boolean flag = entitydragonbase.getPassengers().stream().anyMatch(passenger -> {
                     if (passenger instanceof LivingEntity livingentity2 && HumanoidTargetGoal.isEnemy(entitydragonbase, livingentity2)) {
@@ -776,10 +940,16 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
                         && entitydragonbase.hasLineOfSight(livingentity1)) {
                         entitydragonbase.setTarget(livingentity1);
                     } else if (!flag2) {
-                        this.dragonmaid$combatInterruptedRest = false;
+                        this.dragonmaid$awakeUntil = 0L;
                         entitydragonbase.setTarget(null);
-                        entitydragonbase.getNavigation().stop();
-                        entitydragonbase.setCommand(1);
+                        entitydragonbase.burningTarget = null;
+                        entitydragonbase.setTackling(false);
+                        entitydragonbase.setBreathingFire(false);
+                        HumanoidCombat.stopBreath(entitydragonbase);
+                        if (!this.dragonmaid$restReturn.begin()) {
+                            entitydragonbase.getNavigation().stop();
+                            entitydragonbase.setCommand(1);
+                        }
                     }
                 }
             }
@@ -803,9 +973,16 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
             }
         }
 
+        // 1.2.7: 骑乘战斗每 tick 单独推进（上游在 tick 尾部调用同一方法）。
+        if (!this.level().isClientSide && this.dragonmaid$isHumanoid() && this.dragonmaid$combatGoal != null) {
+            this.dragonmaid$combatGoal.tickMountedCombat();
+        }
+
         if (!this.level().isClientSide
             && this.dragonmaid$isHumanoid()
+            && !entitydragonbase.isVehicle()
             && !HumanoidForge.isWorking(entitydragonbase)
+            && !HumanoidFlight.airborne(entitydragonbase)
             && (
                 !entitydragonbase.isAlive()
                     || entitydragonbase.isModelDead()
@@ -817,7 +994,9 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
                     || !HumanoidTargetGoal.isEnemy(entitydragonbase, entitydragonbase.getTarget())
             )) {
             HumanoidCombat.stopBreath(entitydragonbase);
-            if (!TailSweepSync.isBusy(entitydragonbase)) {
+            int action = this.dragonmaid$getAction();
+            boolean finishingAttack = action == 1 || action == 12;
+            if (!TailSweepSync.isBusy(entitydragonbase) && !finishingAttack) {
                 this.dragonmaid$setAction(0);
             }
         }
@@ -846,7 +1025,13 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         cancellable = true)
     private void dragonmaid$step(CallbackInfoReturnable<Float> cir) {
         if (this.dragonmaid$isHumanoid()) {
-            cir.setReturnValue(0.6F);
+            DragonBaseEntity dragon = (DragonBaseEntity)(Object)this;
+            // 1.2.7: 地面坐骑在地面上时给 1.0 步高（能上台阶），空中给 0 避免"空中贴墙"。
+            cir.setReturnValue(
+                !HumanoidGroundMount.active(dragon)
+                    ? 0.6F
+                    : (this.onGround() && !HumanoidFlight.airborne(dragon) && this.getDeltaMovement().y <= 0.0 ? 1.0F : 0.0F)
+            );
         }
     }
 
@@ -872,7 +1057,9 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
         at = {@At("HEAD")},
         cancellable = true)
     private void dragonmaid$noGrief(boolean force, CallbackInfo ci) {
-        if (this.dragonmaid$isHumanoid()) {
+        if (this.dragonmaid$isHumanoid()
+            || this.dragonmaid$isReturningToRest()
+            || MiniatureForm.isSmall((DragonBaseEntity)(Object)this)) {
             ci.cancel();
         }
     }
@@ -898,54 +1085,124 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     @Inject(remap = false, method = {"canAddPassenger"},
         at = {@At("HEAD")},
         cancellable = true)
-    private void dragonmaid$noRider(Entity passenger, CallbackInfoReturnable<Boolean> cir) {
+    private void dragonmaid$humanoidRider(Entity passenger, CallbackInfoReturnable<Boolean> cir) {
         if (this.dragonmaid$isHumanoid()) {
-            cir.setReturnValue(false);
+            // 1.2.7: 人形龙不再一律拒绝乘客，而是走"地面坐骑"资格判定（鞍 + 已驯服 + 体型足够）。
+            cir.setReturnValue(!this.isVehicle() && HumanoidGroundMount.eligible((DragonBaseEntity)(Object)this, passenger));
         }
+    }
+
+    /** 1.2.7: 地面坐骑的转向由 {@code tickRidden} 接管，IAF 原生的 updateRider 不再干预。 */
+    @Inject(remap = false, method = {"updateRider"},
+        at = {@At("HEAD")},
+        cancellable = true)
+    private void dragonmaid$groundRiderControls(CallbackInfo ci) {
+        if (this.dragonmaid$isHumanoid() && this.isVehicle()) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(remap = false, method = {"positionRider"},
+        at = {@At("HEAD")},
+        cancellable = true)
+    private void dragonmaid$groundRiderSeat(Entity passenger, MoveFunction move, CallbackInfo ci) {
+        if (this.dragonmaid$isHumanoid()) {
+            if (this.hasPassenger(passenger)) {
+                move.accept(passenger, this.getX(), this.getY() + HumanoidGroundMount.seatHeight((DragonBaseEntity)(Object)this), this.getZ());
+            }
+
+            ci.cancel();
+        }
+    }
+
+    @Inject(remap = false, method = {"getDismountLocationForPassenger"},
+        at = {@At("HEAD")},
+        cancellable = true)
+    private void dragonmaid$groundDismount(LivingEntity passenger, CallbackInfoReturnable<Vec3> cir) {
+        if (this.dragonmaid$isHumanoid()) {
+            cir.setReturnValue(HumanoidGroundMount.dismount((DragonBaseEntity)(Object)this, passenger));
+        }
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player rider, Vec3 input) {
+        return this.dragonmaid$isHumanoid() ? new Vec3((double)rider.xxa, 0.0, (double)rider.zza) : super.getRiddenInput(rider, input);
+    }
+
+    @Override
+    protected float getRiddenSpeed(Player rider) {
+        return this.dragonmaid$isHumanoid() ? (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) : super.getRiddenSpeed(rider);
+    }
+
+    @Override
+    protected float getFlyingSpeed() {
+        return !HumanoidGroundMount.active((DragonBaseEntity)(Object)this) ? super.getFlyingSpeed() : this.getSpeed() * 0.19823785F;
+    }
+
+    @Override
+    protected void tickRidden(Player rider, Vec3 input) {
+        super.tickRidden(rider, input);
+        if (!this.dragonmaid$isHumanoid()) {
+            return;
+        }
+
+        float yaw = rider.getYRot();
+        this.setYRot(yaw);
+        this.setYBodyRot(yaw);
+        this.setYHeadRot(yaw);
+        int action = this.dragonmaid$getAction();
+        this.setXRot(
+            action != 2 && action != 3 && action != 14 && (!rider.level().isClientSide || !HumanoidFlight.of((DragonBaseEntity)(Object)this).wantsBreath())
+                ? 0.0F
+                : rider.getXRot()
+        );
+        boolean jumping = rider instanceof RiderJumpAccessor jump && jump.dragonmaid$riderJumping();
+        if (jumping
+            && !HumanoidFlight.airborne((DragonBaseEntity)(Object)this)
+            && !this.dragonmaid$mountJumpHeld
+            && this.isControlledByLocalInstance()
+            && this.onGround()
+            && !this.isInWaterOrBubble()
+            && !this.isInLava()) {
+            this.jumpFromGround();
+        }
+
+        this.dragonmaid$mountJumpHeld = jumping;
     }
 
     @Inject(remap = false, method = {"mobInteract"},
         at = {@At("HEAD")},
         cancellable = true)
-    private void dragonmaid$humanCommand(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    private void dragonmaid$companionInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         DragonBaseEntity entitydragonbase = (DragonBaseEntity)(Object)this;
-        if (HumanoidLife.isInjured(entitydragonbase) && hand == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
+        // 1.2.7: 潜行右键交给玩家侧（PlayerDragonPanelMixin）开龙面板，这里先让路。
+        if (DragonPanelInteraction.deferToPlayer(entitydragonbase, player, hand)) {
+            cir.setReturnValue(InteractionResult.PASS);
+        } else if (HumanoidLife.isInjured(entitydragonbase) && hand == InteractionHand.MAIN_HAND && player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
             cir.setReturnValue(InteractionResult.PASS);
         } else if (this.dragonmaid$injuryInteraction(player, hand)) {
             cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
         } else {
             ItemStack itemstack = player.getItemInHand(hand);
-            if (itemstack.is((Item)ModItems.REINFORCED_DRAGON_HORN.get())) {
-                cir.setReturnValue(itemstack.interactLivingEntity(player, entitydragonbase, hand));
-            } else {
-                if (this.dragonmaid$isHumanoid()
-                    && entitydragonbase.isAlive()
-                    && !entitydragonbase.isModelDead()
-                    && entitydragonbase.isOwnedBy(player)
-                    && !player.isSpectator()
-                    && !player.isShiftKeyDown()
-                    && player.getMainHandItem().isEmpty()
-                    && player.getItemInHand(hand).isEmpty()) {
-                    if (!player.getOffhandItem().isEmpty()) {
-                        cir.setReturnValue(InteractionResult.PASS);
-                        return;
+            // 1.2.7: 人形龙可以直接上鞍当"地面坐骑"（命令轮换已搬到龙面板）。
+            if (this.dragonmaid$isHumanoid()
+                && itemstack.is(Items.SADDLE)
+                && !player.isShiftKeyDown()
+                && HumanoidGroundMount.eligible(entitydragonbase, player)) {
+                if (!this.isVehicle() && !player.isPassenger()) {
+                    if (this.level().isClientSide) {
+                        cir.setReturnValue(InteractionResult.SUCCESS);
+                    } else if (HumanoidGroundMount.mount(entitydragonbase, player)) {
+                        if (this.dragonmaid$combatGoal != null) {
+                            this.dragonmaid$combatGoal.stop();
+                        }
+
+                        this.refreshDimensions();
+                        cir.setReturnValue(InteractionResult.CONSUME);
                     }
-
-                    if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide) {
-                        int i = this.dragonmaid$combatInterruptedRest ? 1 : entitydragonbase.getCommand();
-                        int j = Math.floorMod(i + 1, 3);
-                        entitydragonbase.setCommand(j);
-
-                        String s = switch (j) {
-                            case 1 -> "rest";
-                            case 2 -> "escort";
-                            default -> "wander";
-                        };
-                        player.displayClientMessage(Component.translatable("message.dragonmaid.command." + s), true);
-                    }
-
-                    cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
                 }
+            } else if (itemstack.is((Item)ModItems.REINFORCED_DRAGON_HORN.get())) {
+                cir.setReturnValue(itemstack.interactLivingEntity(player, entitydragonbase, hand));
             }
         }
     }
@@ -1102,8 +1359,31 @@ public abstract class DragonMixin extends TamableAnimal implements DragonState, 
     private void dragonmaid$walk(Vec3 movement, CallbackInfo ci) {
         if (this.dragonmaid$isHumanoid()) {
             DragonBaseEntity entitydragonbase = (DragonBaseEntity)(Object)this;
-            if (!HumanoidWater.travel(entitydragonbase, movement)) {
-                super.travel(entitydragonbase.canMove() ? movement : Vec3.ZERO);
+            if (HumanoidFlight.airborne(entitydragonbase)) {
+                // 1.2.7: 空中由飞行状态机接管移动，骑手按跳跃 = 上升。
+                boolean jumping = entitydragonbase.getControllingPassenger() instanceof Player rider
+                    && rider instanceof RiderJumpAccessor jump
+                    && jump.dragonmaid$riderJumping();
+                this.dragonmaid$flightControl().travel(movement, jumping);
+            } else if (!HumanoidGroundMount.active(entitydragonbase)) {
+                if (!HumanoidWater.travel(entitydragonbase, movement)) {
+                    super.travel(entitydragonbase.canMove() ? movement : Vec3.ZERO);
+                }
+            } else {
+                // 地面坐骑：贴地走时按方块摩擦修正，起跳离地那一 tick 额外给摩擦补偿。
+                boolean leavingGround = this.isControlledByLocalInstance()
+                    && this.onGround()
+                    && !this.isInWaterOrBubble()
+                    && !this.isInLava()
+                    && !this.shouldDiscardFriction();
+                BlockPos ground = leavingGround ? this.getBlockPosBelowThatAffectsMyMovement() : null;
+                super.travel(movement);
+                if (ground != null && !this.onGround() && !this.isInWaterOrBubble() && !this.isInLava()) {
+                    float friction = this.level().getBlockState(ground).getFriction(this.level(), ground, this);
+                    if (friction > 0.0F) {
+                        this.setDeltaMovement(this.getDeltaMovement().multiply(1.0 / (double)friction, 1.0, 1.0 / (double)friction));
+                    }
+                }
             }
 
             ci.cancel();

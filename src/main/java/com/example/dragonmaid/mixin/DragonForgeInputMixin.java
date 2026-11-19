@@ -52,6 +52,7 @@ public abstract class DragonForgeInputMixin {
                         && !entitydragonbase.isSleeping()
                         && !entitydragonbase.isBaby()
                         && !DragonForms.state(entitydragonbase).dragonmaid$isRecoveryRest()
+                        && !DragonForms.state(entitydragonbase).dragonmaid$isReturningToRest()
                         && entitydragonbase.distanceToSqr(vec3) < 115.0 * (double)entitydragonbase.getDragonStage();
                     if (flag1 && !entitydragonbase.isTame()) {
                         flag1 = GuardEscort.hasChain(entitydragonbase);

@@ -1,0 +1,17 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_feather": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": ["iceandfire:amphithere_feather"] }]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": { "recipe": "dragonmaid:wing_guard_legend" }
+    }
+  },
+  "requirements": [["has_feather", "has_the_recipe"]],
+  "rewards": { "recipes": ["dragonmaid:wing_guard_legend"] }
+}

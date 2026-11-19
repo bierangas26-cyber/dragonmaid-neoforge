@@ -12,11 +12,16 @@ final class LocomotionMotion {
     private static int nextGeneration;
     private final float[] tail = new float[6];
     private final float[] previousTail = new float[6];
+    private HumanoidFallTimeline falling;
     private int lastTick = Integer.MIN_VALUE;
     private double x;
     private double z;
     private double walkTime;
     private double previousWalkTime;
+    private float flightX;
+    private float flightZ;
+    private float previousFlightX;
+    private float previousFlightZ;
     private float yaw;
     private float walkWeight;
     private float previousWalkWeight;
@@ -37,6 +42,11 @@ final class LocomotionMotion {
             if (this.lastTick != Integer.MIN_VALUE && i > 0 && i <= 5 && !(d0 > 1.5 * (double)i) && Double.isFinite(d0)) {
                 this.previousWalkTime = this.walkTime;
                 this.previousWalkWeight = this.walkWeight;
+                // 1.2.7: 飞行时的水平速度（供翼膜/姿态层使用）。
+                this.previousFlightX = this.flightX;
+                this.previousFlightZ = this.flightZ;
+                this.flightX = this.flightX + ((float)((nextX - this.x) / (double)i) - this.flightX) * 0.5F;
+                this.flightZ = this.flightZ + ((float)((nextZ - this.z) / (double)i) - this.flightZ) * 0.5F;
                 System.arraycopy(this.tail, 0, this.previousTail, 0, this.tail.length);
                 double d1 = Math.max(0.1, (double)scale);
                 double d2 = d0 / (double)i / d1;
@@ -75,6 +85,7 @@ final class LocomotionMotion {
                 this.moving = false;
                 this.walkTime = this.previousWalkTime = 0.0;
                 this.walkWeight = this.previousWalkWeight = 0.0F;
+            this.flightX = this.previousFlightX = this.flightZ = this.previousFlightZ = 0.0F;
                 Arrays.fill(this.tail, 0.0F);
                 Arrays.fill(this.previousTail, 0.0F);
                 this.generation = ++nextGeneration;
@@ -94,6 +105,22 @@ final class LocomotionMotion {
 
     double walkTick(float partial) {
         return this.previousWalkTime + (this.walkTime - this.previousWalkTime) * (double)clamp(partial, 0.0F, 1.0F);
+    }
+
+    float flightX(float partial) {
+        return lerp(this.previousFlightX, this.flightX, partial);
+    }
+
+    float flightZ(float partial) {
+        return lerp(this.previousFlightZ, this.flightZ, partial);
+    }
+
+    HumanoidFallTimeline falling() {
+        if (this.falling == null) {
+            this.falling = new HumanoidFallTimeline();
+        }
+
+        return this.falling;
     }
 
     float tailRadians(int segment, float partial) {

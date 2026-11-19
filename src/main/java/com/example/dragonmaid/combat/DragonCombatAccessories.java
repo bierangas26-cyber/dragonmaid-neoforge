@@ -5,9 +5,9 @@ import com.example.dragonmaid.accessory.DragonAccessoryBehavior;
 import com.example.dragonmaid.accessory.DragonHands;
 import com.example.dragonmaid.compat.CompanionRelations;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
+import iafcompat.EntityDataCompat;
 import com.iafenvoy.iceandfire.entity.FireDragonEntity;
 import com.iafenvoy.iceandfire.entity.IceDragonEntity;
-import iafcompat.EntityDataCompat;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 public final class DragonCombatAccessories {
+   private static final float FANG_LIFE_STEAL = 0.2F;
    private static final ThreadLocal<DragonCombatAccessories.MeleeAttempt> MELEE = new ThreadLocal<>();
 
    private DragonCombatAccessories() {
@@ -33,7 +34,7 @@ public final class DragonCombatAccessories {
    }
 
    public static float tailMultiplier(DragonBaseEntity dragon) {
-      return dragon instanceof IceDragonEntity && DragonAccessories.hasEffect(dragon, DragonAccessoryBehavior.ICE_TAIL) ? 1.15F : 1.0F;
+      return dragon instanceof IceDragonEntity && DragonAccessories.hasEffect(dragon, DragonAccessoryBehavior.ICE_TAIL) ? 1.4F : 1.0F;
    }
 
    public static double clawRadius(DragonBaseEntity dragon, double base) {
@@ -42,26 +43,47 @@ public final class DragonCombatAccessories {
 
    public static void onActualHealthLoss(LivingEntity victim, DamageSource source, float previous) {
       DragonCombatAccessories.MeleeAttempt attempt = MELEE.get();
-      if (attempt != null && attempt.heals && attempt.victim == victim && attempt.source == source) {
+      if (attempt != null && attempt.lifeStealRate != 0.0F && attempt.victim == victim && attempt.source == source) {
          float loss = Math.max(0.0F, previous - Math.max(0.0F, victim.getHealth()));
          DragonBaseEntity dragon = attempt.dragon;
-         if (loss > 0.0F && DragonHands.inventory(dragon).getItem(0).isEmpty() && dragon.isAlive() && !dragon.isModelDead() && !dragon.isRemoved()) {
-            dragon.heal(loss * 0.2F);
+         if (loss > 0.0F && dragon.isAlive() && !dragon.isModelDead() && !dragon.isRemoved()) {
+            dragon.heal(loss * attempt.lifeStealRate);
          }
       }
    }
 
+   private static float lifeStealRate(boolean fang, boolean primaryHit, boolean armed) {
+      if (!fang) {
+         return 0.0F;
+      } else if (primaryHit) {
+         return 0.2F;
+      } else {
+         return armed ? 0.0F : 0.1F;
+      }
+   }
+
    public static boolean melee(DragonBaseEntity dragon, Entity victim, DamageSource source, float base, boolean tail) {
+      return melee(dragon, victim, source, base, tail, false, true);
+   }
+
+   static boolean melee(DragonBaseEntity dragon, Entity victim, DamageSource source, float base, boolean tail, boolean fireAxe, boolean primaryHit) {
       if (victim instanceof LivingEntity living && !dragon.level().isClientSide) {
          boolean own = dragon.isTame() && !CompanionRelations.isAlly(dragon, living);
          boolean fang = own && dragon instanceof FireDragonEntity && DragonAccessories.hasEffect(dragon, DragonAccessoryBehavior.FIRE_FANG);
          float amount = own ? base * meleeMultiplier(dragon) * (tail ? tailMultiplier(dragon) : 1.0F) : base;
          DragonCombatAccessories.MeleeAttempt previous = MELEE.get();
-         MELEE.set(new DragonCombatAccessories.MeleeAttempt(dragon, living, source, fang));
+         boolean armedSecondary = fang && !primaryHit && !BladeCompat.availableMainHand(dragon).isEmpty();
+         MELEE.set(new DragonCombatAccessories.MeleeAttempt(dragon, living, source, lifeStealRate(fang, primaryHit, armedSecondary), own && fireAxe));
 
          boolean success;
          try {
-            success = tail ? TailShieldBreak.hurt(dragon, living, source, () -> victim.hurt(source, amount)) : victim.hurt(source, amount);
+            if (tail) {
+               success = TailShieldBreak.hurt(dragon, living, source, () -> victim.hurt(source, amount));
+            } else if (own && fireAxe) {
+               success = TailShieldBreak.fireAxeHit(dragon, living, source, () -> victim.hurt(source, amount));
+            } else {
+               success = victim.hurt(source, amount);
+            }
          } finally {
             if (previous == null) {
                MELEE.remove();
@@ -89,15 +111,29 @@ public final class DragonCombatAccessories {
    }
 
    public static boolean humanoidTail(DragonBaseEntity dragon, LivingEntity victim, DamageSource source, float base) {
+      return humanoidTail(dragon, victim, source, base, true, false);
+   }
+
+   static boolean humanoidTail(DragonBaseEntity dragon, LivingEntity victim, DamageSource source, float base, boolean primaryHit, boolean armedSweep) {
+      return humanoidTail(dragon, victim, source, base, primaryHit, armedSweep, armedSweep ? 1.75F : 1.5F);
+   }
+
+   static boolean humanoidTail(
+      DragonBaseEntity dragon, LivingEntity victim, DamageSource source, float base, boolean primaryHit, boolean armedSweep, float knockbackMultiplier
+   ) {
       boolean own = dragon.isTame() && !CompanionRelations.isAlly(dragon, victim);
       boolean fang = own && dragon instanceof FireDragonEntity && DragonAccessories.hasEffect(dragon, DragonAccessoryBehavior.FIRE_FANG);
       DragonCombatAccessories.MeleeAttempt previous = MELEE.get();
-      MELEE.set(new DragonCombatAccessories.MeleeAttempt(dragon, victim, source, fang));
+      float rate = lifeStealRate(fang, primaryHit, armedSweep);
+      MELEE.set(new DragonCombatAccessories.MeleeAttempt(dragon, victim, source, rate, false));
 
       boolean success;
       try {
          success = TailShieldBreak.hurt(
-            dragon, victim, source, () -> TailSweepKnockback.hurt(victim, source, own ? base * meleeMultiplier(dragon) * tailMultiplier(dragon) : base)
+            dragon,
+            victim,
+            source,
+            () -> TailSweepKnockback.hurt(victim, source, own ? base * meleeMultiplier(dragon) * tailMultiplier(dragon) : base, knockbackMultiplier)
          );
       } finally {
          if (previous == null) {
@@ -122,6 +158,11 @@ public final class DragonCombatAccessories {
       return success;
    }
 
+   public static boolean isFireAxeHit(LivingEntity victim, DamageSource source) {
+      DragonCombatAccessories.MeleeAttempt attempt = MELEE.get();
+      return attempt != null && attempt.fireAxe && attempt.victim == victim && attempt.source == source;
+   }
+
    private static void freezeTail(LivingEntity victim) {
       if (victim.isAlive() && !(victim instanceof IceDragonEntity)) {
          EntityDataCompat.setFrozen(victim, Math.max(60, victim.getTicksFrozen()));
@@ -138,6 +179,6 @@ public final class DragonCombatAccessories {
       }
    }
 
-   private static record MeleeAttempt(DragonBaseEntity dragon, LivingEntity victim, DamageSource source, boolean heals) {
+   private static record MeleeAttempt(DragonBaseEntity dragon, LivingEntity victim, DamageSource source, float lifeStealRate, boolean fireAxe) {
    }
 }

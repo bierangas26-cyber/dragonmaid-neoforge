@@ -20,15 +20,24 @@ import net.neoforged.api.distmarker.Dist;
  * 1.2: 龙的双手持物同步（Forge 1.20.1 的 FriendlyByteBuf.writeItem 在 1.21.1 已移除，
  * ItemStack 是 registry-aware codec，因此这里改用 CUSTOM_DATA 兼容的 NBT 载荷：
  * 服务端用 registry access 编码，客户端在 handler 里用 ClientLevel.registryAccess() 解码）。
+ *
+ * <p>1.2.7: 增加 tridentAway（飞行时三叉戟收纳视图）。为与旧调用点保持二进制/源码兼容，
+ * 保留 5 参构造重载，并把该字段放在 wire 末端（旧端读不到时为 false）。</p>
  */
-public record DragonHandsMessage(ResourceLocation dimension, int entityId, UUID uuid, CompoundTag main, CompoundTag off) {
+public record DragonHandsMessage(ResourceLocation dimension, int entityId, UUID uuid, CompoundTag main, CompoundTag off, boolean tridentAway) {
+    /** 1.2 兼容重载：不带 tridentAway（默认 false）。 */
+    public DragonHandsMessage(ResourceLocation dimension, int entityId, UUID uuid, CompoundTag main, CompoundTag off) {
+        this(dimension, entityId, uuid, main, off, false);
+    }
+
     public static DragonHandsMessage of(DragonBaseEntity dragon) {
         return new DragonHandsMessage(
             dragon.level().dimension().location(),
             dragon.getId(),
             dragon.getUUID(),
             StackCodec.save(DragonHands.mainHand(dragon).copy(), new CompoundTag()),
-            StackCodec.save(DragonHands.offHand(dragon).copy(), new CompoundTag())
+            StackCodec.save(DragonHands.offHand(dragon).copy(), new CompoundTag()),
+            DragonHands.inventory(dragon).tridentAway()
         );
     }
 
@@ -46,10 +55,18 @@ public record DragonHandsMessage(ResourceLocation dimension, int entityId, UUID 
         buffer.writeUUID(message.uuid);
         buffer.writeNbt(message.main);
         buffer.writeNbt(message.off);
+        buffer.writeBoolean(message.tridentAway);
     }
 
     public static DragonHandsMessage decode(FriendlyByteBuf buffer) {
-        return new DragonHandsMessage(buffer.readResourceLocation(), buffer.readVarInt(), buffer.readUUID(), buffer.readNbt(), buffer.readNbt());
+        return new DragonHandsMessage(
+            buffer.readResourceLocation(),
+            buffer.readVarInt(),
+            buffer.readUUID(),
+            buffer.readNbt(),
+            buffer.readNbt(),
+            buffer.isReadable() && buffer.readBoolean()
+        );
     }
 
     public static void handle(DragonHandsMessage message, Supplier<Context> supplier) {
@@ -69,6 +86,7 @@ public record DragonHandsMessage(ResourceLocation dimension, int entityId, UUID 
                 DragonHands hands = DragonHands.inventory(dragon);
                 hands.setItem(0, message.mainStack(level.registryAccess()));
                 hands.setItem(1, message.offStack(level.registryAccess()));
+                hands.applyFlightView(message.tridentAway);
             }
         }
     }

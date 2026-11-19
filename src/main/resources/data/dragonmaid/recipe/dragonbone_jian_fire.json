@@ -1,0 +1,15 @@
+{
+  "type": "dragonmaid:dragon_blood_blade",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "dragonmaid:dragonbone_jian"
+    },
+    {
+      "item": "iceandfire:fire_dragon_blood"
+    }
+  ],
+  "result": {
+    "id": "dragonmaid:dragonbone_jian_fire"
+  }
+}

@@ -2,6 +2,7 @@ package com.example.dragonmaid.mixin;
 
 import com.example.dragonmaid.accessory.DragonHands;
 import com.example.dragonmaid.combat.DragonShield;
+import com.example.dragonmaid.combat.TailShieldBreak;
 import com.example.dragonmaid.data.DragonForms;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import net.minecraft.sounds.SoundEvents;
@@ -46,9 +47,13 @@ public abstract class DragonShieldMixin extends TamableAnimal implements DragonS
    }
 
    public ItemStack getItemInHand(InteractionHand hand) {
-      return hand == InteractionHand.OFF_HAND && this.dragonmaid$guard != null && this.dragonmaid$guard.usesOffhand(this.dragonmaid$selfForShield())
-         ? DragonHands.offHand(this.dragonmaid$selfForShield())
-         : super.getItemInHand(hand);
+      if (hand == InteractionHand.OFF_HAND && this.dragonmaid$guard != null && this.dragonmaid$guard.usesOffhand(this.dragonmaid$selfForShield())) {
+         return DragonHands.offHand(this.dragonmaid$selfForShield());
+      } else {
+         return hand == InteractionHand.MAIN_HAND && this.dragonmaid$guard != null && this.dragonmaid$guard.usesMainHand(this.dragonmaid$selfForShield())
+            ? DragonHands.availableMainHand(this.dragonmaid$selfForShield())
+            : super.getItemInHand(hand);
+      }
    }
 
    public void setItemInHand(InteractionHand hand, ItemStack stack) {
@@ -60,9 +65,13 @@ public abstract class DragonShieldMixin extends TamableAnimal implements DragonS
    }
 
    public ItemStack getUseItem() {
-      return this.level().isClientSide && DragonShield.isRaised(this.dragonmaid$selfForShield())
-         ? DragonHands.offHand(this.dragonmaid$selfForShield())
-         : super.getUseItem();
+      if (this.level().isClientSide && DragonShield.isRaised(this.dragonmaid$selfForShield())) {
+         return DragonHands.offHand(this.dragonmaid$selfForShield());
+      } else {
+         return this.level().isClientSide && this.dragonmaid$guard != null && this.dragonmaid$guard.usesMainHand(this.dragonmaid$selfForShield())
+            ? DragonHands.availableMainHand(this.dragonmaid$selfForShield())
+            : super.getUseItem();
+      }
    }
 
    public boolean isBlocking() {
@@ -70,7 +79,7 @@ public abstract class DragonShieldMixin extends TamableAnimal implements DragonS
          DragonBaseEntity dragon = this.dragonmaid$selfForShield();
          return DragonShield.isRaised(dragon)
             && DragonHands.offHand(dragon) == this.getUseItem()
-            && dragon.getCommand() != 1
+            && (dragon.getCommand() != 1 || this.dragonmaid$guard.riderGuarding())
             && !dragon.isSleeping()
             && !dragon.isPassenger()
             && this.dragonmaid$guard.pastWindup(dragon);
@@ -97,7 +106,7 @@ public abstract class DragonShieldMixin extends TamableAnimal implements DragonS
    protected void blockUsingShield(LivingEntity attacker) {
       super.blockUsingShield(attacker);
       DragonBaseEntity dragon = this.dragonmaid$selfForShield();
-      if (this.dragonmaid$guard.guarding()) {
+      if (this.dragonmaid$guard.guarding() && !TailShieldBreak.handlesAxeDisable(dragon, attacker)) {
          ItemStack var10000;
          label19: {
             if (attacker instanceof DragonBaseEntity other && DragonForms.isHumanoid(other)) {

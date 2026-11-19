@@ -1,6 +1,7 @@
 package com.example.dragonmaid.client;
 
 import com.example.dragonmaid.item.ModItems;
+import com.example.dragonmaid.item.ServiceDragonArmorItem;
 import com.example.dragonmaid.menu.ModMenus;
 import com.example.dragonmaid.particle.ModParticles;
 import com.example.dragonmaid.recall.RecallClientContent;
@@ -14,7 +15,11 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.LavaParticle.Provider;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -45,10 +50,21 @@ public final class ClientRegistration {
     public ClientRegistration() {
     }
 
+    /**
+     * 1.2.7: 四套龙铠（service/kimono/xia/viking/frostsilver）各有自己的 armor contract 与物种贴图；
+     * 这里按 Style 逐套注册 reload listener（旧写法只注册 service 单例，其余四套会退化成 service 外观）。
+     * 另加两条 1.2.7 新增资源：连续翼膜网格、第一人称刀动作 JSON。
+     */
     @SubscribeEvent
     public static void chestplateResources(RegisterClientReloadListenersEvent event) {
         event.registerReloadListener(FemaleChestplateResources.INSTANCE);
-        event.registerReloadListener(ServiceArmorResources.INSTANCE);
+
+        for (ServiceDragonArmorItem.Style style : ServiceDragonArmorItem.Style.values()) {
+            event.registerReloadListener(ServiceArmorResources.of(style));
+        }
+
+        event.registerReloadListener(ContinuousWingResources.INSTANCE);
+        event.registerReloadListener(PlayerBladeMotion.INSTANCE);
     }
 
     static void clearWorldState() {
@@ -110,6 +126,13 @@ public final class ClientRegistration {
             (ParticleType)ModParticles.ICE_BREATH.get(),
             sprites -> (type, level, x, y, z, dx, dy, dz) -> new FadingBreathParticle(level, x, y, z, dx, dy, dz, sprites, BreathParticleStyle.ICE)
         );
+        // 1.2.7: 太刀/长剑的弧形刀光。网络速度分量被复用成参数：
+        //   dx = yaw（弧度）、dy = ±reach（负值表示太刀前倾弧）、dz = 半弧角/俯仰。
+        event.registerSpriteSet(
+            (ParticleType)ModParticles.BLADE_SWEEP.get(),
+            sprites -> (type, level, x, y, z, yaw, radius, angleOrPitch) ->
+                new BladeSweepParticle((ClientLevel)level, x, y, z, yaw, radius, angleOrPitch, sprites)
+        );
     }
 
     private static ParticleProvider<SimpleParticleType> nativeFire(SpriteSet sprites, boolean stream) {
@@ -157,6 +180,15 @@ public final class ClientRegistration {
 
         for (FemaleDragonAssets femaledragonassets : FemaleDragonAssets.values()) {
             dragonRenderers.put(femaledragonassets, femaleStages(event.getContext(), femaledragonassets));
+        }
+
+        // 1.2.7: 玩家腰间的太刀刀鞘层（KatanaSheathLayer）。1.21.1 的 AddLayers 用 PlayerSkin.Model 枚举
+        // （WIDE/SLIM）而不是 1.20.1 的 String skin，因此遍历 getSkins() 并逐个挂层。
+        for (PlayerSkin.Model model : event.getSkins()) {
+            EntityRenderer<? extends Player> renderer = event.getSkin(model);
+            if (renderer instanceof PlayerRenderer playerRenderer) {
+                playerRenderer.addLayer(new KatanaSheathLayer(playerRenderer));
+            }
         }
     }
 

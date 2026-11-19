@@ -32,12 +32,17 @@ public final class ServiceDragonArmorTextures {
     private ServiceDragonArmorTextures() {
     }
 
+    /** 1.2.7 上游把该方法改名为 hasCustomArmor；保留旧名以兼容既有 mixin 调用。 */
+    public static boolean hasCustomArmor(DragonBaseEntity dragon) {
+        return hasServiceArmor(dragon);
+    }
+
     public static boolean hasServiceArmor(DragonBaseEntity dragon) {
         if (dragon.dragonInventory == null) {
             return false;
         } else {
             for (EquipmentSlot equipmentslot : SLOTS) {
-                if (ServiceDragonArmorItem.isService(dragon.getItemBySlot(equipmentslot))) {
+                if (ServiceDragonArmorItem.styleOf(dragon.getItemBySlot(equipmentslot), dragon) != null) {
                     return true;
                 }
             }
@@ -57,8 +62,9 @@ public final class ServiceDragonArmorTextures {
             // material+part and returns null for an empty / non-dragon-armor slot;
             // skipping those layers is CE's own semantics (see
             // DragonArmorFeatureRenderer#render), not a downgrade.
-            ResourceLocation resourcelocation = ServiceDragonArmorItem.isService(itemstack)
-                ? ServiceArmorResources.INSTANCE.dragonTexture(dragon, i + 1)
+            ServiceDragonArmorItem.Style style = ServiceDragonArmorItem.styleOf(itemstack, dragon);
+            ResourceLocation resourcelocation = style != null
+                ? ServiceArmorResources.of(style).dragonTexture(dragon, i + 1)
                 : DragonArmorFeatureRenderer.getArmorTexture(itemstack, SLOTS[i]);
             if (resourcelocation != null) {
                 arraylist.add(resourcelocation.toString());

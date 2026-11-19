@@ -1,7 +1,9 @@
 package com.example.dragonmaid.mixin;
 
 import com.example.dragonmaid.data.DragonForms;
+import com.example.dragonmaid.data.HumanoidGroundMount;
 import com.example.dragonmaid.data.HumanoidWater;
+import com.example.dragonmaid.movement.HumanoidFlight;
 import com.iafenvoy.iceandfire.entity.IceDragonEntity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +22,10 @@ public abstract class IceDragonWaterMixin {
         cancellable = true)
     private void dragonmaid$humanWaterTravel(Vec3 movement, CallbackInfo ci) {
         IceDragonEntity entityicedragon = (IceDragonEntity)(Object)this;
-        if (DragonForms.isHumanoid(entityicedragon) && HumanoidWater.travel(entityicedragon, movement)) {
+        if (DragonForms.isHumanoid(entityicedragon)
+            && !HumanoidFlight.airborne(entityicedragon)
+            && !HumanoidGroundMount.active(entityicedragon)
+            && HumanoidWater.travel(entityicedragon, movement)) {
             ci.cancel();
         }
     }

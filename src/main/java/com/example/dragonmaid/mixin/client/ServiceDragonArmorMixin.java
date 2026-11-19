@@ -1,5 +1,6 @@
 package com.example.dragonmaid.mixin.client;
 
+import com.example.dragonmaid.client.DragonArmorOrnaments;
 import com.example.dragonmaid.client.ServiceDragonArmorTextures;
 import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import com.iafenvoy.iceandfire.render.entity.feature.DragonArmorFeatureRenderer;
@@ -47,7 +48,7 @@ public abstract class ServiceDragonArmorMixin extends RenderLayer<DragonBaseEnti
         float headPitch,
         CallbackInfo callback
     ) {
-        if (ServiceDragonArmorTextures.hasServiceArmor(dragon)) {
+        if (ServiceDragonArmorTextures.hasCustomArmor(dragon)) {
             ResourceLocation resourcelocation = ServiceDragonArmorTextures.texture(dragon);
             if (resourcelocation == null) {
                 return;
@@ -57,6 +58,8 @@ public abstract class ServiceDragonArmorMixin extends RenderLayer<DragonBaseEnti
                 .renderToBuffer(
                     pose, buffers.getBuffer(RenderType.entityCutoutNoCull(resourcelocation)), light, OverlayTexture.NO_OVERLAY, -1
                 );
+            // 1.2.7: 四套龙铠的装饰网格（ornaments）按装备槽叠画在同一层里。
+            DragonArmorOrnaments.render(dragon, this.getParentModel(), pose, buffers, light);
             callback.cancel();
         }
     }

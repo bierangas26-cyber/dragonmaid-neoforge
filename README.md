@@ -1,12 +1,17 @@
 # Dragon Maid Companion — NeoForge 1.21.1 社区移植（非官方）
 
-> **原作者 / 原 mod**：Dragon Maid Companion 1.1.0-beta.2（作者：**别思丶**）
+> **原作者 / 原 mod**：Dragon Maid Companion 1.2.7（作者：**别思丶**）
 > **本仓库**：1.20.1 Forge → **Minecraft 1.21.1 / NeoForge 21.1.264** 的社区移植
 > **性质**：非官方、**非盈利**、仅供个人与免费整合包使用。
 
-## ⬇️ 下载最新 jar（1.2.0-beta.4 · MC 1.21.1 / NeoForge）
+## ⬇️ 最新移植：1.2.7（分支 `port/1.2.7`）
 
-### 👉 [**点此直接下载 `dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar`**](https://github.com/bierangas26-cyber/dragonmaid-neoforge/releases/download/v1.2.0-beta.4-neoforge.1/dragonmaid-neoforge-1.21.1-1.2.0-beta.4-neoforge.1.jar)
+> **状态**：上游 1.2.7 已移植；`gradle clean build` 通过，`runGameTestServer` **15/15 required tests passed**。
+> 本轮为**本地构建、尚未发布 release**（GitHub 推送待恢复）。
+> 本地 jar：`build/libs/dragonmaid-neoforge-1.21.1-1.2.7-neoforge.1.jar`（10,343,209 B · sha256 `FA9A84035803C5BEC172E6A9FDF198A16264622AA3CB2C251595CF84C8A54AC8`）
+> 验证记录：[docs/1.2.7-VERIFICATION.md](docs/1.2.7-VERIFICATION.md) · 上游增量：[docs/UPSTREAM-1.2.7-DELTA.md](docs/UPSTREAM-1.2.7-DELTA.md)
+
+## ⬇️ 上一版发布（1.2.0-beta.4 · MC 1.21.1 / NeoForge）
 
 > 7,267,457 B · sha256 `048FE70382DF6E7BF0E10978CAF7AEB9EF9DE06E484C8E67C9FB58D3F1EBCD00`
 

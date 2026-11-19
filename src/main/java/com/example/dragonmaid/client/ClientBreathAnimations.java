@@ -113,7 +113,7 @@ public final class ClientBreathAnimations {
             }
         } else {
             entry.seenEligible = true;
-            if (DragonForms.state(dragon).dragonmaid$getAction() == 1 && !entry.timeline.state().running()) {
+            if (ClientTailSweepAnimations.ownsPose(dragon)) {
                 entry.timeline.cancel(now);
             }
         }

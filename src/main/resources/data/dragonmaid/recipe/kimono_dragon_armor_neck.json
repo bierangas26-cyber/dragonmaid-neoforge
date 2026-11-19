@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "CBC",
+    "BAB",
+    "CBC"
+  ],
+  "key": {
+    "A": {
+      "item": "dragonmaid:service_dragon_armor_neck"
+    },
+    "B": {
+      "item": "minecraft:bamboo_block"
+    },
+    "C": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:kimono_dragon_armor_neck",
+    "count": 1
+  }
+}

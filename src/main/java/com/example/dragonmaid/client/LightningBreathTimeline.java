@@ -10,10 +10,27 @@ final class LightningBreathTimeline {
     LightningBreathTimeline() {
     }
 
+    /** 1.2.7: 吐息收尾判定（IceFemaleModel/HumanoidRidingPose 用）。 */
+    boolean finishing(double time, int nextGeneration, double endTicks) {
+        if (this.reset(time, nextGeneration)) {
+            return false;
+        } else {
+            return switch (this.phase) {
+                case START, LOOP -> endTicks > 0.0;
+                case END -> time - this.started < endTicks;
+                default -> false;
+            };
+        }
+    }
+
+    private boolean reset(double time, int nextGeneration) {
+        return !Double.isFinite(this.last) || time < this.last || time - this.last > 5.0 || this.generation != nextGeneration;
+    }
+
     LightningBreathTimeline.Frame update(
         double time, boolean breathing, boolean interrupt, int nextGeneration, double startTicks, double loopTicks, double endTicks
     ) {
-        boolean flag = !Double.isFinite(this.last) || time < this.last || time - this.last > 5.0 || this.generation != nextGeneration;
+        boolean flag = this.reset(time, nextGeneration);
         if (flag) {
             this.phase = breathing && !interrupt ? LightningBreathTimeline.Phase.LOOP : LightningBreathTimeline.Phase.NONE;
             this.started = time;

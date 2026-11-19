@@ -1,0 +1,556 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.dragon_female.bridal.being_carried": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 1,
+      "bones": {
+        "Root": {
+          "rotation": {
+            "vector": [
+              0,
+              90,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              8,
+              -10
+            ]
+          }
+        },
+        "Waist": {
+          "rotation": {
+            "vector": [
+              -55,
+              0,
+              0
+            ]
+          }
+        },
+        "Head": {
+          "rotation": {
+            "vector": [
+              20,
+              -35,
+              -6
+            ]
+          }
+        },
+        "Body": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Right Arm": {
+          "rotation": {
+            "vector": [
+              42.425971117795044,
+              -36.97374703790335,
+              99.10990142473793
+            ]
+          }
+        },
+        "Left Arm": {
+          "rotation": {
+            "vector": [
+              37.87949610726232,
+              26.225266324946997,
+              35.70547835792631
+            ]
+          }
+        },
+        "Right Leg": {
+          "rotation": {
+            "vector": [
+              -84,
+              -3,
+              -3
+            ]
+          }
+        },
+        "Left Leg": {
+          "rotation": {
+            "vector": [
+              -88,
+              3,
+              3
+            ]
+          }
+        },
+        "arm_lower_right": {
+          "rotation": {
+            "vector": [
+              -100.91355184121858,
+              0,
+              7.125016348901798
+            ]
+          }
+        },
+        "arm_lower_left": {
+          "rotation": {
+            "vector": [
+              -68.21691768598228,
+              0,
+              -7.125016348901799
+            ]
+          }
+        },
+        "hand_right": {
+          "rotation": {
+            "vector": [
+              -39.47574588125352,
+              1.6966119608757069,
+              -17.02058280088686
+            ]
+          }
+        },
+        "hand_left": {
+          "rotation": {
+            "vector": [
+              74.40234397336484,
+              68.04187733819163,
+              34.63717442071976
+            ]
+          }
+        },
+        "leg_lower_right": {
+          "rotation": {
+            "vector": [
+              96,
+              0,
+              0
+            ]
+          }
+        },
+        "leg_lower_left": {
+          "rotation": {
+            "vector": [
+              104,
+              0,
+              0
+            ]
+          }
+        },
+        "foot_right": {
+          "rotation": {
+            "vector": [
+              -12,
+              0,
+              0
+            ]
+          }
+        },
+        "foot_left": {
+          "rotation": {
+            "vector": [
+              -14,
+              0,
+              0
+            ]
+          }
+        },
+        "wing_right": {
+          "rotation": {
+            "vector": [
+              -5,
+              60,
+              -8
+            ]
+          }
+        },
+        "wing_tip_right": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              -74.116231
+            ]
+          }
+        },
+        "wing_hand_right": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              53.958752
+            ]
+          }
+        },
+        "wing_left": {
+          "rotation": {
+            "vector": [
+              -5,
+              -60,
+              8
+            ]
+          }
+        },
+        "wing_tip_left": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              74.116231
+            ]
+          }
+        },
+        "wing_hand_left": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              -53.958752
+            ]
+          }
+        },
+        "tail_1": {
+          "rotation": {
+            "vector": [
+              -25,
+              20,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              -1.5154312819346352,
+              -0.7888835927505644
+            ]
+          }
+        },
+        "tail_2": {
+          "rotation": {
+            "vector": [
+              -10,
+              8,
+              0
+            ]
+          }
+        },
+        "tail_3": {
+          "rotation": {
+            "vector": [
+              3,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_4": {
+          "rotation": {
+            "vector": [
+              8,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_5": {
+          "rotation": {
+            "vector": [
+              10,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_6": {
+          "rotation": {
+            "vector": [
+              8,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.dragon_female.bridal.carry_player": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 1,
+      "bones": {
+        "Root": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              -0.04837851869244436,
+              0
+            ]
+          }
+        },
+        "Waist": {
+          "rotation": {
+            "vector": [
+              10,
+              0,
+              0
+            ]
+          }
+        },
+        "Head": {
+          "rotation": {
+            "vector": [
+              -15,
+              12,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              0,
+              1.5
+            ]
+          }
+        },
+        "Body": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Right Arm": {
+          "rotation": {
+            "vector": [
+              -24.46679616749572,
+              -48.367643877463976,
+              -0.4418411033012583
+            ]
+          }
+        },
+        "Left Arm": {
+          "rotation": {
+            "vector": [
+              -13.734046736837284,
+              20.017672570544086,
+              -59.220923932816824
+            ]
+          }
+        },
+        "Right Leg": {
+          "rotation": {
+            "vector": [
+              -2,
+              0,
+              5
+            ]
+          }
+        },
+        "Left Leg": {
+          "rotation": {
+            "vector": [
+              2,
+              0,
+              -5
+            ]
+          }
+        },
+        "arm_lower_right": {
+          "rotation": {
+            "vector": [
+              -27.301603625530507,
+              0,
+              7.125016348901799
+            ]
+          }
+        },
+        "arm_lower_left": {
+          "rotation": {
+            "vector": [
+              -109.56518361660767,
+              0,
+              -7.125016348901799
+            ]
+          }
+        },
+        "hand_right": {
+          "rotation": {
+            "vector": [
+              -29.468626519101043,
+              29.694893788188782,
+              36.480810069123315
+            ]
+          }
+        },
+        "hand_left": {
+          "rotation": {
+            "vector": [
+              14.43809905279703,
+              27.42572950265973,
+              -121.10625047812128
+            ]
+          }
+        },
+        "leg_lower_right": {
+          "rotation": {
+            "vector": [
+              5,
+              0,
+              0
+            ]
+          }
+        },
+        "leg_lower_left": {
+          "rotation": {
+            "vector": [
+              3,
+              0,
+              0
+            ]
+          }
+        },
+        "foot_right": {
+          "rotation": {
+            "vector": [
+              -3,
+              0,
+              -3
+            ]
+          }
+        },
+        "foot_left": {
+          "rotation": {
+            "vector": [
+              -5,
+              0,
+              3
+            ]
+          }
+        },
+        "wing_right": {
+          "rotation": {
+            "vector": [
+              -5,
+              60,
+              -8
+            ]
+          }
+        },
+        "wing_tip_right": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              -74.116231
+            ]
+          }
+        },
+        "wing_hand_right": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              53.958752
+            ]
+          }
+        },
+        "wing_left": {
+          "rotation": {
+            "vector": [
+              -5,
+              -60,
+              8
+            ]
+          }
+        },
+        "wing_tip_left": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              74.116231
+            ]
+          }
+        },
+        "wing_hand_left": {
+          "rotation": {
+            "vector": [
+              0,
+              0,
+              -53.958752
+            ]
+          }
+        },
+        "tail_1": {
+          "rotation": {
+            "vector": [
+              -5,
+              0,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              0.32124912868382083,
+              -0.02810565692741518
+            ]
+          }
+        },
+        "tail_2": {
+          "rotation": {
+            "vector": [
+              -8,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_3": {
+          "rotation": {
+            "vector": [
+              -8,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_4": {
+          "rotation": {
+            "vector": [
+              -4,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_5": {
+          "rotation": {
+            "vector": [
+              5,
+              0,
+              0
+            ]
+          }
+        },
+        "tail_6": {
+          "rotation": {
+            "vector": [
+              12,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -30,7 +30,7 @@ public abstract class DragonDetailsScreenMixin extends AbstractContainerScreen<D
     private void dragonmaid$drawAccessorySlots(GuiGraphics graphics, float partial, int mouseX, int mouseY, CallbackInfo ci) {
         if (this.menu instanceof DragonDetailsMenu) {
             graphics.drawManaged(() -> {
-                for (int i = 41; i < 44; i++) {
+                for (int i = 41; i < 46; i++) {
                     Slot slot = ((DragonMenu)this.menu).getSlot(i);
                     int j = this.leftPos + slot.x;
                     int k = this.topPos + slot.y;

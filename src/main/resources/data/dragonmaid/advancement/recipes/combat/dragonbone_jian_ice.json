@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dragonbone_weapon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "dragonmaid:dragonbone_jian"
+            ]
+          }
+        ]
+      }
+    },
+    "has_blood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:ice_dragon_blood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dragonmaid:dragonbone_jian_ice"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dragonbone_weapon",
+      "has_blood",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "dragonmaid:dragonbone_jian_ice"
+    ]
+  }
+}

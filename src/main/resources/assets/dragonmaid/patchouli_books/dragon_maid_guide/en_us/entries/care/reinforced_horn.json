@@ -10,7 +10,7 @@
       "title": "Horn Protection",
       "item": "dragonmaid:reinforced_dragon_horn",
       "link_recipe": false,
-      "text": "A Dragon Soul Horn resists fire, lava, explosions, cacti, and natural despawning. Upgrade a Dragon Horn to make one."
+      "text": "Pixies cannot steal a Dragon Soul Horn. It survives fire, lava, explosions and cacti, and will wait for you to pick it up. Upgrade a Dragon Horn to make one."
     },
     {
       "type": "patchouli:crafting",

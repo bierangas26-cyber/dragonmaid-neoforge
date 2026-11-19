@@ -26,6 +26,7 @@ public final class CombatAccessoryItem extends DragonAccessoryItem {
         return switch (this.kind) {
             case VENOMFANG -> dragon instanceof FireDragonEntity;
             case FROSTY_TAIL -> dragon instanceof IceDragonEntity;
+            case WING_GUARD -> dragon instanceof com.iafenvoy.iceandfire.entity.LightningDragonEntity;
             default -> true;
         };
     }
@@ -43,6 +44,7 @@ public final class CombatAccessoryItem extends DragonAccessoryItem {
             return switch (this.kind) {
                 case VENOMFANG -> Set.of(FIRE_FANG);
                 case FROSTY_TAIL -> Set.of(ICE_TAIL);
+                case WING_GUARD -> Set.of(WING_GUARD);
                 case MAJESTY -> Set.of(ROAR_MAJESTY);
                 case THORNFEATHER -> Set.of(THORNS);
                 case MINI -> Set.of(MINIATURE);
@@ -71,7 +73,8 @@ public final class CombatAccessoryItem extends DragonAccessoryItem {
         tooltip.add(Component.translatable(key + ".2").withStyle(ChatFormatting.GRAY));
         if (this.kind == CombatAccessoryItem.Kind.GUARDIAN_THORNFEATHER
             || this.kind == CombatAccessoryItem.Kind.WILD
-            || this.kind == CombatAccessoryItem.Kind.HUNTER_KING) {
+            || this.kind == CombatAccessoryItem.Kind.HUNTER_KING
+            || this.kind == CombatAccessoryItem.Kind.WING_GUARD) {
             tooltip.add(Component.translatable(key + ".3").withStyle(ChatFormatting.GRAY));
         }
     }
@@ -85,7 +88,9 @@ public final class CombatAccessoryItem extends DragonAccessoryItem {
         RENDING("rending_claw"),
         MINI("miniaturization_charm"),
         GUARDIAN_THORNFEATHER("guardian_thornfeather_emblem"),
-        HUNTER_KING("hunter_king_pendant");
+        HUNTER_KING("hunter_king_pendant"),
+        // 1.2.7
+        WING_GUARD("wing_guard_legend");
 
         private final String id;
 

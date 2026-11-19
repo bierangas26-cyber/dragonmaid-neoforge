@@ -61,6 +61,16 @@ public interface DragonState {
 
     void dragonmaid$setCombatInterruptedRest(boolean var1);
 
+    /**
+     * 1.2.7: true while the dragon is flying/driving itself back to the rest spot it left when combat
+     * interrupted its rest. Implemented by the dragon mixin from {@code combat/RestReturnGoal}; the
+     * default keeps the method optional so non-dragon implementations (and the 1.2.0 wiring) stay
+     * source-compatible while {@code mixin/DragonForgeInputMixin} can call it directly.
+     */
+    default boolean dragonmaid$isReturningToRest() {
+        return false;
+    }
+
     int dragonmaid$getNativeBreathTicks();
 
     void dragonmaid$setNativeBreathTicks(int var1);

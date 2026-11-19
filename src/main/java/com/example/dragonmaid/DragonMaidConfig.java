@@ -4,6 +4,7 @@ import com.example.dragonmaid.combat.HumanoidMeleeMode;
 import com.example.dragonmaid.combat.KnowledgeSupport;
 import com.example.dragonmaid.combat.MiniatureBalance;
 import com.example.dragonmaid.config.CompanionBalanceConfig;
+import com.example.dragonmaid.starter.StarterConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.Builder;
@@ -31,6 +32,11 @@ public final class DragonMaidConfig {
    public static final DoubleValue GUARD_COMBAT_RADIUS;
    public static final DoubleValue GUARD_TELEPORT_DISTANCE;
    public static final IntValue MATURE_SCALES;
+   // 1.2.7: 长剑格挡/弹反配置组
+   public static final DoubleValue LONGSWORD_GUARD_DELAY;
+   public static final DoubleValue LONGSWORD_PARRY_WINDOW;
+   public static final DoubleValue LONGSWORD_PARRY_COOLDOWN;
+   public static final BooleanValue LONGSWORD_SECOND_CHANCE_COOLDOWN;
    public static final EnumValue<HumanoidMeleeMode> HUMANOID_MELEE_MODE;
 
    private DragonMaidConfig() {
@@ -129,9 +135,35 @@ public final class DragonMaidConfig {
          )
          .translation("config.dragonmaid.humanoidMeleeMode")
          .defineEnum("humanoidMeleeMode", HumanoidMeleeMode.ANIMATED);
+      b.translation("config.dragonmaid.category.longsword").push("longsword");
+      LONGSWORD_GUARD_DELAY = b.comment(
+            "Seconds after raising a longsword before any block or deflection can work. Zero is immediate. Rounded to the nearest game tick."
+         )
+         .translation("config.dragonmaid.longsword.guardDelaySeconds")
+         .worldRestart()
+         .defineInRange("guardDelaySeconds", 0.0, 0.0, 10.0);
+      LONGSWORD_PARRY_WINDOW = b.comment(
+            "Base melee parry window in seconds, starting when the guard becomes effective. Steady Guard adds its duration to this value. Rounded to the nearest game tick."
+         )
+         .translation("config.dragonmaid.longsword.parryWindowSeconds")
+         .worldRestart()
+         .defineInRange("parryWindowSeconds", 0.75, 0.0, 10.0);
+      LONGSWORD_PARRY_COOLDOWN = b.comment(
+            "Seconds before a longsword can guard again after a successful parry. Zero disables the cooldown. Rounded to the nearest game tick."
+         )
+         .translation("config.dragonmaid.longsword.parryCooldownSeconds")
+         .worldRestart()
+         .defineInRange("parryCooldownSeconds", 1.0, 0.0, 10.0);
+      LONGSWORD_SECOND_CHANCE_COOLDOWN = b.comment("Whether successful Second Chance counters also trigger the longsword guard cooldown.")
+         .translation("config.dragonmaid.longsword.secondChanceTriggersCooldown")
+         .worldRestart()
+         .define("secondChanceTriggersCooldown", false);
+      b.pop();
       KnowledgeSupport.configure(b);
       MiniatureBalance.define(b);
       CompanionBalanceConfig.define(b);
+      // 1.2.7 开局伙伴：minDays/maxDays/minKnowledge/maxKnowledge/showEntry（starter/StarterConfig, port-systems）
+      StarterConfig.define(b);
       SPEC = b.build();
    }
 }

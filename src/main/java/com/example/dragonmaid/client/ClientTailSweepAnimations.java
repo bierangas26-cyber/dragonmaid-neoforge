@@ -29,13 +29,18 @@ public final class ClientTailSweepAnimations {
 
     private static ClientLevel level() {
         ClientLevel clientlevel = Minecraft.getInstance().level;
-        if (world != clientlevel || clientlevel != null && clientlevel.getGameTime() < lastTime) {
+        if (world != clientlevel || clientlevel != null && clockReset(clientlevel.getGameTime(), lastTime)) {
             ENTRIES.clear();
             world = clientlevel;
         }
 
         lastTime = clientlevel == null ? Long.MIN_VALUE : clientlevel.getGameTime();
         return clientlevel;
+    }
+
+    /** 1.2.7: 只有明显回退（>5 tick）才算时钟重置，避免逐 tick 误清。 */
+    static boolean clockReset(long now, long previous) {
+        return previous != Long.MIN_VALUE && now < previous && previous - now > 5L;
     }
 
     public static void accept(TailSweepMessage message) {
@@ -128,9 +133,10 @@ public final class ClientTailSweepAnimations {
 
     static float bodyYaw(DragonBaseEntity dragon, float partial, float ordinaryYaw) {
         TailSweepTimeline.Frame tailsweeptimeline$frame = frame(dragon, partial);
-        return tailsweeptimeline$frame == null
-            ? ordinaryYaw
-            : Mth.rotLerp(1.0F - tailsweeptimeline$frame.weight(), tailsweeptimeline$frame.yaw(), ordinaryYaw);
+        // 1.2.7: armed 状态（起手前）不接管身体朝向。
+        return tailsweeptimeline$frame != null && !tailsweeptimeline$frame.armed()
+            ? Mth.rotLerp(1.0F - tailsweeptimeline$frame.weight(), tailsweeptimeline$frame.yaw(), ordinaryYaw)
+            : ordinaryYaw;
     }
 
     private static final class Entry {

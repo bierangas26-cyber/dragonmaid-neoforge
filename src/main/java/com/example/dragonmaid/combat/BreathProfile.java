@@ -14,58 +14,58 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult.Type;
 
 public record BreathProfile(int stage, int duration, double range, double halfAngle, double speed) {
-    public static final int EMIT_INTERVAL = 14;
+   public static final int EMIT_INTERVAL = 14;
 
-    public static BreathProfile forDragon(DragonBaseEntity dragon) {
-        BreathProfile breathprofile = forStage(dragon.getDragonStage());
-        return dragon instanceof LightningDragonEntity ? breathprofile : fireIceForStage(breathprofile.stage);
-    }
+   public static BreathProfile forDragon(DragonBaseEntity dragon) {
+      BreathProfile profile = forStage(dragon.getDragonStage());
+      return dragon instanceof LightningDragonEntity ? profile : fireIceForStage(profile.stage);
+   }
 
-    public static BreathProfile fireIceForStage(int stage) {
-        int i = Mth.clamp(stage, 3, 5);
-        int j = i == 3 ? 1 : 15;
-        return new BreathProfile(
-            i,
-            j,
-            (Double)DragonMaidConfig.FIRE_ICE_BREATH_RANGE.get()
-                * (14.0 + (double)(i - 3) * 4.0)
-                / 22.0
-                * (Double)DragonMaidConfig.HUMANOID_BREATH_RANGE_MULTIPLIER.get(),
-            Math.toRadians((double)(6 + (i - 3) * 3)),
-            (Double)DragonMaidConfig.BREATH_SPEED.get()
-        );
-    }
+   public static BreathProfile fireIceForStage(int stage) {
+      int tier = Mth.clamp(stage, 3, 5);
+      int duration = tier == 3 ? 1 : 15;
+      return new BreathProfile(
+         tier,
+         duration,
+         (Double)DragonMaidConfig.FIRE_ICE_BREATH_RANGE.get()
+            * (14.0 + (double)(tier - 3) * 4.0)
+            / 22.0
+            * (Double)DragonMaidConfig.HUMANOID_BREATH_RANGE_MULTIPLIER.get(),
+         Math.toRadians((double)(6 + (tier - 3) * 3)),
+         (Double)DragonMaidConfig.BREATH_SPEED.get()
+      );
+   }
 
-    public boolean inRange(DragonBaseEntity dragon, LivingEntity target) {
-        return HumanoidWater.breathOrigin(dragon).distanceToSqr(this.aimContact(dragon, target)) <= this.range * this.range;
-    }
+   public boolean inRange(DragonBaseEntity dragon, LivingEntity target) {
+      return distanceToTargetSqr(dragon, target, HumanoidWater.breathOrigin(dragon)) <= this.range * this.range;
+   }
 
-    private Vec3 aimContact(DragonBaseEntity dragon, LivingEntity target) {
-        Vec3 vec3 = HumanoidWater.breathOrigin(dragon);
-        AABB aabb = target.getBoundingBox();
-        Vec3 vec31 = aabb.getCenter();
-        if (!WildDragonCombat.isHostileWildDragon(dragon, target)) {
-            return vec31;
-        } else {
-            return aabb.contains(vec3) ? vec3 : aabb.clip(vec3, vec31).orElse(vec31);
-        }
-    }
+   public static double distanceToTargetSqr(DragonBaseEntity dragon, LivingEntity target, Vec3 start) {
+      AABB box = target.getBoundingBox();
+      if (!WildDragonCombat.isHostileWildDragon(dragon, target)) {
+         return start.distanceToSqr(box.getCenter());
+      } else {
+         return box.contains(start) ? 0.0 : start.distanceToSqr(box.clip(start, box.getCenter()).orElse(box.getCenter()));
+      }
+   }
 
-    public boolean canHit(DragonBaseEntity dragon, LivingEntity target) {
-        Vec3 vec3 = HumanoidWater.breathOrigin(dragon);
-        Vec3 vec31 = this.aimContact(dragon, target);
-        return vec3.distanceToSqr(vec31) <= this.range * this.range
-            && dragon.level().clip(new ClipContext(vec3, target.getBoundingBox().getCenter(), Block.COLLIDER, Fluid.NONE, dragon)).getType() == Type.MISS;
-    }
+   public boolean canHit(DragonBaseEntity dragon, LivingEntity target) {
+      return this.canHitFrom(dragon, target, HumanoidWater.breathOrigin(dragon));
+   }
 
-    public static BreathProfile forStage(int stage) {
-        int i = Mth.clamp(stage, 3, 5);
-        return new BreathProfile(
-            i,
-            12 + (i - 3) * 6,
-            (Double)DragonMaidConfig.BREATH_RANGE.get() * (0.625 + (double)(i - 3) * 0.1875) * (Double)DragonMaidConfig.HUMANOID_BREATH_RANGE_MULTIPLIER.get(),
-            Math.toRadians((double)(12 + (i - 3) * 6)),
-            (Double)DragonMaidConfig.BREATH_SPEED.get()
-        );
-    }
+   public boolean canHitFrom(DragonBaseEntity dragon, LivingEntity target, Vec3 start) {
+      return distanceToTargetSqr(dragon, target, start) <= this.range * this.range
+         && dragon.level().clip(new ClipContext(start, target.getBoundingBox().getCenter(), Block.COLLIDER, Fluid.NONE, dragon)).getType() == Type.MISS;
+   }
+
+   public static BreathProfile forStage(int stage) {
+      int tier = Mth.clamp(stage, 3, 5);
+      return new BreathProfile(
+         tier,
+         12 + (tier - 3) * 6,
+         (Double)DragonMaidConfig.BREATH_RANGE.get() * (0.625 + (double)(tier - 3) * 0.1875) * (Double)DragonMaidConfig.HUMANOID_BREATH_RANGE_MULTIPLIER.get(),
+         Math.toRadians((double)(12 + (tier - 3) * 6)),
+         (Double)DragonMaidConfig.BREATH_SPEED.get()
+      );
+   }
 }

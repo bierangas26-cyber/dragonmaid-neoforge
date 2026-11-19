@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " B ",
+    "GBG",
+    " H "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:ingots/iron"
+    },
+    "G": {
+      "item": "minecraft:iron_nugget"
+    },
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:iron_jian"
+  }
+}

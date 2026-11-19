@@ -21,6 +21,8 @@ public final class ModParticles {
     public static final RO<SimpleParticleType> FIRE_WISP = TYPES.register("fire_wisp", () -> new SimpleParticleType(false));
     public static final RO<SimpleParticleType> FIRE_IMPACT = TYPES.register("fire_impact", () -> new SimpleParticleType(false));
     public static final RO<SimpleParticleType> ICE_IMPACT = TYPES.register("ice_impact", () -> new SimpleParticleType(false));
+    /** 1.2.7: 太刀/长剑的弧形刀光粒子（client.BladeSweepParticle 使用）。 */
+    public static final RO<SimpleParticleType> BLADE_SWEEP = TYPES.register("blade_sweep", () -> new SimpleParticleType(false));
 
     private ModParticles() {
     }

@@ -1,6 +1,7 @@
 package com.example.dragonmaid.mixin.client;
 
 import com.example.dragonmaid.combat.HumanoidMeleeMode;
+import com.example.dragonmaid.config.HumanoidRidingConfig;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,6 +30,9 @@ public abstract class ForgeConfigMeleeLabelMixin {
     private void dragonmaid$translatedLabel(CallbackInfo ci) {
         if (this.value instanceof HumanoidMeleeMode mode) {
             this.name = Component.translatable(mode.translationKey());
+        } else if (this.value instanceof HumanoidRidingConfig.Appearance appearance) {
+            // 1.2.7: 骑乘坐姿枚举同样需要翻译名
+            this.name = Component.translatable(appearance.translationKey());
         }
     }
 }

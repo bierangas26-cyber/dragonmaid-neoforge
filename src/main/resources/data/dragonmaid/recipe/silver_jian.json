@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " B ",
+    "GBG",
+    " H "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:ingots/silver"
+    },
+    "G": [
+      {
+        "item": "iceandfire:silver_nugget"
+      },
+      {
+        "tag": "forge:nuggets/silver"
+      }
+    ],
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:silver_jian"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "CBC",
+    "BAB",
+    "CBC"
+  ],
+  "key": {
+    "A": {
+      "item": "dragonmaid:service_dragon_armor_head"
+    },
+    "B": {
+      "item": "minecraft:bamboo_block"
+    },
+    "C": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "id": "dragonmaid:xia_dragon_armor_head",
+    "count": 1
+  }
+}

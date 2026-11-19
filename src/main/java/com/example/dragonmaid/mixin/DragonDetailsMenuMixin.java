@@ -64,13 +64,13 @@ public abstract class DragonDetailsMenuMixin extends AbstractContainerMenu imple
             : new DragonAccessoryInventory();
         this.dragonmaid$pageData = new SimpleContainerData(2);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             this.addSlot(
                 DragonEquipmentSlots.accessory(
                     this.dragonmaid$accessoryInventory,
                     i,
-                    153,
-                    54 + i * 18,
+                    dragonmaid$accessoryX(i),
+                    dragonmaid$accessoryY(i),
                     this.dragonmaid$viewDragon(),
                     this::dragonmaid$unlockedSlots,
                     () -> this.stillValid(this.dragonmaid$viewer)
@@ -81,6 +81,20 @@ public abstract class DragonDetailsMenuMixin extends AbstractContainerMenu imple
         this.addDataSlots(this.dragonmaid$pageData);
         this.dragonmaid$syncPageData();
         this.dragonmaid$accessoryInventory.startOpen(inventory.player);
+    }
+
+    /**
+     * 1.2.7: 饰品槽从 3 个扩到 5 个，坐标公式与上游 {@code DragonDetailsMenu#accessoryX/Y} 一致。
+     * 为避免跨包依赖（menu 包的接口目前只有视图方法），这里内联同一套公式。
+     */
+    @Unique
+    private static int dragonmaid$accessoryX(int slot) {
+        return slot < 3 ? 153 : 8;
+    }
+
+    @Unique
+    private static int dragonmaid$accessoryY(int slot) {
+        return slot < 3 ? 54 + slot * 18 : 72 + (slot - 3) * 18;
     }
 
     @Unique
@@ -117,7 +131,7 @@ public abstract class DragonDetailsMenuMixin extends AbstractContainerMenu imple
     public int dragonmaid$unlockedSlots() {
         return this.dragon != null && !this.dragon.level().isClientSide
             ? DragonAccessories.unlockedSlots(this.dragon)
-            : (this.dragonmaid$pageData == null ? 0 : Math.max(0, Math.min(3, this.dragonmaid$pageData.get(1))));
+            : (this.dragonmaid$pageData == null ? 0 : Math.max(0, Math.min(5, this.dragonmaid$pageData.get(1))));
     }
 
     @Inject(remap = false, method = {"stillValid"},
@@ -133,7 +147,7 @@ public abstract class DragonDetailsMenuMixin extends AbstractContainerMenu imple
     }
 
     public void clicked(int slot, int button, ClickType type, Player player) {
-        if (slot < 41 || slot >= 44 || ((Slot)this.slots.get(slot)).isActive()) {
+        if (slot < 41 || slot >= 46 || ((Slot)this.slots.get(slot)).isActive()) {
             if (player.containerMenu == this && this.stillValid(player)) {
                 super.clicked(slot, button, type, player);
             }

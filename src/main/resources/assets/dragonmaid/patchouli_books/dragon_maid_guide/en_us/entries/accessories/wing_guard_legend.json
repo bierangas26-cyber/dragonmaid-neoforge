@@ -1,0 +1,41 @@
+{
+  "name": "Legend of the Wingguard",
+  "icon": "dragonmaid:wing_guard_legend",
+  "category": "dragonmaid:accessories",
+  "sortnum": 19,
+  "advancement": "dragonmaid:book/wing_guard_legend",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "dragonmaid:wing_guard_legend",
+      "title": "Legend of the Wingguard",
+      "link_recipe": false,
+      "text": "Long ago, merchants told of a dragonkin swordswoman. She travelled with companions and fought like a dancer, rising and falling on her wings. Long after they parted ways, some still spoke of her swordsmanship."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This charm, made with an amphithere feather, carries on her art. Humanoid lightning dragons trained to wield weapons can learn her moves from it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Crafting the Charm",
+      "recipe": "dragonmaid:wing_guard_legend",
+      "text": ""
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Wing Thrust",
+      "text": "She crouches, then lunges with a wingbeat and knocks her foe upward.$(br2)Each new foe gives her an opening. Leaving combat or using her breath lets her strike again.$(br2)Ordinary melee weapons work, except axes and tridents. Longswords and katanas have their own moves."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Waterfowl Sweep",
+      "text": "From stage IV, a lightning dragon wearing the charm can leap toward a distant foe with a katana. She glides like a waterfowl, then turns on the way down to sweep foes aside with her tail.$(br2)She needs room to spread her wings, so this move is hard to use in tight caves."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Through the Arrow Rain",
+      "text": "Under fire, your companion raises her longsword and advances. Projectiles stopped by her sword have a fifty-fifty chance of flying back at the attacker.$(br2)Deflection raises that chance further.$(br2)A usable offhand shield still takes priority."
+    }
+  ]
+}

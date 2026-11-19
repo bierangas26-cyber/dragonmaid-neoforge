@@ -59,4 +59,13 @@ final class BreathPoseLayer {
             rig.rotations(followAnimation, this.pulse, frame.weight(), true, target);
         }
     }
+
+    /** 1.2.7: 近战/投掷动作与吐息共用骨架时的叠加（sequence>0 且 shotAge 在 0..6 区间）。 */
+    void applyMelee(SharedAnimationPose rig, Animation followAnimation, BreathTimeline.Frame frame, float[] target) {
+        if (frame.sequence() > 0 && !(frame.shotAge() < 0.0) && !(frame.shotAge() >= 6.0) && !(frame.weight() <= 0.0F)) {
+            rig.sampleOnce(followAnimation, 2.0 + frame.shotAge(), this.pulse);
+            rig.addRotationFrom("Waist", "Body", this.pulse, frame.weight(), target);
+            rig.addRotationFrom("Head", "Head", this.pulse, frame.weight(), target);
+        }
+    }
 }

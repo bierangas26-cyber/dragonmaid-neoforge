@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -171,16 +172,22 @@ public final class RecallHorn {
                         }
 
                         if (recallledger$entry == null) {
+                            // 1.2.7: distinguish "expired" from "an interrupted transfer is being verified"
+                            // and hand the check to the recovery transaction so it survives a relog.
+                            String message = compoundtag.getCompound("EntityTag").isEmpty() ? "horn_expired" : "horn_unverified";
+                            if (context.getPlayer() instanceof ServerPlayer serverPlayer && !compoundtag.getCompound("EntityTag").isEmpty()) {
+                                try {
+                                    if (RecallHornRecovery.request(serverPlayer, itemstack)) {
+                                        message = "horn_checking";
+                                    }
+                                } catch (RuntimeException runtimeexception3) {
+                                    LoggerFactory.getLogger("DragonMaid/Recall").warn("Horn recovery could not start", runtimeexception3);
+                                    message = "horn_storage";
+                                }
+                            }
+
                             if (context.getPlayer() != null) {
-                                context.getPlayer()
-                                    .displayClientMessage(
-                                        Component.translatable(
-                                            !compoundtag.getCompound("EntityTag").isEmpty()
-                                                ? "message.dragonmaid.recall.busy"
-                                                : "message.dragonmaid.recall.horn_expired"
-                                        ),
-                                        true
-                                    );
+                                context.getPlayer().displayClientMessage(Component.translatable("message.dragonmaid.recall." + message), true);
                             }
 
                             return InteractionResult.FAIL;
@@ -362,31 +369,19 @@ public final class RecallHorn {
                     if (recallledger$transfer != null
                         && recallledger$transfer.before().state() == RecallLedger.State.HORN
                         && recallledger$transfer.after().state() == RecallLedger.State.WORLD
-                        && compoundtag3.hasUUID("Token")
-                        && recallledger$transfer.before().token().equals(compoundtag3.getUUID("Token"))
-                        && compoundtag3.hasUUID("Dragon")
-                        && uuid.equals(compoundtag3.getUUID("Dragon"))
-                        && compoundtag3.getLong("Generation") == recallledger$transfer.before().generation()) {
+                        && matchesReceipt(compoundtag3, recallledger$transfer.before())) {
                         return null;
                     } else if (recallledger$entry != null
                         && recallledger$entry.state() == RecallLedger.State.HORN
                         && recallledger.pending(uuid) == null
-                        && compoundtag3.hasUUID("Token")
-                        && recallledger$entry.token().equals(compoundtag3.getUUID("Token"))
-                        && compoundtag3.getLong("Generation") == recallledger$entry.generation()
-                        && compoundtag3.hasUUID("Dragon")
-                        && uuid.equals(compoundtag3.getUUID("Dragon"))) {
+                        && matchesReceipt(compoundtag3, recallledger$entry)) {
                         return recallledger$entry;
                     } else {
                         RecallLedger.Transfer recallledger$transfer1 = recallledger.pending(uuid);
                         if (recallledger$entry == null
                             || recallledger$transfer1 == null
                             || recallledger$entry.state() != RecallLedger.State.HORN
-                            || !compoundtag3.hasUUID("Token")
-                            || !recallledger$entry.token().equals(compoundtag3.getUUID("Token"))
-                            || !compoundtag3.hasUUID("Dragon")
-                            || !uuid.equals(compoundtag3.getUUID("Dragon"))
-                            || compoundtag3.getLong("Generation") != recallledger$entry.generation()) {
+                            || !matchesReceipt(compoundtag3, recallledger$entry)) {
                             clear(stack);
                             return null;
                         } else if (recallledger.isReserved(uuid)) {
@@ -416,6 +411,15 @@ public final class RecallHorn {
                 return null;
             }
         }
+    }
+
+    /** 1.2.7: the receipt check every horn path shares (1.2.0 inlined it three times, out of sync). */
+    static boolean matchesReceipt(CompoundTag receipt, RecallLedger.Entry entry) {
+        return receipt.hasUUID("Dragon")
+            && entry.dragon().equals(receipt.getUUID("Dragon"))
+            && receipt.hasUUID("Token")
+            && entry.token().equals(receipt.getUUID("Token"))
+            && receipt.getLong("Generation") == entry.generation();
     }
 
     private static void writeReceipt(CompoundTag horn, RecallLedger.Entry entry) {

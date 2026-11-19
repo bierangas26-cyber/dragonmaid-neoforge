@@ -23,7 +23,7 @@ final class TailSweepTimeline {
                             || next.revision() > this.state.revision()
                                 && (this.state.cancelledAt() < 0L || next.cancelledAt() >= 0L)
                                 && next.startedAt() == this.state.startedAt()
-                                && next.fast() == this.state.fast()
+                                && next.motion() == this.state.motion()
                                 && Float.compare(next.yaw(), this.state.yaw()) == 0
                     )) {
                 this.state = next;
@@ -49,13 +49,16 @@ final class TailSweepTimeline {
                 double d1 = Math.max(0.0, Math.min(now, d0) - (double)this.state.startedAt());
                 double d2 = Math.max(0.0, Math.min(1.0, (now - d0) / 4.0));
                 float f = (float)(1.0 - d2 * d2 * (3.0 - 2.0 * d2));
-                return new TailSweepTimeline.Frame(this.state.sample(d1), d1, f, this.state.yaw());
+                return new TailSweepTimeline.Frame(this.state.sample(d1), d1, f, this.state.yaw(), this.state);
             }
         } else {
             return null;
         }
     }
 
-    static record Frame(double tick, double age, float weight, float yaw) {
+    static record Frame(double tick, double age, float weight, float yaw, TailSweepState motion) {
+        boolean armed() {
+            return this.motion.armed();
+        }
     }
 }

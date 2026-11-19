@@ -1,0 +1,18 @@
+{
+  "name": "Katana",
+  "icon": "dragonmaid:iron_katana",
+  "category": "dragonmaid:behavior",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "dragonmaid:first_page_title",
+      "title": "From the Scabbard",
+      "text": "Hold Use with a katana in your main hand. Release to sweep in the direction you face. Charging increases damage and reach. Sparks turn blue, violet, then orange. A flash at three seconds marks a full charge.$(br2)From Knowledge II, humanoid lightning dragons can open a close fight with an iai strike."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Windstep",
+      "text": "Windstep lets you reposition faster while charging. You normally move at 40% of your usual speed during a charge. Windstep I, II, and III raise that to 60%, 90%, and 120%."
+    }
+  ]
+}

@@ -25,6 +25,10 @@ public final class ModRecipes {
     public static final RO<RecipeSerializer<ReinforcedDragonHornRecipe>> REINFORCED_DRAGON_HORN = SERIALIZERS.register(
         "reinforced_dragon_horn", ReinforcedDragonHornRecipe.Serializer::new
     );
+    /** 1.2.7: 龙血太刀/长刀（把原刀剑的 NBT 复制到同材质龙血版本上）。 */
+    public static final RO<RecipeSerializer<DragonBloodBladeRecipe>> DRAGON_BLOOD_BLADE = SERIALIZERS.register(
+        "dragon_blood_blade", DragonBloodBladeRecipe.Serializer::new
+    );
 
     private ModRecipes() {
     }
